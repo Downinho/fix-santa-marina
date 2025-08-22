@@ -9,6 +9,7 @@ import Embarcacoes from "./pages/Embarcacoes";
 import Acessorios from "./pages/Acessorios";
 import Servicos from "./pages/Servicos";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import Sobre from "./pages/Sobre";
 import Contato from "./pages/Contato";
 import Anuncie from "./pages/Anuncie";
@@ -31,8 +32,8 @@ function App() {
             <Route path="/embarcacoes" element={<Embarcacoes />} />
             <Route path="/acessorios" element={<Acessorios />} />
             <Route path="/servicos" element={<Servicos />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/sobre" element={<Sobre />} />
             <Route path="/contato" element={<Contato />} />
             <Route path="/anuncie" element={<Anuncie />} />
