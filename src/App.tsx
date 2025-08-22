@@ -18,7 +18,7 @@ import Produto from "./pages/Produto";
 import Marinheiros from "./pages/Marinheiros";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient(); // Force rebuild
 
 function App() {
   return (
