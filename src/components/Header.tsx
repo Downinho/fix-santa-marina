@@ -8,28 +8,21 @@ import { AuthDialog } from "@/components/auth/AuthDialog";
 import { UserMenu } from "@/components/auth/UserMenu";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import LocationSearch from "./LocationSearch";
+import StateSelector from "./StateSelector";
 import { NavigationSidebar } from "./NavigationSidebar";
-import "@/types/google-maps";
+import { getSearchRoute } from "@/utils/searchRouter";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
-  const [searchCategory, setSearchCategory] = useState("vendas");
+  const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("");
   const [searchLocation, setSearchLocation] = useState("");
-  const [googleMapsApiKey, setGoogleMapsApiKey] = useState<string | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, loading } = useAuth();
 
-  useEffect(() => {
-    const savedApiKey = localStorage.getItem('google_maps_api_key');
-    if (savedApiKey) {
-      setGoogleMapsApiKey(savedApiKey);
-    }
-  }, []);
 
   const navigation = [
     { name: "Início", href: "/" },
@@ -42,37 +35,17 @@ const Header = () => {
     { name: "Contato", href: "/contato" },
   ];
 
-  const categories = {
-    vendas: {
-      name: "Vendas",
-      types: ["Lancha", "Iate", "Jet Ski", "Catamarã", "Caiaque", "Veleiros", "Acessórios"]
-    },
-    alugueis: {
-      name: "Aluguéis", 
-      types: ["Jet Ski", "Lancha"]
-    },
-    servicos: {
-      name: "Serviços",
-      types: ["Marinheiros", "Consultoria", "Filmagem e Fotografia", "Marinas"]
-    }
-  };
+  const searchTypes = [
+    "Lancha", "Iate", "Jet Ski", "Catamarã", "Veleiro", "Caiaque",
+    "Marinheiro", "Capitão", "Skipper", "Fotógrafo", "Marina", 
+    "Acessórios", "GPS", "Âncora", "Colete"
+  ];
 
   const isActive = (href: string) => location.pathname === href;
 
-  const handleLocationSelect = (place: google.maps.places.PlaceResult) => {
-    console.log("Location selected:", place);
-    if (place.formatted_address) {
-      setSearchLocation(place.formatted_address);
-    }
-  };
-
   const handleSearch = () => {
-    // Redirecionar para página de embarcações com parâmetros de busca
-    const searchParams = new URLSearchParams();
-    if (searchType) searchParams.set('type', searchType);
-    if (searchLocation) searchParams.set('location', searchLocation);
-    
-    navigate(`/embarcacoes?${searchParams.toString()}`);
+    const route = getSearchRoute(searchTerm, searchType, searchLocation);
+    navigate(route);
     setShowSearch(false);
   };
 
@@ -104,22 +77,18 @@ const Header = () => {
               </Link>
             </div>
 
-            {/* Airbnb-style Search Bar (Desktop) */}
+            {/* Smart Search Bar (Desktop) */}
             <div className="hidden lg:flex items-center bg-white shadow-lg rounded-full border border-gray-200 hover:shadow-xl transition-shadow duration-200">
               <div className="flex items-center divide-x divide-gray-300">
-                {/* Category */}
-                <div className="px-6 py-2">
-                  <Select value={searchCategory} onValueChange={setSearchCategory}>
-                    <SelectTrigger className="border-0 shadow-none h-auto p-0 font-semibold text-sm">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {Object.entries(categories).map(([key, category]) => (
-                        <SelectItem key={key} value={key}>{category.name}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <p className="text-xs text-gray-500 mt-0.5">O que você busca?</p>
+                {/* Search Term */}
+                <div className="px-6 py-2 flex-1 min-w-[250px]">
+                  <Input
+                    placeholder="Buscar embarcações, marinheiros, fotógrafos..."
+                    className="border-0 shadow-none h-auto p-0 font-semibold text-sm placeholder:text-gray-400"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  <p className="text-xs text-gray-500 mt-0.5">O que você procura?</p>
                 </div>
 
                 {/* Type */}
@@ -129,7 +98,7 @@ const Header = () => {
                       <SelectValue placeholder="Tipo" />
                     </SelectTrigger>
                     <SelectContent>
-                      {categories[searchCategory as keyof typeof categories].types.map((type) => (
+                      {searchTypes.map((type) => (
                         <SelectItem key={type} value={type}>{type}</SelectItem>
                       ))}
                     </SelectContent>
@@ -137,26 +106,15 @@ const Header = () => {
                   <p className="text-xs text-gray-500 mt-0.5">Categoria</p>
                 </div>
 
-                <div className="px-6 py-2 flex-1 min-w-[200px]">
-                  {googleMapsApiKey ? (
-                    <LocationSearch
-                      apiKey={googleMapsApiKey}
-                      onLocationSelect={handleLocationSelect}
-                      placeholder="Local"
-                      className="border-0 shadow-none h-auto p-0 font-semibold text-sm placeholder:text-gray-400"
-                    />
-                  ) : (
-                    <div className="relative">
-                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                      <Input
-                        placeholder="Local"
-                        className="pl-8 border-0 shadow-none h-auto p-0 font-semibold text-sm placeholder:text-gray-400"
-                        value={searchLocation}
-                        onChange={(e) => setSearchLocation(e.target.value)}
-                      />
-                    </div>
-                  )}
-                  <p className="text-xs text-gray-500 mt-0.5">Onde?</p>
+                {/* Location */}
+                <div className="px-6 py-2 min-w-[180px]">
+                  <StateSelector
+                    value={searchLocation}
+                    onValueChange={setSearchLocation}
+                    placeholder="Estado"
+                    className="border-0 shadow-none h-auto p-0 font-semibold text-sm"
+                  />
+                  <p className="text-xs text-gray-500 mt-0.5">Local</p>
                 </div>
               </div>
 
@@ -218,41 +176,28 @@ const Header = () => {
         {showSearch && (
           <div className="lg:hidden border-t border-gray-200 bg-white p-4">
             <div className="space-y-4">
-              <Select value={searchCategory} onValueChange={setSearchCategory}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.entries(categories).map(([key, category]) => (
-                    <SelectItem key={key} value={key}>{category.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Input 
+                placeholder="Buscar embarcações, marinheiros, fotógrafos..." 
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
 
               <Select value={searchType} onValueChange={setSearchType}>
                 <SelectTrigger>
                   <SelectValue placeholder="Selecione o tipo" />
                 </SelectTrigger>
                 <SelectContent>
-                  {categories[searchCategory as keyof typeof categories].types.map((type) => (
+                  {searchTypes.map((type) => (
                     <SelectItem key={type} value={type}>{type}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
 
-              {googleMapsApiKey ? (
-                <LocationSearch
-                  apiKey={googleMapsApiKey}
-                  onLocationSelect={handleLocationSelect}
-                  placeholder="Local"
-                />
-              ) : (
-                <Input 
-                  placeholder="Local" 
-                  value={searchLocation}
-                  onChange={(e) => setSearchLocation(e.target.value)}
-                />
-              )}
+              <StateSelector
+                value={searchLocation}
+                onValueChange={setSearchLocation}
+                placeholder="Selecione o estado"
+              />
 
               <Button onClick={handleSearch} className="w-full bg-primary">
                 <Search className="w-4 h-4 mr-2" />

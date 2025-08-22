@@ -17,6 +17,8 @@ import Anuncie from "./pages/Anuncie";
 import Perfil from "./pages/Perfil";
 import Produto from "./pages/Produto";
 import Marinheiros from "./pages/Marinheiros";
+import MarinheirosDetail from "./pages/MarinheirosDetail";
+import AcessoriosDetail from "./pages/AcessoriosDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient(); // Force rebuild
@@ -42,6 +44,8 @@ function App() {
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/produto/:slug" element={<Produto />} />
             <Route path="/marinheiros" element={<Marinheiros />} />
+            <Route path="/marinheiro/:id" element={<MarinheirosDetail />} />
+            <Route path="/acessorio/:id" element={<AcessoriosDetail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

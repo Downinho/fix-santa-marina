@@ -3,9 +3,49 @@ import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check, Crown, Star, TrendingUp, Camera, Users, Award, Shield } from "lucide-react";
+import { Check, Crown, Star, TrendingUp, Camera, Users, Award, Shield, Anchor, Settings, Camera as CameraIcon, MapPin } from "lucide-react";
+import { useState } from "react";
 
 const Anuncie = () => {
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const categories = [
+    {
+      id: "embarcacoes",
+      name: "Embarcações",
+      icon: Anchor,
+      description: "Venda ou alugue sua embarcação",
+      types: ["Venda", "Aluguel por hora", "Aluguel por dia"]
+    },
+    {
+      id: "acessorios",
+      name: "Acessórios",
+      icon: Settings,
+      description: "Venda peças e equipamentos náuticos",
+      types: ["Eletrônicos", "Segurança", "Manutenção", "Decoração"]
+    },
+    {
+      id: "servicos",
+      name: "Serviços",
+      icon: Users,
+      description: "Ofereça seus serviços profissionais",
+      types: ["Marinheiro", "Manutenção", "Consultoria", "Transporte"]
+    },
+    {
+      id: "fotografia",
+      name: "Fotografia",
+      icon: CameraIcon,
+      description: "Serviços de fotografia e filmagem",
+      types: ["Eventos", "Ensaios", "Drone", "Submarino"]
+    },
+    {
+      id: "marinas",
+      name: "Marinas",
+      icon: MapPin,
+      description: "Anuncie vagas em sua marina",
+      types: ["Berços", "Garagem seca", "Serviços"]
+    }
+  ];
   const plans = [
     {
       name: "Premium",
@@ -111,15 +151,15 @@ const Anuncie = () => {
           <div className="container mx-auto px-6">
             <div className="text-center max-w-4xl mx-auto">
               <h1 className="font-display text-4xl md:text-6xl font-bold text-primary mb-6">
-                Anuncie sua Embarcação
+                Anuncie no MARBANA
               </h1>
               <p className="font-body text-xl text-muted-foreground leading-relaxed mb-8">
-                Conecte-se aos compradores mais qualificados do mercado náutico brasileiro. 
-                Planos premium com resultados garantidos.
+                Venda embarcações, acessórios ou ofereça seus serviços náuticos. 
+                Conecte-se aos clientes mais qualificados do mercado brasileiro.
               </p>
               <div className="flex items-center justify-center space-x-4">
                 <Badge className="bg-gradient-gold text-accent-gold-foreground font-body">
-                  Mercado Livre dos Mares
+                  Marketplace Náutico
                 </Badge>
                 <Badge variant="outline" className="font-body">
                   98% de Satisfação
@@ -128,6 +168,51 @@ const Anuncie = () => {
             </div>
           </div>
         </section>
+
+        {/* Category Selection */}
+        {!selectedCategory && (
+          <section className="py-20">
+            <div className="container mx-auto px-6">
+              <div className="text-center mb-16">
+                <h2 className="font-display text-4xl font-bold text-primary mb-6">
+                  O que você quer anunciar?
+                </h2>
+                <p className="font-body text-xl text-muted-foreground max-w-3xl mx-auto">
+                  Escolha a categoria do seu anúncio para começar
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                {categories.map((category) => (
+                  <Card 
+                    key={category.id} 
+                    className="group hover:shadow-premium transition-all duration-300 cursor-pointer hover:scale-105"
+                    onClick={() => setSelectedCategory(category.id)}
+                  >
+                    <CardContent className="p-8 text-center">
+                      <div className="w-16 h-16 bg-gradient-hero rounded-lg flex items-center justify-center mx-auto mb-6">
+                        <category.icon className="w-8 h-8 text-primary-foreground" />
+                      </div>
+                      <h3 className="font-display text-xl font-semibold text-primary mb-4">
+                        {category.name}
+                      </h3>
+                      <p className="font-body text-muted-foreground leading-relaxed mb-4">
+                        {category.description}
+                      </p>
+                      <div className="flex flex-wrap gap-1 justify-center">
+                        {category.types.slice(0, 3).map((type, index) => (
+                          <Badge key={index} variant="secondary" className="text-xs">
+                            {type}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Benefits Section */}
         <section className="py-20">

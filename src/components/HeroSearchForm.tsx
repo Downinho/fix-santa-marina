@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, MapPin, Anchor } from "lucide-react";
+import { Search, Anchor } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import StateSelector from "@/components/StateSelector";
+import { getSearchRoute } from "@/utils/searchRouter";
 
 const HeroSearchForm = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,12 +14,8 @@ const HeroSearchForm = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    const searchParams = new URLSearchParams();
-    if (searchTerm) searchParams.set('search', searchTerm);
-    if (selectedType) searchParams.set('type', selectedType);
-    if (selectedLocation) searchParams.set('location', selectedLocation);
-    
-    navigate(`/embarcacoes?${searchParams.toString()}`);
+    const route = getSearchRoute(searchTerm, selectedType, selectedLocation);
+    navigate(route);
   };
 
   const handleAdvancedFilters = () => {
@@ -60,19 +58,14 @@ const HeroSearchForm = () => {
         
         <div>
           <label className="block text-sm font-medium text-foreground mb-2 font-body">
-            Localização
+            Estado
           </label>
-          <Select value={selectedLocation} onValueChange={setSelectedLocation}>
-            <SelectTrigger className="h-12 font-body">
-              <SelectValue placeholder="Local" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="RJ">Rio de Janeiro</SelectItem>
-              <SelectItem value="SP">São Paulo</SelectItem>
-              <SelectItem value="SC">Santa Catarina</SelectItem>
-              <SelectItem value="BA">Bahia</SelectItem>
-            </SelectContent>
-          </Select>
+          <StateSelector
+            value={selectedLocation}
+            onValueChange={setSelectedLocation}
+            placeholder="Selecione o estado"
+            className="h-12 font-body"
+          />
         </div>
       </div>
       
