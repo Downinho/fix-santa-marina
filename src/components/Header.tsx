@@ -9,11 +9,13 @@ import { UserMenu } from "@/components/auth/UserMenu";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import LocationSearch from "./LocationSearch";
+import { NavigationSidebar } from "./NavigationSidebar";
 import "@/types/google-maps";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
   const [searchCategory, setSearchCategory] = useState("vendas");
   const [searchType, setSearchType] = useState("");
   const [searchLocation, setSearchLocation] = useState("");
@@ -81,8 +83,19 @@ const Header = () => {
         {/* Main Header */}
         <div className="container mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <div className="flex items-center">
+            {/* Left Side - Hamburger + Logo */}
+            <div className="flex items-center gap-4">
+              {/* Navigation Sidebar Button */}
+              <button
+                type="button"
+                className="p-2 rounded-lg hover:bg-muted transition-colors"
+                onClick={() => setShowSidebar(true)}
+                aria-label="Abrir menu de navegação"
+              >
+                <Menu className="h-5 w-5" />
+              </button>
+
+              {/* Logo */}
               <Link to="/" className="-m-1.5 p-1.5">
                 <span className="sr-only">MARBANA</span>
                 <h1 className="font-display text-2xl font-bold bg-gradient-hero bg-clip-text text-transparent">
@@ -322,6 +335,12 @@ const Header = () => {
           </div>
         </div>
       </header>
+
+      {/* Navigation Sidebar */}
+      <NavigationSidebar 
+        isOpen={showSidebar} 
+        onClose={() => setShowSidebar(false)} 
+      />
 
       {/* Backdrop */}
       {isOpen && (
