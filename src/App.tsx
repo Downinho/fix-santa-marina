@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SkipToContent from "@/components/SkipToContent";
 import Index from "./pages/Index";
 import Embarcacoes from "./pages/Embarcacoes";
+import VesselDetail from "./pages/VesselDetail";
 import Acessorios from "./pages/Acessorios";
 import Servicos from "./pages/Servicos";
 import Blog from "./pages/Blog";
@@ -30,6 +31,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/embarcacoes" element={<Embarcacoes />} />
+            <Route path="/embarcacao/:id" element={<VesselDetail />} />
             <Route path="/acessorios" element={<Acessorios />} />
             <Route path="/servicos" element={<Servicos />} />
             <Route path="/blog" element={<Blog />} />

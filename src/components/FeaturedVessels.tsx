@@ -135,8 +135,9 @@ const FeaturedVessels = () => {
                   </span>
                 </div>
                 
-                <Button className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body" asChild>
-                  <a href="/embarcacoes">Ver Detalhes</a>
+                <Button className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body"
+                        onClick={() => window.location.href = `/embarcacao/${vessel.id}`}>
+                  Ver Detalhes
                 </Button>
               </CardContent>
             </Card>
@@ -148,9 +149,9 @@ const FeaturedVessels = () => {
             variant="outline" 
             size="lg" 
             className="font-body font-medium min-w-[200px]"
-            asChild
+            onClick={() => window.location.href = '/embarcacoes'}
           >
-            <a href="/embarcacoes">Ver Todas as Embarcações</a>
+            Ver Todas as Embarcações
           </Button>
         </div>
       </div>

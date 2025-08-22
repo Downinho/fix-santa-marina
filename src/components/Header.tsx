@@ -142,14 +142,14 @@ const Header = () => {
                     <LocationSearch
                       apiKey={googleMapsApiKey}
                       onLocationSelect={handleLocationSelect}
-                      placeholder="Armação dos Búzios, RJ"
+                      placeholder="Local"
                       className="border-0 shadow-none h-auto p-0 font-semibold text-sm placeholder:text-gray-400"
                     />
                   ) : (
                     <div className="relative">
                       <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                       <Input
-                        placeholder="Armação dos Búzios, RJ"
+                        placeholder="Local"
                         className="pl-8 border-0 shadow-none h-auto p-0 font-semibold text-sm placeholder:text-gray-400"
                         value={searchLocation}
                         onChange={(e) => setSearchLocation(e.target.value)}
@@ -244,11 +244,11 @@ const Header = () => {
                 <LocationSearch
                   apiKey={googleMapsApiKey}
                   onLocationSelect={handleLocationSelect}
-                  placeholder="Armação dos Búzios, RJ"
+                  placeholder="Local"
                 />
               ) : (
                 <Input 
-                  placeholder="Armação dos Búzios, RJ" 
+                  placeholder="Local" 
                   value={searchLocation}
                   onChange={(e) => setSearchLocation(e.target.value)}
                 />

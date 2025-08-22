@@ -19,9 +19,11 @@ const Embarcacoes = () => {
   useEffect(() => {
     const typeFromUrl = searchParams.get('type');
     const locationFromUrl = searchParams.get('location');
+    const searchFromUrl = searchParams.get('search');
     
     if (typeFromUrl) setSelectedType(typeFromUrl);
     if (locationFromUrl) setSelectedLocation(locationFromUrl);
+    if (searchFromUrl) setSearchTerm(searchFromUrl);
   }, [searchParams]);
 
   const vessels = [
@@ -367,6 +369,7 @@ const handleSearch = () => {
                         variant="outline" 
                         className="bg-background/90 backdrop-blur-sm border-background/20"
                         aria-label="Ver detalhes"
+                        onClick={() => window.location.href = `/embarcacao/${vessel.id}`}
                       >
                         <Eye className="w-4 h-4" aria-hidden="true" />
                       </Button>
@@ -441,8 +444,11 @@ const handleSearch = () => {
                       )}
                     </div>
                     
-                    <Button className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body" asChild>
-                      <a href="/contato">Ver Detalhes</a>
+                    <Button 
+                      className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body"
+                      onClick={() => window.location.href = `/embarcacao/${vessel.id}`}
+                    >
+                      Ver Detalhes
                     </Button>
                   </CardContent>
                 </Card>

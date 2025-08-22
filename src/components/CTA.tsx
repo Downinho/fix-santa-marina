@@ -42,6 +42,7 @@ const CTA = () => {
             <Button 
               size="lg" 
               className="bg-accent-gold hover:bg-accent-gold-light text-accent-gold-foreground font-body font-semibold h-14 group"
+              onClick={() => window.location.href = '/anuncie'}
             >
               <Anchor className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
               Anunciar Meu Barco
@@ -52,6 +53,7 @@ const CTA = () => {
               variant="outline" 
               size="lg" 
               className="bg-primary-foreground/10 backdrop-blur-sm border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/20 font-body font-semibold h-14"
+              onClick={() => window.location.href = '/embarcacoes'}
             >
               Explorar Catálogo
             </Button>
