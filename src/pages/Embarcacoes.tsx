@@ -236,8 +236,8 @@ const Embarcacoes = () => {
       const matchesSearch = vessel.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            vessel.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            vessel.description.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesType = selectedType === "" || vessel.type === selectedType;
-      const matchesLocation = selectedLocation === "" || vessel.location.includes(selectedLocation);
+      const matchesType = selectedType === "" || selectedType === "todos" || vessel.type === selectedType;
+      const matchesLocation = selectedLocation === "" || selectedLocation === "todas" || vessel.location.includes(selectedLocation);
       
       return matchesSearch && matchesType && matchesLocation;
     });
@@ -284,7 +284,7 @@ const handleSearch = () => {
                     <SelectValue placeholder="Tipo" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Todos</SelectItem>
+                    <SelectItem value="todos">Todos</SelectItem>
                     <SelectItem value="Iate">Iate</SelectItem>
                     <SelectItem value="Lancha">Lancha</SelectItem>
                     <SelectItem value="Veleiro">Veleiro</SelectItem>
@@ -298,7 +298,7 @@ const handleSearch = () => {
                     <SelectValue placeholder="Localização" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Todas</SelectItem>
+                    <SelectItem value="todas">Todas</SelectItem>
                     <SelectItem value="RJ">Rio de Janeiro</SelectItem>
                     <SelectItem value="SP">São Paulo</SelectItem>
                     <SelectItem value="SC">Santa Catarina</SelectItem>
