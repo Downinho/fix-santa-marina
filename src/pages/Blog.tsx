@@ -107,7 +107,8 @@ const Blog = () => {
               </div>
             </div>
 
-            <Card className="overflow-hidden hover:shadow-premium transition-all duration-300 cursor-pointer">
+            <Card className="overflow-hidden hover:shadow-premium transition-all duration-300 cursor-pointer" 
+                  onClick={() => window.location.href = `/blog/guia-completo-comprar-primeiro-iate`}>
               <div className="grid grid-cols-1 lg:grid-cols-2">
                 <div className="relative h-64 lg:h-auto">
                   <img 
@@ -179,6 +180,7 @@ const Blog = () => {
                 <Card 
                   key={index} 
                   className="group hover:shadow-premium transition-all duration-300 cursor-pointer overflow-hidden"
+                  onClick={() => window.location.href = `/blog/${post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`}
                 >
                   <div className="relative h-48 overflow-hidden">
                     <img 

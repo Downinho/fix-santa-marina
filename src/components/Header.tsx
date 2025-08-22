@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Search, ChevronDown, MapPin } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { AuthDialog } from "@/components/auth/AuthDialog";
 import { UserMenu } from "@/components/auth/UserMenu";
@@ -16,8 +16,10 @@ const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [searchCategory, setSearchCategory] = useState("vendas");
   const [searchType, setSearchType] = useState("");
+  const [searchLocation, setSearchLocation] = useState("");
   const [googleMapsApiKey, setGoogleMapsApiKey] = useState<string | null>(null);
   const location = useLocation();
+  const navigate = useNavigate();
   const { user, loading } = useAuth();
 
   useEffect(() => {
@@ -57,10 +59,19 @@ const Header = () => {
 
   const handleLocationSelect = (place: google.maps.places.PlaceResult) => {
     console.log("Location selected:", place);
+    if (place.formatted_address) {
+      setSearchLocation(place.formatted_address);
+    }
   };
 
   const handleSearch = () => {
-    console.log("Searching:", { category: searchCategory, type: searchType });
+    // Redirecionar para página de embarcações com parâmetros de busca
+    const searchParams = new URLSearchParams();
+    if (searchType) searchParams.set('type', searchType);
+    if (searchLocation) searchParams.set('location', searchLocation);
+    
+    navigate(`/embarcacoes?${searchParams.toString()}`);
+    setShowSearch(false);
   };
 
 
@@ -127,6 +138,8 @@ const Header = () => {
                       <Input
                         placeholder="Armação dos Búzios, RJ"
                         className="pl-8 border-0 shadow-none h-auto p-0 font-semibold text-sm placeholder:text-gray-400"
+                        value={searchLocation}
+                        onChange={(e) => setSearchLocation(e.target.value)}
                       />
                     </div>
                   )}
@@ -221,7 +234,11 @@ const Header = () => {
                   placeholder="Armação dos Búzios, RJ"
                 />
               ) : (
-                <Input placeholder="Armação dos Búzios, RJ" />
+                <Input 
+                  placeholder="Armação dos Búzios, RJ" 
+                  value={searchLocation}
+                  onChange={(e) => setSearchLocation(e.target.value)}
+                />
               )}
 
               <Button onClick={handleSearch} className="w-full bg-primary">
