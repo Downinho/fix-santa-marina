@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { extractIdFromSlug } from "@/utils/slugify";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
@@ -21,12 +22,12 @@ declare global {
 }
 
 const VesselDetail = () => {
-  const { slug } = useParams<{ slug: string }>();
+  const { slug } = useParams();
+  const vesselId = slug ? extractIdFromSlug(slug) || 1 : 1;
   const { toast } = useToast();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
-  const mapRef = useRef<HTMLDivElement>(null);
 
   const whatsappNumber = "+5511940159202";
   
@@ -147,67 +148,33 @@ const VesselDetail = () => {
     }).format(priceInCents / 100);
   };
 
-  // Initialize Google Map
+  // Initialize OpenStreetMap
   useEffect(() => {
     const initMap = () => {
-      if (!mapRef.current || !window.google) return;
-
-      const map = new window.google.maps.Map(mapRef.current, {
-        center: vessel.coordinates,
-        zoom: 15,
-        styles: [
-          {
-            featureType: "water",
-            elementType: "geometry",
-            stylers: [{ color: "#193f5f" }]
-          },
-          {
-            featureType: "landscape",
-            elementType: "geometry",
-            stylers: [{ color: "#f5f5f5" }]
-          }
-        ]
-      });
-
-      const marker = new window.google.maps.Marker({
-        position: vessel.coordinates,
-        map: map,
-        title: vessel.name,
-        icon: {
-          path: window.google.maps.SymbolPath.CIRCLE,
-          scale: 10,
-          fillColor: "#1e40af",
-          fillOpacity: 1,
-          strokeWeight: 2,
-          strokeColor: "#ffffff"
-        }
-      });
-
-      const infoWindow = new window.google.maps.InfoWindow({
-        content: `
-          <div class="p-2">
-            <h4 class="font-bold">${vessel.name}</h4>
-            <p class="text-sm text-gray-600">${vessel.location}</p>
+      const mapContainer = document.getElementById('map');
+      if (mapContainer) {
+        // Usar iframe do OpenStreetMap para Armação dos Búzios
+        mapContainer.innerHTML = `
+          <iframe
+            width="100%"
+            height="400"
+            frameborder="0"
+            scrolling="no"
+            marginheight="0"
+            marginwidth="0"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-41.8916,-22.7625,-41.8516,-22.7225&layer=mapnik&marker=-22.7425,-41.8716"
+            style="border: 1px solid #ccc; border-radius: 8px;"
+          ></iframe>
+          <div style="margin-top: 8px; font-size: 12px; color: #666;">
+            <a href="https://www.openstreetmap.org/?mlat=-22.7425&mlon=-41.8716#map=15/-22.7425/-41.8716" target="_blank" style="color: #0066cc;">
+              Ver mapa maior
+            </a>
           </div>
-        `
-      });
-
-      marker.addListener('click', () => {
-        infoWindow.open(map, marker);
-      });
+        `;
+      }
     };
-
-    // Load Google Maps API
-    if (!window.google) {
-      const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap`;
-      script.async = true;
-      script.defer = true;
-      (window as any).initMap = initMap;
-      document.head.appendChild(script);
-    } else {
-      initMap();
-    }
+    
+    initMap();
   }, []);
 
   const handleContactWhatsApp = () => {
@@ -497,7 +464,7 @@ const VesselDetail = () => {
                   </h3>
                   <Card>
                     <CardContent className="p-0">
-                      <div ref={mapRef} className="w-full h-80 rounded-lg" />
+                      <div id="map" className="w-full h-80 rounded-lg" />
                     </CardContent>
                   </Card>
                   <p className="font-body text-sm text-muted-foreground mt-3">

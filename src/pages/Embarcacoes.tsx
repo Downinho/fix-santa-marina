@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Heart, MapPin, Anchor, Eye, Search, Filter, MessageCircle, Star } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { getVesselSlug } from "@/utils/slugify";
 
 const Embarcacoes = () => {
   const [searchParams] = useSearchParams();
@@ -264,7 +265,7 @@ const handleSearch = () => {
               </h1>
               <p className="font-body text-xl text-muted-foreground max-w-3xl mx-auto">
                 Descubra a nossa seleção exclusiva de iates, lanchas, veleiros, catamarãs e jet skis. 
-                Mercado Livre dos Mares.
+                O maior ecossistema náutico brasileiro.
               </p>
             </div>
 
@@ -369,7 +370,7 @@ const handleSearch = () => {
                         variant="outline" 
                         className="bg-background/90 backdrop-blur-sm border-background/20"
                         aria-label="Ver detalhes"
-                        onClick={() => window.location.href = `/embarcacao/${vessel.id}`}
+                        onClick={() => window.location.href = `/embarcacao/${getVesselSlug(vessel)}`}
                       >
                         <Eye className="w-4 h-4" aria-hidden="true" />
                       </Button>
@@ -446,7 +447,7 @@ const handleSearch = () => {
                     
                     <Button 
                       className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body"
-                      onClick={() => window.location.href = `/embarcacao/${vessel.id}`}
+                      onClick={() => window.location.href = `/embarcacao/${getVesselSlug(vessel)}`}
                     >
                       Ver Detalhes
                     </Button>

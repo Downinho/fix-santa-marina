@@ -20,6 +20,9 @@ import Marinheiros from "./pages/Marinheiros";
 import MarinheirosDetail from "./pages/MarinheirosDetail";
 import AcessoriosDetail from "./pages/AcessoriosDetail";
 import NotFound from "./pages/NotFound";
+import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
+import TermosUso from "./pages/TermosUso";
+import Cookies from "./pages/Cookies";
 
 const queryClient = new QueryClient(); // Force rebuild
 
@@ -47,6 +50,9 @@ function App() {
             <Route path="/marinheiros" element={<Marinheiros />} />
             <Route path="/marinheiro/:id" element={<MarinheirosDetail />} />
             <Route path="/acessorio/:id" element={<AcessoriosDetail />} />
+            <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
+            <Route path="/termos-uso" element={<TermosUso />} />
+            <Route path="/cookies" element={<Cookies />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

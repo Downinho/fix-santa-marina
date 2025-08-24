@@ -25,7 +25,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-3">
               <Button variant="ghost" size="sm" className="hover:bg-primary-foreground/10" asChild>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.instagram.com/marbanabr" target="_blank" rel="noopener noreferrer">
                   <Instagram className="w-5 h-5" />
                 </a>
               </Button>
@@ -118,13 +118,13 @@ const Footer = () => {
               © 2024 MARBANA. Todos os direitos reservados.
             </div>
             <div className="flex space-x-6 text-sm font-body">
-              <a href="#" className="text-primary-foreground/70 hover:text-accent-gold transition-colors">
+              <a href="/politica-privacidade" className="text-primary-foreground/70 hover:text-accent-gold transition-colors">
                 Política de Privacidade
               </a>
-              <a href="#" className="text-primary-foreground/70 hover:text-accent-gold transition-colors">
+              <a href="/termos-uso" className="text-primary-foreground/70 hover:text-accent-gold transition-colors">
                 Termos de Uso
               </a>
-              <a href="#" className="text-primary-foreground/70 hover:text-accent-gold transition-colors">
+              <a href="/cookies" className="text-primary-foreground/70 hover:text-accent-gold transition-colors">
                 Cookies
               </a>
             </div>
