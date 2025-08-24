@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check, Crown, Star, TrendingUp, Camera, Users, Award, Shield, Anchor, Settings, Camera as CameraIcon, MapPin } from "lucide-react";
+import { Phone, MessageCircle, TrendingUp, Camera, Users, Award, Shield, Anchor, Settings, Camera as CameraIcon, MapPin, Star } from "lucide-react";
 import { useState } from "react";
 
 const Anuncie = () => {
@@ -46,44 +46,13 @@ const Anuncie = () => {
       types: ["Berços", "Garagem seca", "Serviços"]
     }
   ];
-  const plans = [
-    {
-      name: "Premium",
-      price: "R$ 199",
-      period: "/mês",
-      description: "Ideal para proprietários que querem máxima visibilidade",
-      features: [
-        "Anúncio em destaque na homepage",
-        "Até 20 fotos profissionais",
-        "Vídeo de apresentação",
-        "Tour virtual 360°",
-        "Selo Premium",
-        "Suporte prioritário",
-        "Estatísticas detalhadas",
-        "Divulgação em redes sociais"
-      ],
-      highlight: true,
-      badge: "Mais Popular"
-    },
-    {
-      name: "Platinum",
-      price: "R$ 399",
-      period: "/mês",
-      description: "Para embarcações de alto luxo que merecem tratamento VIP",
-      features: [
-        "Tudo do plano Premium",
-        "Filmagem aérea profissional",
-        "Fotografia subaquática",
-        "Consultoria de precificação",
-        "Atendimento personalizado",
-        "Marketing premium",
-        "Anúncio no topo da busca",
-        "Relatório mensal detalhado"
-      ],
-      highlight: false,
-      badge: "VIP"
-    }
-  ];
+  const whatsappNumber = "+5511940159202";
+  
+  const openWhatsApp = (message: string) => {
+    const encodedMessage = encodeURIComponent(message);
+    const url = `https://wa.me/${whatsappNumber.replace('+', '')}?text=${encodedMessage}`;
+    window.open(url, '_blank');
+  };
 
   const benefits = [
     {
@@ -154,8 +123,8 @@ const Anuncie = () => {
                 Anuncie no MARBANA
               </h1>
               <p className="font-body text-xl text-muted-foreground leading-relaxed mb-8">
-                Venda embarcações, acessórios ou ofereça seus serviços náuticos. 
-                Conecte-se aos clientes mais qualificados do mercado brasileiro.
+                Divulgue embarcações, acessórios ou seus serviços náuticos conosco. 
+                Entre em contato via WhatsApp para acertar os detalhes do seu anúncio.
               </p>
               <div className="flex items-center justify-center space-x-4">
                 <Badge className="bg-gradient-gold text-accent-gold-foreground font-body">
@@ -247,131 +216,80 @@ const Anuncie = () => {
           </div>
         </section>
 
-        {/* Pricing Plans */}
+        {/* Contact Section */}
         <section className="py-20 bg-gradient-ocean">
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="font-display text-4xl font-bold text-primary mb-6">
-                Planos de Anúncio
+                Como Anunciar
               </h2>
               <p className="font-body text-xl text-muted-foreground max-w-3xl mx-auto">
-                Escolha o plano ideal para destacar sua embarcação no mercado premium
+                Todos os anúncios são gerenciados diretamente conosco para garantir máxima qualidade
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {plans.map((plan, index) => (
-                <Card 
-                  key={index} 
-                  className={`relative group hover:shadow-premium transition-all duration-300 ${
-                    plan.highlight ? 'ring-2 ring-accent-gold/30 scale-105' : ''
-                  }`}
-                >
-                  {plan.badge && (
-                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                      <Badge className={`${
-                        plan.highlight 
-                          ? 'bg-gradient-gold text-accent-gold-foreground' 
-                          : 'bg-gradient-hero text-primary-foreground'
-                      } font-body px-4 py-1`}>
-                        {plan.badge}
-                      </Badge>
+            <div className="max-w-4xl mx-auto">
+              <Card className="overflow-hidden">
+                <CardContent className="p-12">
+                  <div className="text-center mb-8">
+                    <div className="w-20 h-20 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-6">
+                      <MessageCircle className="w-10 h-10 text-primary-foreground" />
                     </div>
-                  )}
-                  
-                  <CardContent className="p-8">
-                    <div className="text-center mb-8">
-                      <h3 className="font-display text-2xl font-bold text-primary mb-2">
-                        {plan.name}
-                      </h3>
-                      <div className="flex items-baseline justify-center mb-4">
-                        <span className="font-display text-4xl font-bold text-primary">
-                          {plan.price}
-                        </span>
-                        <span className="font-body text-muted-foreground ml-1">
-                          {plan.period}
-                        </span>
-                      </div>
-                      <p className="font-body text-muted-foreground">
-                        {plan.description}
-                      </p>
-                    </div>
+                    <h3 className="font-display text-3xl font-bold text-primary mb-4">
+                      Entre em Contato via WhatsApp
+                    </h3>
+                    <p className="font-body text-lg text-muted-foreground leading-relaxed">
+                      Nossa equipe especializada irá avaliar seu anúncio e criar uma estratégia 
+                      personalizada para máxima visibilidade. Clique no botão abaixo para iniciar.
+                    </p>
+                  </div>
 
-                    <ul className="space-y-4 mb-8">
-                      {plan.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center font-body">
-                          <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
-                          <span className="text-muted-foreground">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-
+                  <div className="space-y-6">
                     <Button 
                       size="lg" 
-                      className={`w-full font-body font-medium ${
-                        plan.highlight 
-                          ? 'bg-gradient-gold hover:bg-accent-gold/90 text-accent-gold-foreground' 
-                          : 'bg-gradient-hero hover:opacity-90 text-primary-foreground'
-                      }`}
+                      onClick={() => openWhatsApp("Olá! Gostaria de anunciar no MARBANA. Podem me ajudar?")}
+                      className="w-full bg-green-600 hover:bg-green-700 text-white font-body text-lg py-6"
                     >
-                      {plan.highlight ? (
-                        <>
-                          <Crown className="w-5 h-5 mr-2" />
-                          Escolher Premium
-                        </>
-                      ) : (
-                        'Escolher Platinum'
-                      )}
+                      <Phone className="w-6 h-6 mr-3" />
+                      {whatsappNumber} - Falar Agora
                     </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
 
-            <div className="text-center mt-12">
-              <p className="font-body text-muted-foreground mb-4">
-                Não encontrou o plano ideal? Entre em contato para um orçamento personalizado.
-              </p>
-              <Button variant="outline" size="lg" className="font-body">
-                Falar com Consultor
-              </Button>
-            </div>
-          </div>
-        </section>
-
-        {/* Process Steps */}
-        <section className="py-20">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="font-display text-4xl font-bold text-primary mb-6">
-                Como Funciona
-              </h2>
-              <p className="font-body text-xl text-muted-foreground max-w-3xl mx-auto">
-                Processo simples e descomplicado para colocar sua embarcação no mercado premium
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {steps.map((step, index) => (
-                <Card key={index} className="group hover:shadow-premium transition-all duration-300">
-                  <CardContent className="p-8 text-center">
-                    <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-6">
-                      <span className="font-display text-2xl font-bold text-primary-foreground">
-                        {step.number}
-                      </span>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t">
+                      <div className="text-center">
+                        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
+                          <span className="font-display text-xl font-bold text-primary">1</span>
+                        </div>
+                        <h4 className="font-display font-semibold text-primary mb-2">Contato Inicial</h4>
+                        <p className="font-body text-sm text-muted-foreground">
+                          Entre em contato e conte sobre o que deseja anunciar
+                        </p>
+                      </div>
+                      <div className="text-center">
+                        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
+                          <span className="font-display text-xl font-bold text-primary">2</span>
+                        </div>
+                        <h4 className="font-display font-semibold text-primary mb-2">Avaliação</h4>
+                        <p className="font-body text-sm text-muted-foreground">
+                          Nossa equipe avalia e define a melhor estratégia
+                        </p>
+                      </div>
+                      <div className="text-center">
+                        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
+                          <span className="font-display text-xl font-bold text-primary">3</span>
+                        </div>
+                        <h4 className="font-display font-semibold text-primary mb-2">Publicação</h4>
+                        <p className="font-body text-sm text-muted-foreground">
+                          Criamos e publicamos seu anúncio premium
+                        </p>
+                      </div>
                     </div>
-                    <h3 className="font-display text-xl font-semibold text-primary mb-4">
-                      {step.title}
-                    </h3>
-                    <p className="font-body text-muted-foreground leading-relaxed">
-                      {step.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
+
 
         {/* CTA Section */}
         <section className="py-16 bg-gradient-hero">
@@ -380,22 +298,25 @@ const Anuncie = () => {
               Pronto para vender sua embarcação?
             </h2>
             <p className="font-body text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-              Junte-se aos proprietários que já venderam mais de R$ 2 bilhões 
-              em embarcações através da nossa plataforma.
+              Faça parte da plataforma náutica mais exclusiva do Brasil. 
+              Entre em contato e comece a divulgar hoje mesmo.
             </p>
             <div className="flex flex-col md:flex-row gap-4 justify-center">
               <Button 
                 size="lg" 
-                className="bg-accent-gold hover:bg-accent-gold/90 text-accent-gold-foreground font-body"
+                onClick={() => openWhatsApp("Olá! Quero começar a anunciar no MARBANA hoje mesmo!")}
+                className="bg-green-600 hover:bg-green-700 text-white font-body"
               >
+                <MessageCircle className="w-5 h-5 mr-2" />
                 Começar Agora
               </Button>
               <Button 
                 size="lg" 
+                onClick={() => openWhatsApp("Olá! Gostaria de saber mais sobre os anúncios no MARBANA.")}
                 variant="outline"
                 className="bg-background/10 border-primary-foreground/20 text-primary-foreground hover:bg-background/20 font-body"
               >
-                Solicitar Demo
+                Saber Mais
               </Button>
             </div>
           </div>

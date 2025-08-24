@@ -3,9 +3,6 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Search, ChevronDown, MapPin } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
-import { AuthDialog } from "@/components/auth/AuthDialog";
-import { UserMenu } from "@/components/auth/UserMenu";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import StateSelector from "./StateSelector";
@@ -21,7 +18,7 @@ const Header = () => {
   const [searchLocation, setSearchLocation] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, loading } = useAuth();
+  
 
 
   const navigation = [
@@ -146,27 +143,26 @@ const Header = () => {
                 <Menu className="h-6 w-6" />
               </button>
 
-              {/* Desktop Auth */}
+              {/* Desktop Actions */}
               <div className="hidden lg:flex items-center gap-2">
-                <Link 
-                  to="/anuncie"
-                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                <Button 
+                  asChild
+                  className="bg-gradient-hero hover:opacity-90 text-primary-foreground font-body"
                 >
-                  Anunciar
-                </Link>
+                  <Link to="/anuncie">
+                    Anunciar
+                  </Link>
+                </Button>
                 
-                {loading ? (
-                  <div className="w-8 h-8 rounded-full bg-muted animate-pulse" />
-                ) : user ? (
-                  <UserMenu />
-                ) : (
-                  <AuthDialog>
-                    <button className="flex items-center gap-2 p-2 rounded-full border border-gray-300 hover:shadow-md transition-shadow">
-                      <Menu className="w-4 h-4" />
-                      <div className="w-6 h-6 bg-gray-400 rounded-full" />
-                    </button>
-                  </AuthDialog>
-                )}
+                <Button 
+                  asChild
+                  variant="outline"
+                  className="font-body"
+                >
+                  <Link to="/contato">
+                    Contato
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>
@@ -245,26 +241,6 @@ const Header = () => {
                 </div>
                 
                 <div className="py-6 space-y-4">
-                  {user ? (
-                    <>
-                      <div className="flex items-center space-x-3 px-3">
-                        <UserMenu />
-                        <span className="font-body text-sm text-muted-foreground">
-                          {user.email}
-                        </span>
-                      </div>
-                    </>
-                  ) : (
-                    <AuthDialog onSuccess={() => setIsOpen(false)}>
-                      <Button 
-                        variant="outline" 
-                        className="w-full font-body"
-                      >
-                        Entrar
-                      </Button>
-                    </AuthDialog>
-                  )}
-                  
                   <Button 
                     asChild
                     className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body"
@@ -272,6 +248,17 @@ const Header = () => {
                   >
                     <Link to="/anuncie">
                       Anuncie Aqui
+                    </Link>
+                  </Button>
+                  
+                  <Button 
+                    asChild
+                    variant="outline"
+                    className="w-full font-body"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <Link to="/contato">
+                      Contato
                     </Link>
                   </Button>
                 </div>

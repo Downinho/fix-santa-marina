@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SkipToContent from "@/components/SkipToContent";
 import Index from "./pages/Index";
 import Embarcacoes from "./pages/Embarcacoes";
-import VesselDetail from "./pages/VesselDetail";
 import Acessorios from "./pages/Acessorios";
 import Servicos from "./pages/Servicos";
 import Blog from "./pages/Blog";
@@ -16,6 +15,7 @@ import Contato from "./pages/Contato";
 import Anuncie from "./pages/Anuncie";
 import Perfil from "./pages/Perfil";
 import Produto from "./pages/Produto";
+import VesselDetail from "./pages/VesselDetail";
 import Marinheiros from "./pages/Marinheiros";
 import MarinheirosDetail from "./pages/MarinheirosDetail";
 import AcessoriosDetail from "./pages/AcessoriosDetail";
@@ -42,7 +42,8 @@ function App() {
             <Route path="/contato" element={<Contato />} />
             <Route path="/anuncie" element={<Anuncie />} />
             <Route path="/perfil" element={<Perfil />} />
-            <Route path="/produto/:slug" element={<Produto />} />
+        <Route path="/produto/:slug" element={<Produto />} />
+        <Route path="/embarcacao/:slug" element={<VesselDetail />} />
             <Route path="/marinheiros" element={<Marinheiros />} />
             <Route path="/marinheiro/:id" element={<MarinheirosDetail />} />
             <Route path="/acessorio/:id" element={<AcessoriosDetail />} />
