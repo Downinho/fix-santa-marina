@@ -68,7 +68,7 @@ const Header = () => {
               <Link to="/" className="flex items-center space-x-3 group">
                 <div className="hidden sm:block">
                   <h1 className="font-display font-bold text-2xl text-primary">MARBANA</h1>
-                  <p className="text-xs text-muted-foreground font-body -mt-1">Premium Maritime</p>
+                  <p className="text-xs text-muted-foreground font-body -mt-1">Exclusive Maritime</p>
                 </div>
                 <MarbanaLogo variant="header" className="group-hover:scale-105 transition-transform" />
               </Link>
