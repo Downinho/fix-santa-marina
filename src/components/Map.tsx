@@ -115,13 +115,13 @@ const Map: React.FC<MapProps> = ({ vessels = [] }) => {
           {/* Center point for Búzios */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <div className="w-8 h-8 bg-accent-gold rounded-full border-3 border-white shadow-xl flex items-center justify-center">
-              <span className="text-white font-bold text-xs">HQ</span>
+              <span className="text-white font-bold text-xs">MARBANA</span>
             </div>
           </div>
           
           <div className="text-center text-primary/80 font-body">
-            <p className="text-sm">Mapa Interativo</p>
-            <p className="text-xs">Búzios, RJ - Base MARBANA</p>
+            <p className="text-sm">Localização MARBANA</p>
+            <p className="text-xs">Búzios, RJ (-22.7496736, -41.886076)</p>
           </div>
         </div>
       </Card>

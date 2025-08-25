@@ -47,11 +47,11 @@ const HeroSearchForm = () => {
               <SelectValue placeholder="Tipo de embarcação" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="Lancha">Lancha</SelectItem>
-              <SelectItem value="Iate">Iate</SelectItem>
-              <SelectItem value="Veleiro">Veleiro</SelectItem>
-              <SelectItem value="Catamarã">Catamarã</SelectItem>
-              <SelectItem value="Jet Ski">Jet Ski</SelectItem>
+              <SelectItem value="lancha">Lancha</SelectItem>
+              <SelectItem value="iate">Iate</SelectItem>
+              <SelectItem value="veleiro">Veleiro</SelectItem>
+              <SelectItem value="catamara">Catamarã</SelectItem>
+              <SelectItem value="jet-ski">Jet Ski</SelectItem>
             </SelectContent>
           </Select>
         </div>

@@ -1,46 +1,32 @@
 import { useParams } from "react-router-dom";
+import { blogPosts, getPostBySlug } from "@/data/blogPosts";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, User, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const BlogPost = () => {
   const { slug } = useParams();
-
-  const mockPost = {
-    title: "Guia Completo para Comprar seu Primeiro Iate",
-    content: `
-      <h2>Introdução</h2>
-      <p>Comprar seu primeiro iate é um marco emocionante, mas também uma decisão importante que requer pesquisa e planejamento cuidadoso.</p>
-      
-      <h2>Definindo seu Orçamento</h2>
-      <p>Antes de começar a procurar, estabeleça um orçamento realista que inclua não apenas o preço de compra, mas também:</p>
-      <ul>
-        <li>Manutenção anual (10-15% do valor)</li>
-        <li>Seguro náutico</li>
-        <li>Taxa de marina</li>
-        <li>Combustível</li>
-      </ul>
-
-      <h2>Escolhendo o Tipo Certo</h2>
-      <p>Considere como você pretende usar sua embarcação:</p>
-      <ul>
-        <li><strong>Passeios costeiros:</strong> Lanchas esportivas</li>
-        <li><strong>Vida a bordo:</strong> Iates com cabines confortáveis</li>
-        <li><strong>Pesca:</strong> Embarcações com equipamentos específicos</li>
-      </ul>
-
-      <h2>Inspeção e Documentação</h2>
-      <p>Nunca compre sem uma inspeção completa por um profissional qualificado. Verifique toda a documentação necessária.</p>
-    `,
-    author: "Marina Santos",
-    date: "15 de Janeiro, 2024",
-    category: "Guias",
-    readTime: "12 min",
-    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&h=600&fit=crop"
-  };
+  
+  const post = getPostBySlug(slug || '');
+  
+  if (!post) {
+    return (
+      <div className="min-h-screen">
+        <Header />
+        <main className="container mx-auto px-6 py-20 text-center">
+          <h1 className="font-display text-4xl font-bold text-primary mb-4">Post não encontrado</h1>
+          <Button onClick={() => window.location.href = '/blog'}>
+            Voltar ao Blog
+          </Button>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen">
@@ -55,36 +41,61 @@ const BlogPost = () => {
 
           <div className="mb-8">
             <Badge className="mb-4 bg-gradient-gold text-accent-gold-foreground">
-              {mockPost.category}
+              {post.category}
             </Badge>
             
             <h1 className="font-display text-4xl md:text-5xl font-bold text-primary mb-6">
-              {mockPost.title}
+              {post.title}
             </h1>
             
             <div className="flex items-center space-x-4 text-muted-foreground font-body mb-6">
               <div className="flex items-center">
                 <User className="w-4 h-4 mr-1" />
-                {mockPost.author}
+                {post.author}
               </div>
               <div className="flex items-center">
                 <Calendar className="w-4 h-4 mr-1" />
-                {mockPost.date}
+                {post.date}
               </div>
-              <span>{mockPost.readTime} de leitura</span>
+              <span>{post.readTime} de leitura</span>
             </div>
           </div>
 
           <img 
-            src={mockPost.image}
-            alt={mockPost.title}
+            src={post.image}
+            alt={post.title}
             className="w-full h-64 md:h-96 object-cover rounded-lg mb-8"
           />
 
           <div 
-            className="prose prose-lg max-w-none font-body"
-            dangerouslySetInnerHTML={{ __html: mockPost.content }}
+            className="prose prose-lg max-w-none font-body prose-headings:font-display prose-headings:text-primary prose-a:text-primary prose-strong:text-primary"
+            dangerouslySetInnerHTML={{ __html: post.content }}
           />
+
+          {/* CTA Section */}
+          <div className="mt-12 p-8 bg-gradient-hero rounded-lg text-center">
+            <h3 className="font-display text-2xl font-bold text-primary-foreground mb-4">
+              Gostou do conteúdo? Conheça mais sobre a MARBANA
+            </h3>
+            <p className="text-primary-foreground/90 mb-6 font-body">
+              Descubra nossa seleção exclusiva de embarcações premium e viva o melhor do lifestyle náutico.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <WhatsAppButton 
+                message="Olá! Li o artigo no blog e gostaria de conhecer mais sobre as embarcações MARBANA."
+                className="bg-green-600 hover:bg-green-700"
+              >
+                Falar com Especialista
+              </WhatsAppButton>
+              <Button 
+                variant="outline" 
+                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                onClick={() => window.location.href = '/embarcacoes'}
+              >
+                Ver Embarcações
+              </Button>
+            </div>
+          </div>
         </article>
       </main>
 

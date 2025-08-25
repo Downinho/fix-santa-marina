@@ -14,13 +14,13 @@ const Footer = () => {
             <div className="flex items-center space-x-2 mb-6">
               <div>
                 <h3 className="font-display font-bold text-2xl">MARBANA</h3>
-                <p className="text-sm text-primary-foreground/70 font-body">Premium Maritime</p>
+                <p className="text-primary-foreground/70 font-body">Ecossistema Náutico Exclusivo</p>
               </div>
               <MarbanaLogo variant="footer" />
             </div>
             <p className="text-primary-foreground/80 font-body leading-relaxed mb-6">
-              O marketplace premium para barcos e iates. 
-              Conectando pessoas aos seus sonhos náuticos com excelência e sofisticação.
+              O maior ecossistema náutico do Brasil. 
+              Conectando pessoas aos seus sonhos náuticos com excelência e sofisticação exclusiva.
             </p>
             <div className="flex space-x-3">
               <Button variant="ghost" size="sm" className="hover:bg-primary-foreground/10" asChild>
@@ -64,7 +64,6 @@ const Footer = () => {
             <ul className="space-y-3 font-body">
               <li><a href="/servicos" className="text-primary-foreground/80 hover:text-accent-gold transition-colors">Consultoria VIP</a></li>
               <li><a href="/servicos" className="text-primary-foreground/80 hover:text-accent-gold transition-colors">Inspeção Técnica</a></li>
-              <li><a href="/servicos" className="text-primary-foreground/80 hover:text-accent-gold transition-colors">Financiamento</a></li>
               <li><a href="/servicos" className="text-primary-foreground/80 hover:text-accent-gold transition-colors">Documentação</a></li>
               <li><a href="/marinheiros" className="text-primary-foreground/80 hover:text-accent-gold transition-colors">Marinheiros</a></li>
             </ul>
