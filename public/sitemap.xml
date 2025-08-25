@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Página principal -->
+  <url>
+    <loc>https://marbana.com.br/</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Embarcações -->
+  <url>
+    <loc>https://marbana.com.br/embarcacoes</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Marinheiros -->
+  <url>
+    <loc>https://marbana.com.br/marinheiros</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Blog -->
+  <url>
+    <loc>https://marbana.com.br/blog</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Serviços -->
+  <url>
+    <loc>https://marbana.com.br/servicos</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Acessórios -->
+  <url>
+    <loc>https://marbana.com.br/acessorios</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Sobre -->
+  <url>
+    <loc>https://marbana.com.br/sobre</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Contato -->
+  <url>
+    <loc>https://marbana.com.br/contato</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Anuncie -->
+  <url>
+    <loc>https://marbana.com.br/anuncie</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <!-- Política de Privacidade -->
+  <url>
+    <loc>https://marbana.com.br/politica-privacidade</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+  <!-- Termos de Uso -->
+  <url>
+    <loc>https://marbana.com.br/termos-uso</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+  <!-- Cookies -->
+  <url>
+    <loc>https://marbana.com.br/cookies</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+</urlset>
