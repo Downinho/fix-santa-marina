@@ -14,6 +14,7 @@ import {
   Shield, Award, Clock, CheckCircle, ArrowLeft, ChevronLeft, ChevronRight
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { getVesselBySlug } from "@/data/vessels";
 
 declare global {
   interface Window {
@@ -22,12 +23,10 @@ declare global {
 }
 
 const VesselDetail = () => {
-  const { slug } = useParams();
-  const vesselId = slug ? extractIdFromSlug(slug) || 1 : 1;
+  const { slug } = useParams<{ slug: string }>();
   const { toast } = useToast();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   const whatsappNumber = "+5511940159202";
   
@@ -37,108 +36,20 @@ const VesselDetail = () => {
     window.open(url, '_blank');
   };
 
-  // Mock vessel data - Focker 272 in Búzios
-  const vessel = {
-    id: '1',
-    name: 'Maré Alta', // Nome de batismo da embarcação
-    model: 'Focker 272', // Modelo da embarcação
-    slug: 'focker-272-buzios',
-    type: 'Lancha Esportiva',
-    year: 2023,
-    length: '8.2m',
-    price: 289000000, // R$ 2.890.000,00 in cents
-    location: 'Armação dos Búzios, RJ',
-    coordinates: { lat: -22.7461, lng: -41.8811 }, // Búzios coordinates
-    description: 'Uma obra-prima da engenharia náutica brasileira. Esta Focker 272 representa o ápice do luxo e performance no mar. Localizada na paradisíaca Armação dos Búzios, oferece experiências náuticas inesquecíveis nas águas cristalinas da Costa do Sol.',
-    images: [
-      'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1558618830-fcd0c89db42a?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1566024287286-457247b70310?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1582719366274-e8f044a10dff?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1544737151-6e4b9d398b6a?w=800&h=600&fit=crop'
-    ],
-    videos: [
-      {
-        title: 'Tour Completo da Focker 272',
-        thumbnail: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop',
-        url: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-      },
-      {
-        title: 'Performance no Mar',
-        thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop',
-        url: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-      }
-    ],
-    owner: {
-      name: 'MARBANA Premium Yachts',
-      rating: 5.0,
-      verified: true,
-      responseTime: 'Responde em até 1 hora'
-    },
-    specifications: [
-      { label: 'Comprimento', value: '8,2 metros' },
-      { label: 'Boca', value: '2,55 metros' },
-      { label: 'Calado', value: '0,60 metros' },
-      { label: 'Motorização', value: '2x 300HP Mercury' },
-      { label: 'Velocidade Máx.', value: '65 nós' },
-      { label: 'Capacidade', value: '12 pessoas' },
-      { label: 'Combustível', value: '400 litros' },
-      { label: 'Água', value: '100 litros' },
-      { label: 'Ano', value: '2023' },
-      { label: 'Procedência', value: 'Nacional' }
-    ],
-    amenities: [
-      'Ar condicionado split',
-      'Sistema de som premium JL Audio',
-      'GPS Garmin touchscreen',
-      'Piloto automático',
-      'Geladeira elétrica 110L',
-      'Microondas',
-      'Chuveiro de água doce',
-      'Toldo elétrico',
-      'Luzes LED subaquáticas',
-      'Plataforma hidráulica',
-      'Mesa conversível',
-      'Estofados em couro legítimo'
-    ],
-    highlights: [
-      {
-        icon: Zap,
-        title: 'Performance Excepcional',
-        description: 'Motor duplo Mercury 300HP para máxima performance'
-      },
-      {
-        icon: Shield,
-        title: 'Segurança Total',
-        description: 'Equipada com todos os itens de segurança obrigatórios'
-      },
-      {
-        icon: Award,
-        title: 'Prêmios Internacionais',
-        description: 'Reconhecida como Boat of the Year 2023'
-      },
-      {
-        icon: Clock,
-        title: 'Zero Horas',
-        description: 'Embarcação nova, nunca utilizada'
-      }
-    ],
-    testimonials: [
-      {
-        name: 'Carlos Eduardo',
-        rating: 5,
-        comment: 'Experiência incrível! A Focker 272 superou todas as expectativas. Qualidade excepcional.',
-        date: '2024-01-15'
-      },
-      {
-        name: 'Marina Santos',
-        rating: 5,
-        comment: 'O melhor investimento que já fiz. Performance e luxo em perfeita harmonia.',
-        date: '2024-01-10'
-      }
-    ]
-  };
+  const vessel = getVesselBySlug(slug || '');
+
+  if (!vessel) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-primary mb-4">Embarcação não encontrada</h1>
+          <Button asChild>
+            <Link to="/embarcacoes">Voltar para Embarcações</Link>
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   const formatPrice = (priceInCents: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -154,7 +65,6 @@ const VesselDetail = () => {
     const initMap = () => {
       const mapContainer = document.getElementById('map');
       if (mapContainer) {
-        // Usar iframe do OpenStreetMap para Armação dos Búzios
         mapContainer.innerHTML = `
           <iframe
             width="100%"
@@ -163,11 +73,11 @@ const VesselDetail = () => {
             scrolling="no"
             marginheight="0"
             marginwidth="0"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-41.89607620239258%2C-22.759673604347993%2C-41.87607574462891%2C-22.739673604347993&amp;layer=mapnik&amp;marker=-22.7496736%2C-41.886076"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=${vessel.coordinates.lng - 0.01}%2C${vessel.coordinates.lat - 0.01}%2C${vessel.coordinates.lng + 0.01}%2C${vessel.coordinates.lat + 0.01}&amp;layer=mapnik&amp;marker=${vessel.coordinates.lat}%2C${vessel.coordinates.lng}"
             style="border: 1px solid #ccc; border-radius: 8px;"
           ></iframe>
           <div style="margin-top: 8px; font-size: 12px; color: #666;">
-            <a href="https://www.openstreetmap.org/?mlat=-22.7496736&mlon=-41.886076#map=15/-22.7496736/-41.886076" target="_blank" style="color: #0066cc;">
+            <a href="https://www.openstreetmap.org/?mlat=${vessel.coordinates.lat}&mlon=${vessel.coordinates.lng}#map=15/${vessel.coordinates.lat}/${vessel.coordinates.lng}" target="_blank" style="color: #0066cc;">
               Ver mapa maior
             </a>
           </div>
@@ -176,10 +86,10 @@ const VesselDetail = () => {
     };
     
     initMap();
-  }, []);
+  }, [vessel]);
 
   const handleContactWhatsApp = () => {
-    const message = `Olá! Tenho interesse na ${vessel.name} localizada em ${vessel.location}. Gostaria de mais informações.`;
+    const message = `Olá! Tenho interesse na ${vessel.name} (${vessel.model}) localizada em ${vessel.location}. Gostaria de mais informações.`;
     openWhatsApp(message);
   };
 
@@ -216,7 +126,7 @@ const VesselDetail = () => {
               <span>/</span>
               <Link to="/embarcacoes" className="hover:text-primary">Embarcações</Link>
               <span>/</span>
-              <span className="text-primary">Focker 272</span>
+              <span className="text-primary">{vessel.model}</span>
             </div>
           </div>
         </section>
@@ -367,57 +277,67 @@ const VesselDetail = () => {
                     Destaques Exclusivos
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {vessel.highlights.map((highlight, index) => (
-                      <Card key={index} className="hover:shadow-premium transition-all duration-300">
-                        <CardContent className="p-6">
-                          <div className="flex items-start space-x-4">
-                            <div className="w-12 h-12 bg-gradient-hero rounded-lg flex items-center justify-center">
-                              <highlight.icon className="w-6 h-6 text-primary-foreground" />
+                    {vessel.highlights.map((highlight, index) => {
+                      const IconComponent = highlight.icon === 'Award' ? Award :
+                                          highlight.icon === 'Shield' ? Shield :
+                                          highlight.icon === 'CheckCircle' ? CheckCircle :
+                                          highlight.icon === 'Zap' ? Zap :
+                                          highlight.icon === 'Clock' ? Clock : Award;
+                      
+                      return (
+                        <Card key={index} className="hover:shadow-premium transition-all duration-300">
+                          <CardContent className="p-6">
+                            <div className="flex items-start space-x-4">
+                              <div className="w-12 h-12 bg-gradient-hero rounded-lg flex items-center justify-center">
+                                <IconComponent className="w-6 h-6 text-primary-foreground" />
+                              </div>
+                              <div>
+                                <h4 className="font-display font-semibold text-primary mb-2">
+                                  {highlight.title}
+                                </h4>
+                                <p className="font-body text-sm text-muted-foreground">
+                                  {highlight.description}
+                                </p>
+                              </div>
                             </div>
-                            <div>
-                              <h4 className="font-display font-semibold text-primary mb-2">
-                                {highlight.title}
-                              </h4>
-                              <p className="font-body text-sm text-muted-foreground">
-                                {highlight.description}
-                              </p>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
                   </div>
                 </div>
 
                 {/* Videos */}
-                <div>
-                  <h3 className="font-display text-2xl font-bold text-primary mb-6">
-                    Vídeos da Embarcação
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {vessel.videos.map((video, index) => (
-                      <Card key={index} className="group cursor-pointer hover:shadow-premium transition-all duration-300">
-                        <CardContent className="p-0 relative">
-                          <img 
-                            src={video.thumbnail}
-                            alt={video.title}
-                            className="w-full h-48 object-cover rounded-lg"
-                          />
-                          <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/40 transition-colors">
-                            <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center">
-                              <Play className="w-8 h-8 text-primary ml-1" />
+                {vessel.videos && vessel.videos.length > 0 && (
+                  <div>
+                    <h3 className="font-display text-2xl font-bold text-primary mb-6">
+                      Vídeos da Embarcação
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {vessel.videos.map((video, index) => (
+                        <Card key={index} className="group cursor-pointer hover:shadow-premium transition-all duration-300">
+                          <CardContent className="p-0 relative">
+                            <img 
+                              src={video.thumbnail}
+                              alt={video.title}
+                              className="w-full h-48 object-cover rounded-lg"
+                            />
+                            <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/40 transition-colors">
+                              <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center">
+                                <Play className="w-8 h-8 text-primary ml-1" />
+                              </div>
                             </div>
-                          </div>
-                          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
-                            <h4 className="font-display font-semibold text-white">
-                              {video.title}
-                            </h4>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
+                            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
+                              <h4 className="font-display font-semibold text-white">
+                                {video.title}
+                              </h4>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Specifications */}
                 <div>
@@ -451,9 +371,11 @@ const VesselDetail = () => {
                     <CardContent className="p-8">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {vessel.amenities.map((amenity, index) => (
-                          <div key={index} className="flex items-center font-body">
-                            <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
-                            <span className="text-muted-foreground">{amenity}</span>
+                          <div key={index} className="flex items-center space-x-3">
+                            <CheckCircle className="w-5 h-5 text-green-600" />
+                            <span className="font-body text-muted-foreground">
+                              {amenity}
+                            </span>
                           </div>
                         ))}
                       </div>
@@ -464,147 +386,77 @@ const VesselDetail = () => {
                 {/* Location Map */}
                 <div>
                   <h3 className="font-display text-2xl font-bold text-primary mb-6">
-                    Localização em Búzios
+                    Localização
                   </h3>
-                  <Card>
+                  <Card className="overflow-hidden">
                     <CardContent className="p-0">
-                      <div id="map" className="w-full h-80 rounded-lg" />
+                      <div id="map" className="w-full h-96"></div>
                     </CardContent>
                   </Card>
-                  <p className="font-body text-sm text-muted-foreground mt-3">
-                    📍 {vessel.location} - Localizada no coração da Riviera Brasileira
-                  </p>
-                </div>
-
-                {/* Testimonials */}
-                <div>
-                  <h3 className="font-display text-2xl font-bold text-primary mb-6">
-                    Avaliações de Clientes
-                  </h3>
-                  <div className="space-y-4">
-                    {vessel.testimonials.map((testimonial, index) => (
-                      <Card key={index}>
-                        <CardContent className="p-6">
-                          <div className="flex items-start space-x-4">
-                            <div className="w-12 h-12 bg-gradient-hero rounded-full flex items-center justify-center">
-                              <span className="font-display font-bold text-primary-foreground">
-                                {testimonial.name.charAt(0)}
-                              </span>
-                            </div>
-                            <div className="flex-1">
-                              <div className="flex items-center justify-between mb-2">
-                                <h4 className="font-display font-semibold text-primary">
-                                  {testimonial.name}
-                                </h4>
-                                <div className="flex items-center">
-                                  {[...Array(testimonial.rating)].map((_, i) => (
-                                    <Star 
-                                      key={i} 
-                                      className="w-4 h-4 text-yellow-500 fill-current" 
-                                    />
-                                  ))}
-                                </div>
-                              </div>
-                              <p className="font-body text-muted-foreground mb-2">
-                                "{testimonial.comment}"
-                              </p>
-                              <span className="font-body text-xs text-muted-foreground">
-                                {new Date(testimonial.date).toLocaleDateString('pt-BR')}
-                              </span>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
                 </div>
               </div>
 
-              {/* Right Column - Sticky Booking Card */}
+              {/* Right Column - Booking Info */}
               <div className="lg:col-span-1">
-                <div className="sticky top-24">
+                <div className="sticky top-24 space-y-6">
+                  {/* Pricing Card */}
                   <Card className="shadow-premium">
-                    <CardContent className="p-8">
-                      <div className="text-center mb-8">
-                        <div className="text-4xl font-display font-bold text-primary mb-2">
+                    <CardContent className="p-6">
+                      <div className="text-center mb-6">
+                        <span className="font-display text-3xl font-bold text-primary">
                           {formatPrice(vessel.price)}
-                        </div>
-                        <p className="font-body text-muted-foreground">
-                          Preço à vista
-                        </p>
+                        </span>
                       </div>
+                      
+                      <Button 
+                        onClick={handleContactWhatsApp}
+                        className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body mb-4"
+                      >
+                        <MessageCircle className="w-4 h-4 mr-2" />
+                        Tenho Interesse
+                      </Button>
+                      
+                      <div className="text-center text-sm text-muted-foreground font-body">
+                        <CheckCircle className="w-4 h-4 inline mr-1" />
+                        Resposta em até 1 hora
+                      </div>
+                    </CardContent>
+                  </Card>
 
-                      <div className="space-y-4 mb-8">
-                        <div className="grid grid-cols-3 gap-4 text-center">
-                          <div className="p-3 bg-muted/30 rounded-lg">
-                            <Anchor className="w-6 h-6 mx-auto mb-1 text-primary" />
-                            <div className="font-body text-sm font-medium text-primary">{vessel.length}</div>
-                            <div className="font-body text-xs text-muted-foreground">Comprimento</div>
-                          </div>
-                          <div className="p-3 bg-muted/30 rounded-lg">
-                            <Users className="w-6 h-6 mx-auto mb-1 text-primary" />
-                            <div className="font-body text-sm font-medium text-primary">12</div>
-                            <div className="font-body text-xs text-muted-foreground">Pessoas</div>
-                          </div>
-                          <div className="p-3 bg-muted/30 rounded-lg">
-                            <Calendar className="w-6 h-6 mx-auto mb-1 text-primary" />
-                            <div className="font-body text-sm font-medium text-primary">{vessel.year}</div>
-                            <div className="font-body text-xs text-muted-foreground">Ano</div>
-                          </div>
+                  {/* Owner Card */}
+                  <Card className="shadow-premium">
+                    <CardContent className="p-6">
+                      <h4 className="font-display text-lg font-bold text-primary mb-4">
+                        Vendedor
+                      </h4>
+                      <div className="flex items-center space-x-3 mb-4">
+                        <div className="w-12 h-12 bg-gradient-hero rounded-full flex items-center justify-center">
+                          <span className="font-display font-bold text-primary-foreground">M</span>
+                        </div>
+                        <div>
+                          <h4 className="font-display font-semibold text-primary">
+                            {vessel.owner.name}
+                          </h4>
+                          <p className="font-body text-sm text-muted-foreground">
+                            Vendedor Verificado ✓
+                          </p>
                         </div>
                       </div>
-
-                      <div className="space-y-4 mb-8">
-                        <Button 
-                          size="lg" 
-                          onClick={handleContactWhatsApp}
-                          className="w-full bg-green-600 hover:bg-green-700 text-white font-body font-medium"
-                        >
-                          <MessageCircle className="w-5 h-5 mr-2" />
-                          Conversar no WhatsApp
-                        </Button>
-                        
-                        <Button 
-                          size="lg" 
-                          variant="outline"
-                          onClick={() => openWhatsApp(`Gostaria de agendar uma visita na ${vessel.name} em ${vessel.location}.`)}
-                          className="w-full font-body"
-                        >
-                          <Calendar className="w-5 h-5 mr-2" />
-                          Agendar Visita
-                        </Button>
-                      </div>
-
-                      <div className="border-t pt-6">
-                        <div className="flex items-center space-x-3 mb-4">
-                          <div className="w-12 h-12 bg-gradient-hero rounded-full flex items-center justify-center">
-                            <span className="font-display font-bold text-primary-foreground">M</span>
-                          </div>
-                          <div>
-                            <h4 className="font-display font-semibold text-primary">
-                              {vessel.owner.name}
-                            </h4>
-                            <p className="font-body text-sm text-muted-foreground">
-                              Vendedor Premium ✓
-                            </p>
-                          </div>
-                        </div>
-                        
-                        <Button 
-                          variant="ghost" 
-                          size="sm"
-                          onClick={() => openWhatsApp(`Olá ${vessel.owner.name}! Tenho interesse na ${vessel.name}. Podem me enviar mais detalhes?`)}
-                          className="w-full font-body"
-                        >
-                          <Phone className="w-4 h-4 mr-2" />
-                          Falar Diretamente
-                        </Button>
-                      </div>
+                      
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => openWhatsApp(`Olá ${vessel.owner.name}! Tenho interesse na ${vessel.name}. Podem me enviar mais detalhes?`)}
+                        className="w-full font-body"
+                      >
+                        <Phone className="w-4 h-4 mr-2" />
+                        Falar Diretamente
+                      </Button>
                     </CardContent>
                   </Card>
 
                   {/* Contact Form */}
-                  <Card className="mt-6 shadow-premium">
+                  <Card className="shadow-premium">
                     <CardContent className="p-6">
                       <h4 className="font-display text-lg font-bold text-primary mb-4">
                         Solicite Mais Informações
@@ -612,7 +464,7 @@ const VesselDetail = () => {
                       <form className="space-y-4" onSubmit={(e) => {
                         e.preventDefault();
                         const formData = new FormData(e.currentTarget);
-                        const message = `Olá! Interesse na ${vessel.name}.
+                        const message = `Olá! Interesse na ${vessel.name} (${vessel.model}).
 Nome: ${formData.get('name')}
 Email: ${formData.get('email')}
 Telefone: ${formData.get('phone')}

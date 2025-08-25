@@ -215,8 +215,157 @@ export const blogPosts: BlogPost[] = [
     category: "Mercado",
     readTime: "15 min",
     image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop"
+  },
+  {
+    id: "4",
+    title: "Jet Skis Exclusivos: Adrenalina e Sofisticação nas Águas de Búzios",
+    slug: "jet-skis-exclusivos-adrenalina-buzios",
+    excerpt: "Descubra como os jet skis de luxo estão revolucionando os esportes aquáticos em Búzios, combinando performance extrema com design refinado.",
+    content: `
+      <h2>A Nova Era dos Jet Skis de Luxo</h2>
+      <p>A MARBANA pioneira no segmento de jet skis exclusivos, oferece uma seleção curada das mais sofisticadas máquinas aquáticas do mercado. Nossa experiência em Búzios nos permite identificar exatamente o que nossos clientes VIP procuram: performance, conforto e exclusividade.</p>
+      
+      <h2>Por que Jet Skis Estão em Alta no Mercado Náutico?</h2>
+      <p>O mercado de jet skis premium cresceu 60% nos últimos dois anos, impulsionado por:</p>
+      <ul>
+        <li><strong>Versatilidade:</strong> Ideais para explorar águas rasas e enseadas secretas</li>
+        <li><strong>Facilidade de uso:</strong> Não requer experiência náutica prévia</li>
+        <li><strong>Transporte simples:</strong> Podem ser rebocados facilmente</li>
+        <li><strong>Custo-benefício:</strong> Menor investimento comparado a embarcações maiores</li>
+        <li><strong>Experiência única:</strong> Adrenalina pura nas águas cristalinas de Búzios</li>
+      </ul>
+
+      <h2>Jet Skis Exclusivos no Portfólio MARBANA</h2>
+      
+      <h3>Sea-Doo GTX Limited 300</h3>
+      <p>O ápice da tecnologia em jet skis. Com sistema inteligente de controle de estabilidade e acabamento premium em fibra de carbono, oferece uma experiência incomparável nas águas de Búzios.</p>
+      
+      <h3>Yamaha GP1800R SVHO</h3>
+      <p>Performance racing para os mais exigentes. Motor supercharged de 250HP que proporciona aceleration explosiva e velocidade máxima de 100 km/h.</p>
+      
+      <h3>Kawasaki Ultra 310LX</h3>
+      <p>Luxo e conforto para passeios prolongados. Assento de três lugares em couro premium e sistema de som Bluetooth integrado.</p>
+
+      <h2>Vantagens de Adquirir através da MARBANA</h2>
+      <ul>
+        <li><strong>Inspeção Rigorosa:</strong> Todos os jet skis passam por vistoria técnica completa</li>
+        <li><strong>Garantia Estendida:</strong> Cobertura adicional de 2 anos em peças e mão de obra</li>
+        <li><strong>Suporte Local:</strong> Assistência técnica especializada em Búzios</li>
+        <li><strong>Roteiros Exclusivos:</strong> Mapas das melhores rotas náuticas da região</li>
+        <li><strong>Curso de Pilotagem:</strong> Treinamento gratuito com instrutor certificado</li>
+      </ul>
+
+      <h2>Experiências Únicas em Búzios</h2>
+      <p>Com seu jet ski MARBANA, explore:</p>
+      <ul>
+        <li><strong>Praia da Tartaruga:</strong> Águas cristalinas e tartarugas marinhas</li>
+        <li><strong>Ilha Feia:</strong> Mergulho em águas profundas e snorkeling</li>
+        <li><strong>Praia Brava:</strong> Para os aventureiros que buscam ondas maiores</li>
+        <li><strong>João Fernandinho:</strong> Praia paradisíaca acessível apenas por mar</li>
+      </ul>
+
+      <h2>Cuidados e Manutenção Premium</h2>
+      <p>A MARBANA oferece programa completo de manutenção preventiva:</p>
+      <ul>
+        <li>Revisões programadas a cada 50 horas de uso</li>
+        <li>Limpeza e enceramento profissional mensal</li>
+        <li>Monitoramento remoto do sistema eletrônico</li>
+        <li>Seguro náutico com cobertura total</li>
+      </ul>
+
+      <div style="background: linear-gradient(135deg, #FF6B6B, #FF8E8E); padding: 2rem; border-radius: 1rem; margin: 2rem 0; text-align: center; color: white;">
+        <h3 style="margin-bottom: 1rem; color: white;">Sinta a Adrenalina das Águas de Búzios!</h3>
+        <p style="margin-bottom: 1.5rem; color: rgba(255,255,255,0.9);">Descubra nossa seleção exclusiva de jet skis e viva experiências aquáticas inesquecíveis com todo o suporte e qualidade MARBANA.</p>
+        <p><strong>Conheça nossos Jet Skis Exclusivos</strong></p>
+        <p>WhatsApp: (11) 94015-9202</p>
+      </div>
+    `,
+    author: "Rafael Monteiro",
+    date: "8 de Janeiro, 2024",
+    category: "Esportes Aquáticos",
+    readTime: "10 min",
+    image: "https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=800&h=400&fit=crop"
+  },
+  {
+    id: "5",
+    title: "Catamarãs de Luxo: O Futuro dos Eventos Náuticos Exclusivos",
+    slug: "catamara-luxo-eventos-nauticos-buzios",
+    excerpt: "Como os catamarãs estão redefinindo o conceito de eventos corporativos e celebrações privadas no mar, oferecendo estabilidade, espaço e sofisticação únicos.",
+    content: `
+      <h2>Catamarãs: A Escolha dos Conhecedores</h2>
+      <p>Na MARBANA, observamos uma tendência crescente entre nossos clientes mais sofisticados: a preferência por catamarãs para eventos exclusivos. Essas embarcações oferecem uma combinação única de estabilidade, espaço e elegância que as tornam ideais para celebrações memoráveis nas águas paradisíacas de Búzios.</p>
+      
+      <h2>Por que Catamarãs São Perfeitos para Eventos?</h2>
+      <ul>
+        <li><strong>Estabilidade Superior:</strong> Design de duplo casco elimina praticamente o balanço</li>
+        <li><strong>Espaços Amplos:</strong> Áreas de convivência generosas para até 50 convidados</li>
+        <li><strong>Múltiplos Ambientes:</strong> Salões internos e externos para diferentes momentos</li>
+        <li><strong>Conforto Premium:</strong> Banheiros espaçosos e áreas de descanso</li>
+        <li><strong>Segurança Máxima:</strong> Redundância de sistemas e estabilidade natural</li>
+      </ul>
+
+      <h2>Eventos Exclusivos MARBANA</h2>
+      
+      <h3>Casamentos no Mar</h3>
+      <p>Celebre o amor eterno com vista para o pôr do sol de Búzios. Nossos catamarãs oferecem o cenário perfeito para cerimônias íntimas ou recepções grandiosas, com serviço de buffet gourmet e decoração personalizada.</p>
+      
+      <h3>Eventos Corporativos</h3>
+      <p>Impressione clientes e parceiros com convenções, lançamentos de produtos ou confraternizações em alto mar. Ambiente inspirador que estimula networking e fortalece relacionamentos comerciais.</p>
+      
+      <h3>Aniversários VIP</h3>
+      <p>Celebrações exclusivas para até 50 convidados, com chef particular, sommelier dedicado e entretenimento personalizado. Uma experiência inesquecível para ocasiões especiais.</p>
+
+      <h2>Catamarãs Premium da Frota MARBANA</h2>
+      
+      <h3>Lagoon 620 "Maré de Sonhos"</h3>
+      <p>O flagship da nossa frota. 19 metros de puro luxo com 4 suítes master, salão panorâmico de 60m² e deck superior com jacuzzi. Perfeito para eventos de até 35 pessoas com pernoite.</p>
+      
+      <h3>Fountaine Pajot Astrea 42 "Vento Azul"</h3>
+      <p>Elegância francesa em cada detalhe. Design contemporâneo com amplos espaços externos e camarotes sofisticados. Ideal para grupos íntimos de até 20 pessoas.</p>
+      
+      <h3>Bali 5.4 "Brisa Tropical"</h3>
+      <p>Inovação e funcionalidade. Conceito revolucionário com salão integrado ao cockpit, criando um espaço único de 80m² no nível principal. Perfeito para eventos diurnos.</p>
+
+      <h2>Serviços Complementares MARBANA</h2>
+      <ul>
+        <li><strong>Chef Exclusivo:</strong> Gastronomia internacional com ingredientes locais frescos</li>
+        <li><strong>Sommelier Certificado:</strong> Seleção de vinhos e coquetéis artesanais</li>
+        <li><strong>Decoração Temática:</strong> Ambientação personalizada para cada ocasião</li>
+        <li><strong>Fotógrafo Profissional:</strong> Registro dos momentos especiais</li>
+        <li><strong>Sistema de Som Premium:</strong> Áudio profissional e DJ se necessário</li>
+        <li><strong>Atividades Aquáticas:</strong> Stand up paddle, snorkeling e pesca esportiva</li>
+      </ul>
+
+      <h2>Roteiros Exclusivos para Eventos</h2>
+      
+      <h3>Rota Pôr do Sol Premium</h3>
+      <p>Saída às 15h → Praia da Tartaruga → João Fernandes → Pôr do sol na Praia Brava → Retorno iluminado → Duração: 6 horas</p>
+      
+      <h3>Rota Ilha Exclusiva</h3>
+      <p>Dia completo → Ilha Feia para mergulho → Almoço na Praia da Foca → Tarde na Praia Azedinha → Duração: 8 horas</p>
+
+      <h2>Sustentabilidade e Responsabilidade</h2>
+      <p>Nossos catamarãs seguem rigorosos padrões ambientais:</p>
+      <ul>
+        <li>Sistemas de tratamento de água residual</li>
+        <li>Coleta seletiva de resíduos durante os eventos</li>
+        <li>Uso de produtos biodegradáveis</li>
+        <li>Respeito aos ecossistemas marinhos locais</li>
+      </ul>
+
+      <div style="background: linear-gradient(135deg, #667eea, #764ba2); padding: 2rem; border-radius: 1rem; margin: 2rem 0; text-align: center; color: white;">
+        <h3 style="margin-bottom: 1rem; color: white;">Realize Seu Evento dos Sonhos</h3>
+        <p style="margin-bottom: 1.5rem; color: rgba(255,255,255,0.9);">Descubra como transformar sua celebração em uma experiência náutica exclusiva e inesquecível com nossos catamarãs de luxo.</p>
+        <p><strong>Consultoria Gratuita para Eventos</strong></p>
+        <p>WhatsApp: (11) 94015-9202</p>
+      </div>
+    `,
+    author: "Isabella Ferreira",
+    date: "5 de Janeiro, 2024",
+    category: "Eventos",
+    readTime: "12 min",
+    image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800&h=400&fit=crop"
   }
-  // ... Adicionar mais posts conforme necessário
 ];
 
 // Função para buscar post por slug
