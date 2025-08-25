@@ -22,20 +22,20 @@ const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   if (!isAuthenticated) {
-    return <Navigate to="/admin/login" replace />;
+    return <Navigate to="/portal-gui" replace />;
   }
 
   const navigation = [
-    { name: 'Dashboard', href: '/admin', icon: Home },
-    { name: 'Embarcações', href: '/admin/vessels', icon: Ship },
-    { name: 'Marinheiros', href: '/admin/sailors', icon: Users },
-    { name: 'Blog', href: '/admin/blog', icon: FileText },
-    { name: 'Configurações', href: '/admin/settings', icon: Settings },
+    { name: 'Dashboard', href: '/portal-gui', icon: Home },
+    { name: 'Embarcações', href: '/portal-gui/vessels', icon: Ship },
+    { name: 'Marinheiros', href: '/portal-gui/sailors', icon: Users },
+    { name: 'Blog', href: '/portal-gui/blog', icon: FileText },
+    { name: 'Configurações', href: '/portal-gui/settings', icon: Settings },
   ];
 
   const isCurrentPath = (path: string) => {
-    if (path === '/admin') {
-      return location.pathname === '/admin';
+    if (path === '/portal-gui') {
+      return location.pathname === '/portal-gui';
     }
     return location.pathname.startsWith(path);
   };

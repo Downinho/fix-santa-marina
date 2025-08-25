@@ -72,13 +72,13 @@ const Dashboard = () => {
         </div>
         <div className="flex gap-2">
           <Button asChild>
-            <Link to="/admin/vessels/new">
+            <Link to="/portal-gui/vessels/new">
               <Plus className="mr-2 h-4 w-4" />
               Nova Embarcação
             </Link>
           </Button>
           <Button variant="outline" asChild>
-            <Link to="/admin/blog/new">
+            <Link to="/portal-gui/blog/new">
               <Plus className="mr-2 h-4 w-4" />
               Novo Artigo
             </Link>
@@ -189,19 +189,19 @@ const Dashboard = () => {
           </CardHeader>
           <CardContent className="space-y-4">
             <Button variant="outline" className="w-full justify-start" asChild>
-              <Link to="/admin/vessels">
+              <Link to="/portal-gui/vessels">
                 <Ship className="mr-2 h-4 w-4" />
                 Gerenciar Embarcações
               </Link>
             </Button>
             <Button variant="outline" className="w-full justify-start" asChild>
-              <Link to="/admin/sailors">
+              <Link to="/portal-gui/sailors">
                 <Users className="mr-2 h-4 w-4" />
                 Gerenciar Marinheiros
               </Link>
             </Button>
             <Button variant="outline" className="w-full justify-start" asChild>
-              <Link to="/admin/blog">
+              <Link to="/portal-gui/blog">
                 <FileText className="mr-2 h-4 w-4" />
                 Gerenciar Blog
               </Link>

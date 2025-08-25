@@ -141,7 +141,7 @@ const VesselsList = () => {
           </p>
         </div>
         <Button asChild>
-          <Link to="/admin/vessels/new">
+          <Link to="/portal-gui/vessels/new">
             <Plus className="mr-2 h-4 w-4" />
             Nova Embarcação
           </Link>
@@ -249,7 +249,7 @@ const VesselsList = () => {
                     </Link>
                   </Button>
                   <Button variant="outline" size="sm" asChild className="flex-1">
-                    <Link to={`/admin/vessels/${vessel.id}/edit`}>
+                    <Link to={`/portal-gui/vessels/${vessel.id}/edit`}>
                       <Edit className="mr-2 h-4 w-4" />
                       Editar
                     </Link>
@@ -281,7 +281,7 @@ const VesselsList = () => {
             </p>
             {(!searchTerm && statusFilter === 'all' && typeFilter === 'all') && (
               <Button asChild>
-                <Link to="/admin/vessels/new">
+                <Link to="/portal-gui/vessels/new">
                   <Plus className="mr-2 h-4 w-4" />
                   Nova Embarcação
                 </Link>

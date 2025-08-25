@@ -18,7 +18,7 @@ const Login = () => {
   const { login, isAuthenticated } = useAdminAuth();
 
   if (isAuthenticated) {
-    return <Navigate to="/admin" replace />;
+    return <Navigate to="/portal-gui" replace />;
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
