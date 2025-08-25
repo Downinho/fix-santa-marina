@@ -23,6 +23,15 @@ import NotFound from "./pages/NotFound";
 import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
 import TermosUso from "./pages/TermosUso";
 import Cookies from "./pages/Cookies";
+import { AdminAuthProvider } from "./hooks/useAdminAuth";
+import AdminLayout from "./layouts/AdminLayout";
+import { Login, Dashboard, VesselsList } from "./pages/admin";
+import BlogManager from "./pages/admin/BlogManager";
+import SailorsManager from "./pages/admin/SailorsManager";
+import MediaLibrary from "./pages/admin/MediaLibrary";
+import UserManager from "./pages/admin/UserManager";
+import SiteSettings from "./pages/admin/SiteSettings";
+import Analytics from "./pages/admin/Analytics";
 
 const queryClient = new QueryClient(); // Force rebuild
 
@@ -53,6 +62,19 @@ function App() {
             <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
             <Route path="/termos-uso" element={<TermosUso />} />
             <Route path="/cookies" element={<Cookies />} />
+            
+            {/* Portal Administrativo Oculto */}
+            <Route path="/portal-gui" element={
+              <AdminAuthProvider>
+                <Login />
+              </AdminAuthProvider>
+            } />
+            <Route path="/portal-gui/*" element={
+              <AdminAuthProvider>
+                <AdminLayout />
+              </AdminAuthProvider>
+            } />
+            
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
