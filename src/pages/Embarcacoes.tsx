@@ -9,6 +9,7 @@ import { Heart, MapPin, Anchor, Eye, Search, Filter, MessageCircle, Star } from 
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getVesselSlug } from "@/utils/slugify";
+import { vessels } from "@/data/vessels";
 
 const Embarcacoes = () => {
   const [searchParams] = useSearchParams();
@@ -27,215 +28,23 @@ const Embarcacoes = () => {
     if (searchFromUrl) setSearchTerm(searchFromUrl);
   }, [searchParams]);
 
-  const vessels = [
-    {
-      id: 1,
-      name: "Azimut 68",
-      type: "Iate",
-      price: "R$ 2.800.000",
-      location: "Angra dos Reis, RJ",
-      year: "2021",
-      length: "68 pés",
-      image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop",
-      featured: true,
-      description: "Iate de luxo italiano com acabamento impecável e tecnologia de ponta.",
-      comments: [
-        { user: "Roberto Silva", rating: 5, comment: "Embarcação excepcional! Acabamento perfeito e muito confortável para viagens longas." },
-        { user: "Marina Costa", rating: 5, comment: "Simplesmente magnífico. A qualidade italiana é inigualável." },
-        { user: "Carlos Eduardo", rating: 4, comment: "Muito bom, mas o preço é bem salgado. Vale o investimento para quem pode." }
-      ]
-    },
-    {
-      id: 2,
-      name: "Ferretti 720",
-      type: "Iate",
-      price: "R$ 4.200.000",
-      location: "Santos, SP",
-      year: "2022",
-      length: "72 pés",
-      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop",
-      featured: true,
-      description: "O top de linha da Ferretti, com design revolucionário e performance excepcional.",
-      comments: [
-        { user: "Ana Paula", rating: 5, comment: "O que mais me impressiona é a estabilidade e o conforto em alto mar." },
-        { user: "Marcos Vieira", rating: 5, comment: "Comprei ano passado e não me arrependo. Qualidade superior em todos os aspectos." },
-        { user: "Fernanda Lima", rating: 5, comment: "Design incrível! Recebo elogios onde quer que eu vá." }
-      ]
-    },
-    {
-      id: 3,
-      name: "Princess V50",
-      type: "Lancha",
-      price: "R$ 1.850.000",
-      location: "Guarujá, SP",
-      year: "2020",
-      length: "50 pés",
-      image: "https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?w=800&h=600&fit=crop",
-      featured: false,
-      description: "Lancha esportiva britânica com velocidade e elegância incomparáveis.",
-      comments: [
-        { user: "João Santos", rating: 4, comment: "Muito rápida e bem construída. Perfeita para passeios no fim de semana." },
-        { user: "Patricia Oliveira", rating: 5, comment: "Adoro a sensação de liberdade que ela proporciona. Recomendo!" },
-        { user: "Ricardo Moura", rating: 4, comment: "Boa opção custo-benefício no segmento premium." }
-      ]
-    },
-    {
-      id: 4,
-      name: "Sunseeker 74",
-      type: "Iate",
-      price: "R$ 3.900.000",
-      location: "Búzios, RJ",
-      year: "2021",
-      length: "74 pés",
-      image: "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?w=800&h=600&fit=crop",
-      featured: false,
-      description: "Iate britânico sinônimo de luxo e sofisticação nos mares.",
-      comments: [
-        { user: "Eduardo Mendes", rating: 5, comment: "Sunseeker é sinônimo de qualidade. Esta é uma das melhores do mercado." },
-        { user: "Carla Rodrigues", rating: 4, comment: "Muito elegante e confortável. Os espaços internos são bem aproveitados." },
-        { user: "Thiago Alves", rating: 5, comment: "Perfeita para receber amigos e família. Todos ficam impressionados." }
-      ]
-    },
-    {
-      id: 5,
-      name: "Sea Ray 350",
-      type: "Jet Ski",
-      price: "R$ 450.000",
-      location: "Búzios, RJ",
-      year: "2023",
-      length: "12 pés",
-      image: "https://images.unsplash.com/photo-1594736797933-d0ce2769226d?w=800&h=600&fit=crop",
-      featured: false,
-      description: "Jet ski de alta performance para os amantes de adrenalina e velocidade.",
-      comments: [
-        { user: "André Silva", rating: 5, comment: "Potência incrível! Perfeito para quem gosta de emoção forte." },
-        { user: "Juliana Santos", rating: 4, comment: "Muito divertido, mas exige experiência para manusear com segurança." },
-        { user: "Felipe Costa", rating: 5, comment: "Comprei para a família toda se divertir. Vale cada centavo!" }
-      ]
-    },
-    {
-      id: 6,
-      name: "Lagoon 42",
-      type: "Catamarã",
-      price: "R$ 2.100.000",
-      location: "Angra dos Reis, RJ",
-      year: "2021",
-      length: "42 pés",
-      image: "https://images.unsplash.com/photo-1571845535817-fa5050a4b7ce?w=800&h=600&fit=crop",
-      featured: false,
-      description: "Catamarã francês ideal para navegação oceânica e vida a bordo.",
-      comments: [
-        { user: "Lucas Martins", rating: 5, comment: "Estabilidade excepcional. Ideal para viagens longas com a família." },
-        { user: "Renata Souza", rating: 4, comment: "Muito espaçoso e confortável. Os camarotes são bem ventilados." },
-        { user: "Diego Ferreira", rating: 5, comment: "Sonho realizado! Agora posso velejar pelos mares brasileiros." }
-      ]
-    },
-    {
-      id: 7,
-      name: "Boston Whaler 285",
-      type: "Lancha",
-      price: "R$ 890.000",
-      location: "Rio de Janeiro, RJ",
-      year: "2022",
-      length: "28 pés",
-      image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop",
-      featured: false,
-      description: "Lancha americana conhecida pela sua robustez e segurança incomparáveis.",
-      comments: [
-        { user: "Gabriel Lima", rating: 4, comment: "Muito segura e confiável. Perfeita para pescarias e passeios familiares." },
-        { user: "Melissa Rocha", rating: 5, comment: "A qualidade de construção é impressionante. Recomendo para iniciantes." },
-        { user: "Paulo Henrique", rating: 4, comment: "Boa relação custo-benefício. Manutenção simples e peças fáceis de encontrar." }
-      ]
-    },
-    {
-      id: 8,
-      name: "Pershing 82",
-      type: "Iate",
-      price: "R$ 8.500.000",
-      location: "Santos, SP",
-      year: "2023",
-      length: "82 pés",
-      image: "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?w=800&h=600&fit=crop",
-      featured: true,
-      description: "O ápice do luxo e performance em um iate italiano de design arrojado.",
-      comments: [
-        { user: "Rodrigo Barbosa", rating: 5, comment: "Simplesmente perfeito! Design futurista e performance de supercar." },
-        { user: "Vanessa Montenegro", rating: 5, comment: "O mais incrível que já naveguei. Cada detalhe é uma obra de arte." },
-        { user: "Márcio Antunes", rating: 5, comment: "Vale cada centavo. É ter um pedaço da Ferrari nos mares." }
-      ]
-    },
-    {
-      id: 9,
-      name: "Axopar 37",
-      type: "Lancha",
-      price: "R$ 1.200.000",
-      location: "Florianópolis, SC",
-      year: "2022",
-      length: "37 pés",
-      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop",
-      featured: false,
-      description: "Lancha finlandesa com design único e versatilidade excepcional.",
-      comments: [
-        { user: "Leonardo Dias", rating: 4, comment: "Design muito diferenciado. Chama atenção por onde passa." },
-        { user: "Camila Torres", rating: 5, comment: "Muito prática e funcional. Adoro os espaços modulares." },
-        { user: "Gustavo Reis", rating: 4, comment: "Inovadora em muitos aspectos. Qualidade nórdica é referência." }
-      ]
-    },
-    {
-      id: 10,
-      name: "Kawasaki Ultra 310X",
-      type: "Jet Ski",
-      price: "R$ 85.000",
-      location: "Cabo Frio, RJ",
-      year: "2023",
-      length: "11 pés",
-      image: "https://images.unsplash.com/photo-1594736797933-d0ce2769226d?w=800&h=600&fit=crop",
-      featured: false,
-      description: "Jet ski de alta performance com tecnologia supercharged para máxima diversão.",
-      comments: [
-        { user: "Bruno Machado", rating: 5, comment: "Acelera que é uma beleza! Diversão garantida nos fins de semana." },
-        { user: "Larissa Campos", rating: 4, comment: "Muito potente, mas também muito econômico. Ótima escolha." },
-        { user: "Daniel Moreira", rating: 5, comment: "A Kawasaki não decepciona. Qualidade japonesa comprovada." }
-      ]
-    },
-    {
-      id: 11,
-      name: "Jeanneau 54",
-      type: "Veleiro",
-      price: "R$ 1.800.000",
-      location: "Salvador, BA",
-      year: "2021",
-      length: "54 pés",
-      image: "https://images.unsplash.com/photo-1571845535817-fa5050a4b7ce?w=800&h=600&fit=crop",
-      featured: false,
-      description: "Veleiro francês elegante, perfeito para cruzeiros oceânicos com conforto.",
-      comments: [
-        { user: "Marina Bezerra", rating: 5, comment: "Velejo há 20 anos e este é o melhor que já tive. Comportamento no mar excepcional." },
-        { user: "Henrique Nunes", rating: 4, comment: "Muito bem construído. Os franceses sabem fazer veleiros." },
-        { user: "Isabel Santos", rating: 5, comment: "Realizando o sonho de dar a volta ao mundo. Confiança total nesta embarcação." }
-      ]
-    },
-    {
-      id: 12,
-      name: "Cigarette 59 Tirranna",
-      type: "Lancha",
-      price: "R$ 3.200.000",
-      location: "Angra dos Reis, RJ",
-      year: "2022",
-      length: "59 pés",
-      image: "https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?w=800&h=600&fit=crop",
-      featured: true,
-      description: "Lancha americana de altíssima performance, símbolo de velocidade e adrenalina.",
-      comments: [
-        { user: "Alexandre Cruz", rating: 5, comment: "Para quem gosta de velocidade, não existe melhor opção. Pura adrenalina!" },
-        { user: "Tatiana Lopes", rating: 4, comment: "Impressionante a estabilidade mesmo em alta velocidade. Engenharia de primeira." },
-        { user: "Rafael Oliveira", rating: 5, comment: "Cigarette é lenda! Esta é uma das mais belas que já vi." }
-      ]
-    }
-  ];
+  // Convertendo os dados do vessels.ts para formato compatível com a página
+  const vesselsList = vessels.map(vessel => ({
+    id: parseInt(vessel.id),
+    name: vessel.name,
+    type: vessel.type,
+    price: `R$ ${(vessel.price / 100).toLocaleString('pt-BR')}`,
+    location: vessel.location,
+    year: vessel.year.toString(),
+    length: vessel.length,
+    image: vessel.images[0],
+    featured: vessel.featured || false,
+    description: vessel.description,
+    comments: [] // Sem comentários por enquanto
+  }));
 
   const filteredVessels = useMemo(() => {
-    return vessels.filter(vessel => {
+    return vesselsList.filter(vessel => {
       const matchesSearch = vessel.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            vessel.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            vessel.description.toLowerCase().includes(searchTerm.toLowerCase());
