@@ -1,5 +1,5 @@
 // API Client for MARBANA MySQL Backend
-const API_BASE_URL = 'https://marbanabd.mysql.dbaas.com.br/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://marbanabd.mysql.dbaas.com.br/api';
 
 interface ApiResponse<T> {
   success: boolean;
@@ -46,10 +46,14 @@ class ApiClient {
 
   // Auth methods
   async login(email: string, password: string) {
+    console.log('🔐 Tentando login com:', { email, apiUrl: this.baseURL });
+    
     const response = await this.request<{ token: string; user: any }>('/auth/login', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
     });
+
+    console.log('📡 Resposta do login:', response);
 
     if (response.success && response.data?.token) {
       this.token = response.data.token;

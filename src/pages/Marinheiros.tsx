@@ -13,7 +13,7 @@ const Marinheiros = () => {
   const [priceRange, setPriceRange] = useState('');
   const [experience, setExperience] = useState('');
 
-  // Mock skippers data - in real app, this would come from Supabase
+  // Mock skippers data - in real app, this would come from database
   const skippers = [
     {
       id: '1',

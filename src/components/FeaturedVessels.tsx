@@ -111,25 +111,25 @@ const FeaturedVessels = () => {
               
               <CardContent className="p-6">
                 <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="font-display text-2xl font-semibold text-primary mb-2">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-display text-2xl font-semibold text-primary mb-2 truncate">
                       {vessel.name}
                     </h3>
                     <div className="flex items-center text-muted-foreground font-body mb-2">
-                      <MapPin className="w-4 h-4 mr-1" />
-                      {vessel.location}
+                      <MapPin className="w-4 h-4 mr-1 shrink-0" />
+                      <span className="truncate">{vessel.location}</span>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="font-display text-2xl font-bold text-primary">
+                  <div className="text-right ml-4 shrink-0">
+                    <div className="font-display text-xl md:text-2xl font-bold text-primary">
                       {vessel.price}
                     </div>
                   </div>
                 </div>
                 
-                <div className="flex justify-between items-center mb-4 text-sm text-muted-foreground font-body">
-                  <span>Ano: {vessel.year}</span>
-                  <span className="flex items-center">
+                <div className="flex justify-between items-center mb-4 text-sm text-muted-foreground font-body gap-4">
+                  <span className="whitespace-nowrap">Ano: {vessel.year}</span>
+                  <span className="flex items-center shrink-0">
                     <Anchor className="w-4 h-4 mr-1" />
                     {vessel.length}
                   </span>

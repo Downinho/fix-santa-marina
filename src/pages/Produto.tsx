@@ -16,7 +16,7 @@ const Produto = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
 
-  // Mock product data - in real app, this would come from Supabase
+  // Mock product data - in real app, this would come from database
   const product = {
     id: '1',
     name: 'Âncora Premium Inox 15kg',
