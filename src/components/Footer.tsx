@@ -1,4 +1,5 @@
 import { Anchor, Facebook, Instagram, Youtube, Linkedin, Mail, Phone, MapPin } from "lucide-react";
+import MarbanaLogo from "@/components/ui/MarbanaLogo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -11,13 +12,11 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-2 mb-6">
-              <div className="w-12 h-12 bg-gradient-gold rounded-lg flex items-center justify-center">
-                <Anchor className="w-6 h-6 text-accent-gold-foreground" />
-              </div>
               <div>
                 <h3 className="font-display font-bold text-2xl">MARBANA</h3>
                 <p className="text-sm text-primary-foreground/70 font-body">Premium Maritime</p>
               </div>
+              <MarbanaLogo variant="footer" />
             </div>
             <p className="text-primary-foreground/80 font-body leading-relaxed mb-6">
               O marketplace premium para barcos e iates. 

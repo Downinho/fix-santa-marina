@@ -17,8 +17,8 @@ const Hero = () => {
         <div className="max-w-4xl">
           <div className="mb-8">
             <h1 className="font-display text-5xl md:text-7xl font-bold text-primary-foreground mb-6 leading-tight">
-              Mercado Livre<br />
-              <span className="text-accent-gold">dos Mares</span><br />
+              Maior Ecossistema<br />
+              <span className="text-accent-gold">Náutico do Brasil</span><br />
               MARBANA
             </h1>
             <p className="font-body text-xl text-primary-foreground/90 max-w-2xl leading-relaxed">

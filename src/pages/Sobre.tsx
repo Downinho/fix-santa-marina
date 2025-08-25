@@ -69,7 +69,7 @@ const Sobre = () => {
                   </p>
                   <p>
                     O que começou como uma pequena corretora especializada em iates, hoje é 
-                    reconhecida como o "Mercado Livre dos Mares" - uma plataforma que combina 
+                    reconhecida como o "Maior Ecossistema Náutico do Brasil" - uma plataforma que combina 
                     tradição náutica com inovação tecnológica.
                   </p>
                   <p>

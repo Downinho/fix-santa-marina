@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Search, ChevronDown, MapPin } from "lucide-react";
+import MarbanaLogo from "@/components/ui/MarbanaLogo";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
@@ -33,9 +34,7 @@ const Header = () => {
   ];
 
   const searchTypes = [
-    "Lancha", "Iate", "Jet Ski", "Catamarã", "Veleiro", "Caiaque",
-    "Marinheiro", "Capitão", "Skipper", "Fotógrafo", "Marina", 
-    "Acessórios", "GPS", "Âncora", "Colete"
+    "Lancha", "Iate", "Jet Ski", "Catamarã", "Veleiro", "Caiaque"
   ];
 
   const isActive = (href: string) => location.pathname === href;
@@ -66,11 +65,12 @@ const Header = () => {
               </button>
 
               {/* Logo */}
-              <Link to="/" className="-m-1.5 p-1.5">
-                <span className="sr-only">MARBANA</span>
-                <h1 className="font-display text-2xl font-bold bg-gradient-hero bg-clip-text text-transparent">
-                  MARBANA
-                </h1>
+              <Link to="/" className="flex items-center space-x-3 group">
+                <div className="hidden sm:block">
+                  <h1 className="font-display font-bold text-2xl text-primary">MARBANA</h1>
+                  <p className="text-xs text-muted-foreground font-body -mt-1">Premium Maritime</p>
+                </div>
+                <MarbanaLogo variant="header" className="group-hover:scale-105 transition-transform" />
               </Link>
             </div>
 
@@ -80,12 +80,12 @@ const Header = () => {
                 {/* Search Term */}
                 <div className="px-6 py-2 flex-1 min-w-[250px]">
                   <Input
-                    placeholder="Buscar embarcações, marinheiros, fotógrafos..."
+                    placeholder="Buscar embarcações..."
                     className="border-0 shadow-none h-auto p-0 font-semibold text-sm placeholder:text-gray-400"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
-                  <p className="text-xs text-gray-500 mt-0.5">O que você procura?</p>
+                  <p className="text-xs text-gray-500 mt-0.5">Qual embarcação procura?</p>
                 </div>
 
                 {/* Type */}
@@ -173,7 +173,7 @@ const Header = () => {
           <div className="lg:hidden border-t border-gray-200 bg-white p-4">
             <div className="space-y-4">
               <Input 
-                placeholder="Buscar embarcações, marinheiros, fotógrafos..." 
+                placeholder="Buscar embarcações..." 
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />

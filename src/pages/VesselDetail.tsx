@@ -40,7 +40,8 @@ const VesselDetail = () => {
   // Mock vessel data - Focker 272 in Búzios
   const vessel = {
     id: '1',
-    name: 'Focker 272 - Luxury Experience',
+    name: 'Maré Alta', // Nome de batismo da embarcação
+    model: 'Focker 272', // Modelo da embarcação
     slug: 'focker-272-buzios',
     type: 'Lancha Esportiva',
     year: 2023,
@@ -162,11 +163,11 @@ const VesselDetail = () => {
             scrolling="no"
             marginheight="0"
             marginwidth="0"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-41.8916,-22.7625,-41.8516,-22.7225&layer=mapnik&marker=-22.7425,-41.8716"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-41.89607620239258%2C-22.759673604347993%2C-41.87607574462891%2C-22.739673604347993&amp;layer=mapnik&amp;marker=-22.7496736%2C-41.886076"
             style="border: 1px solid #ccc; border-radius: 8px;"
           ></iframe>
           <div style="margin-top: 8px; font-size: 12px; color: #666;">
-            <a href="https://www.openstreetmap.org/?mlat=-22.7425&mlon=-41.8716#map=15/-22.7425/-41.8716" target="_blank" style="color: #0066cc;">
+            <a href="https://www.openstreetmap.org/?mlat=-22.7496736&mlon=-41.886076#map=15/-22.7496736/-41.886076" target="_blank" style="color: #0066cc;">
               Ver mapa maior
             </a>
           </div>
@@ -329,9 +330,12 @@ const VesselDetail = () => {
                     </Badge>
                   </div>
                   
-                  <h1 className="font-display text-4xl font-bold text-primary mb-4">
+                  <h1 className="font-display text-4xl font-bold text-primary mb-2">
                     {vessel.name}
                   </h1>
+                  <h2 className="font-display text-2xl font-medium text-accent-gold mb-4">
+                    {vessel.model}
+                  </h2>
                   
                   <div className="flex items-center text-muted-foreground font-body mb-6">
                     <MapPin className="w-4 h-4 mr-1" />

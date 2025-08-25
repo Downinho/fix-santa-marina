@@ -53,7 +53,7 @@ export function determineSearchCategory(searchTerm: string): keyof SearchCategor
 }
 
 export function getSearchRoute(searchTerm: string, selectedType?: string, selectedLocation?: string): string {
-  const category = determineSearchCategory(searchTerm);
+  // Always route to embarcacoes - simplified search
   const searchParams = new URLSearchParams();
   
   if (searchTerm) searchParams.set('search', searchTerm);
@@ -61,7 +61,7 @@ export function getSearchRoute(searchTerm: string, selectedType?: string, select
   if (selectedLocation) searchParams.set('location', selectedLocation);
   
   const queryString = searchParams.toString();
-  const baseRoute = `/${category}`;
+  const baseRoute = '/embarcacoes';
   
   return queryString ? `${baseRoute}?${queryString}` : baseRoute;
 }
