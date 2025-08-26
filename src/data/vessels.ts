@@ -44,7 +44,7 @@ export const vessels: Vessel[] = [
     type: "Lancha",
     year: 2023,
     length: "8.2m",
-    price: 52000000, // R$ 520.000,00
+    price: 75000000, // R$ 750.000,00
     location: "Armação dos Búzios, RJ",
     coordinates: { lat: -22.7496736, lng: -41.886076 },
     description: "Embarcação premium em estado impecável com apenas 85h de uso. Motorização Mercruiser 6.2 350 HP do ano 2023. Capacidade para 10 + 1 pessoas. Design exclusivo e acabamentos de luxo. Uma verdadeira joia náutica nas águas cristalinas de Búzios.",

@@ -179,9 +179,11 @@ const handleSearch = () => {
                         variant="outline" 
                         className="bg-background/90 backdrop-blur-sm border-background/20"
                         aria-label="Ver detalhes"
-                        onClick={() => window.location.href = `/embarcacao/${getVesselSlug(vessel)}`}
+                        asChild
                       >
-                        <Eye className="w-4 h-4" aria-hidden="true" />
+                        <Link to={`/embarcacao/${getVesselSlug(vessel)}`}>
+                          <Eye className="w-4 h-4" aria-hidden="true" />
+                        </Link>
                       </Button>
                     </div>
                     
@@ -256,9 +258,11 @@ const handleSearch = () => {
                     
                     <Button 
                       className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body"
-                      onClick={() => window.location.href = `/embarcacao/${getVesselSlug(vessel)}`}
+                      asChild
                     >
-                      Ver Detalhes
+                      <Link to={`/embarcacao/${getVesselSlug(vessel)}`}>
+                        Ver Detalhes
+                      </Link>
                     </Button>
                   </CardContent>
                 </Card>

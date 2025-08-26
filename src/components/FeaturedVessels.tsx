@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,11 +11,12 @@ const FeaturedVessels = () => {
     id: vessel.id,
     name: vessel.name,
     type: vessel.type,
-    price: `R$ ${vessel.price.toLocaleString('pt-BR')}`,
+    price: `R$ ${(vessel.price / 100).toLocaleString('pt-BR')}`,
     location: vessel.location,
     year: vessel.year.toString(),
     length: vessel.length,
     image: vessel.images[0],
+    slug: vessel.slug,
     featured: true
   }));
 
@@ -102,9 +104,10 @@ const FeaturedVessels = () => {
                   </span>
                 </div>
                 
-                <Button className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body"
-                        onClick={() => window.location.href = `/embarcacao/${vessel.id}`}>
-                  Ver Detalhes
+                <Button className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body" asChild>
+                  <Link to={`/embarcacao/${vessel.slug}`}>
+                    Ver Detalhes
+                  </Link>
                 </Button>
               </CardContent>
             </Card>
@@ -116,9 +119,9 @@ const FeaturedVessels = () => {
             variant="outline" 
             size="lg" 
             className="font-body font-medium min-w-[200px]"
-            onClick={() => window.location.href = '/embarcacoes'}
+            asChild
           >
-            Ver Todas as Embarcações
+            <Link to="/embarcacoes">Ver Todas as Embarcações</Link>
           </Button>
         </div>
       </div>

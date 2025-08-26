@@ -145,10 +145,13 @@ const Marinheiros = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col md:flex-row gap-6 justify-center max-w-2xl mx-auto">
                 <Button 
                   size="lg" 
                   className="bg-gradient-hero hover:opacity-90 text-primary-foreground font-body font-medium"
+                  onClick={() => {
+                    const message = "Olá! Gostaria de ser notificado sobre o lançamento da plataforma de Marinheiros Profissionais MARBANA.";
+                    window.open(`https://wa.me/5511940159202?text=${encodeURIComponent(message)}`, '_blank');
+                  }}
                 >
                   <Mail className="w-5 h-5 mr-2" />
                   Notificar-me do Lançamento
@@ -157,11 +160,14 @@ const Marinheiros = () => {
                   size="lg" 
                   variant="outline" 
                   className="font-body"
+                  onClick={() => {
+                    const message = "Olá! Tenho interesse em me cadastrar como Marinheiro Profissional na plataforma MARBANA.";
+                    window.open(`https://wa.me/5511940159202?text=${encodeURIComponent(message)}`, '_blank');
+                  }}
                 >
                   <User className="w-5 h-5 mr-2" />
                   Quero ser Marinheiro MARBANA
                 </Button>
-              </div>
             </div>
           </div>
         </section>
