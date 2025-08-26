@@ -45,7 +45,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/embarcacoes" element={<Embarcacoes />} />
-            <Route path="/embarcacao/:id" element={<VesselDetail />} />
+            <Route path="/embarcacao/:slug" element={<VesselDetail />} />
             <Route path="/acessorios" element={<Acessorios />} />
             <Route path="/servicos" element={<Servicos />} />
             <Route path="/blog" element={<Blog />} />
@@ -54,8 +54,7 @@ function App() {
             <Route path="/contato" element={<Contato />} />
             <Route path="/anuncie" element={<Anuncie />} />
             <Route path="/perfil" element={<Perfil />} />
-        <Route path="/produto/:slug" element={<Produto />} />
-        <Route path="/embarcacao/:slug" element={<VesselDetail />} />
+            <Route path="/produto/:slug" element={<Produto />} />
             <Route path="/marinheiros" element={<Marinheiros />} />
             <Route path="/marinheiro/:id" element={<MarinheirosDetail />} />
             <Route path="/acessorio/:id" element={<AcessoriosDetail />} />
