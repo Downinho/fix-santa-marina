@@ -1,7 +1,6 @@
 
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SkipToContent from "@/components/SkipToContent";
 import Index from "./pages/Index";
@@ -23,62 +22,37 @@ import NotFound from "./pages/NotFound";
 import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
 import TermosUso from "./pages/TermosUso";
 import Cookies from "./pages/Cookies";
-import { AdminAuthProvider } from "./hooks/useAdminAuth";
-import AdminLayout from "./layouts/AdminLayout";
-import { Login, Dashboard, VesselsList } from "./pages/admin";
-import BlogManager from "./pages/admin/BlogManager";
-import SailorsManager from "./pages/admin/SailorsManager";
-import MediaLibrary from "./pages/admin/MediaLibrary";
-import UserManager from "./pages/admin/UserManager";
-import SiteSettings from "./pages/admin/SiteSettings";
-import Analytics from "./pages/admin/Analytics";
-
-const queryClient = new QueryClient(); // Force rebuild
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <BrowserRouter>
-          <SkipToContent />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/embarcacoes" element={<Embarcacoes />} />
-            <Route path="/embarcacao/:slug" element={<VesselDetail />} />
-            <Route path="/acessorios" element={<Acessorios />} />
-            <Route path="/servicos" element={<Servicos />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/sobre" element={<Sobre />} />
-            <Route path="/contato" element={<Contato />} />
-            <Route path="/anuncie" element={<Anuncie />} />
-            <Route path="/perfil" element={<Perfil />} />
-            <Route path="/produto/:slug" element={<Produto />} />
-            <Route path="/marinheiros" element={<Marinheiros />} />
-            <Route path="/marinheiro/:id" element={<MarinheirosDetail />} />
-            <Route path="/acessorio/:id" element={<AcessoriosDetail />} />
-            <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
-            <Route path="/termos-uso" element={<TermosUso />} />
-            <Route path="/cookies" element={<Cookies />} />
-            
-            {/* Portal Administrativo Oculto */}
-            <Route path="/portal-gui" element={
-              <AdminAuthProvider>
-                <Login />
-              </AdminAuthProvider>
-            } />
-            <Route path="/portal-gui/*" element={
-              <AdminAuthProvider>
-                <AdminLayout />
-              </AdminAuthProvider>
-            } />
-            
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <TooltipProvider>
+      <Toaster />
+      <BrowserRouter>
+        <SkipToContent />
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/embarcacoes" element={<Embarcacoes />} />
+          <Route path="/embarcacao/:slug" element={<VesselDetail />} />
+          <Route path="/acessorios" element={<Acessorios />} />
+          <Route path="/servicos" element={<Servicos />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/sobre" element={<Sobre />} />
+          <Route path="/contato" element={<Contato />} />
+          <Route path="/anuncie" element={<Anuncie />} />
+          <Route path="/perfil" element={<Perfil />} />
+          <Route path="/produto/:slug" element={<Produto />} />
+          <Route path="/marinheiros" element={<Marinheiros />} />
+          <Route path="/marinheiro/:id" element={<MarinheirosDetail />} />
+          <Route path="/acessorio/:id" element={<AcessoriosDetail />} />
+          <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
+          <Route path="/termos-uso" element={<TermosUso />} />
+          <Route path="/cookies" element={<Cookies />} />
+          
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </TooltipProvider>
   );
 }
 
