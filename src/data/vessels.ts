@@ -39,32 +39,41 @@ export const vessels: Vessel[] = [
   {
     id: "1",
     name: "Infinity XIX",
-    model: "Focker 272",
+    model: "Focker 272 GTC",
     slug: "infinity-xix-focker-272-1",
     type: "Lancha",
-    year: 2023,
+    year: 2019,
     length: "8.2m",
     price: 42500000, // R$ 425.000,00
     location: "Armação dos Búzios, RJ",
     coordinates: { lat: -22.7496736, lng: -41.886076 },
     description: "Embarcação premium em estado impecável com apenas 85h de uso. Motorização Mercruiser 6.2 350 HP do ano 2023. Capacidade para 10 + 1 pessoas. Design exclusivo e acabamentos de luxo. Uma verdadeira joia náutica nas águas cristalinas de Búzios.",
     images: [
-      "/api/placeholder/800/600",
-      "/api/placeholder/800/600", 
-      "/api/placeholder/800/600",
-      "/api/placeholder/800/600",
-      "/api/placeholder/800/600"
+      "/BARCOS-IMAGENS/INFINITY07.jpg",
+      "/BARCOS-IMAGENS/INFINITY01.jpg",
+      "/BARCOS-IMAGENS/INFINITY02.jpg",
+      "/BARCOS-IMAGENS/INFINITY03.jpg",
+      "/BARCOS-IMAGENS/INFINITY04.jpg",
+      "/BARCOS-IMAGENS/INFINITY05.jpg",
+      "/BARCOS-IMAGENS/INFINITY06.jpg",
+      "/BARCOS-IMAGENS/INFINITY08.jpg",
+      "/BARCOS-IMAGENS/INFINITY09.jpg",
+      "/BARCOS-IMAGENS/INFINITY10.jpg",
+      "/BARCOS-IMAGENS/INFINITY11.jpg",
+      "/BARCOS-IMAGENS/INFINITY12.jpg",
+      "/BARCOS-IMAGENS/INFINITY13.jpg",
+    
     ],
     videos: [
       {
-        title: "Tour Virtual Infinity XIX",
-        thumbnail: "/api/placeholder/400/300",
-        url: "/videos/infinity-xix-tour.mp4"
+        title: "VÍDEO FRIBRAFORT - FOCKER 272 GTC",
+        thumbnail: "/BARCOS-IMAGENS/thumbinfinity.png",
+        url: "https://www.youtube.com/watch?v=Hbk7-sZGfmg"
       },
       {
-        title: "Performance em Ação",
-        thumbnail: "/api/placeholder/400/300", 
-        url: "/videos/infinity-xix-performance.mp4"
+        title: "VÍDEO BOMBARCO Focker 272 GTC - Edição especial Black Edition no Raio-X Bombarco",
+        thumbnail: "/BARCOS-IMAGENS/bombarco.png", 
+        url: "https://www.youtube.com/watch?v=PhsxFX80ey0&pp=ygULRm9ja2VyIDI3MiA%3D"
       }
     ],
     owner: {
@@ -75,10 +84,10 @@ export const vessels: Vessel[] = [
     },
     specifications: [
       { label: "Modelo", value: "Focker 272" },
-      { label: "Ano Casco", value: "2023" },
+      { label: "Ano Casco", value: "2019" },
       { label: "Motorização", value: "Mercruiser 6.2 350 HP" },
-      { label: "Ano Motor", value: "2023" },
-      { label: "Horas de uso", value: "85h (baixíssimas)" },
+      { label: "Ano Motor", value: "2019" },
+      { label: "Horas de uso", value: "165h (baixíssimas)" },
       { label: "Capacidade", value: "10 + 1 pessoas" },
       { label: "Tanque água doce", value: "65L" },
       { label: "Tanque combustível", value: "280L" },
@@ -89,7 +98,7 @@ export const vessels: Vessel[] = [
     ],
     amenities: [
       "Toalete Premium com descarga elétrica",
-      "Sistema de som JL Audio com subwoofer",
+      "Sistema de som JBL Audio com subwoofer",
       "Sonda GPS/Chartplotter Garmin 12 polegadas",
       "VHF Marítimo com DSC",
       "Piso em EVA antiderrapante premium",
@@ -106,14 +115,12 @@ export const vessels: Vessel[] = [
       "Geladeira elétrica 12V/220V",
       "Inversor de energia 2000W",
       "Carregador de bateria inteligente",
-      "Chuveiro de popa com água quente",
-      "Toldo elétrico retrátil"
     ],
     highlights: [
       {
         icon: "CheckCircle",
         title: "Estado Impecável",
-        description: "Apenas 85h de uso, manutenção rigorosa em dia"
+        description: "Apenas 165h de uso, manutenção rigorosa em dia"
       },
       {
         icon: "Award",
@@ -129,7 +136,12 @@ export const vessels: Vessel[] = [
         icon: "Shield",
         title: "Equipamentos Completos",
         description: "Todos os opcionais de fábrica inclusos"
-      }
+      },
+      {
+        icon: "CheckCircle",
+        title: "Aceita Troca",
+        description: "Aceita Troca em Terrenos em Búzios ou Carros de Valores Menores"
+      },
     ],
     featured: true
   }
