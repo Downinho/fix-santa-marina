@@ -337,7 +337,7 @@ const VesselDetail = () => {
                       {vessel.videos.map((video, index) => {
                         const youtubeId = extractYouTubeId(video.url);
                         const thumbnailUrl = youtubeId 
-                          ? `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`
+                          ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`
                           : video.thumbnail;
                         
                         return (
@@ -353,7 +353,14 @@ const VesselDetail = () => {
                                   alt={video.title}
                                   className="w-full h-full object-cover"
                                   onError={(e) => {
-                                    e.currentTarget.src = video.thumbnail;
+                                    const target = e.currentTarget;
+                                    if (youtubeId && target.src.includes('hqdefault')) {
+                                      target.src = `https://img.youtube.com/vi/${youtubeId}/mqdefault.jpg`;
+                                    } else if (youtubeId && target.src.includes('mqdefault')) {
+                                      target.src = `https://img.youtube.com/vi/${youtubeId}/default.jpg`;
+                                    } else {
+                                      target.src = video.thumbnail;
+                                    }
                                   }}
                                 />
                               </div>
