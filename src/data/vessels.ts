@@ -39,8 +39,8 @@ export const vessels: Vessel[] = [
   {
     id: "1",
     name: "Infinity XIX",
-    model: "Foker 272",
-    slug: "infinity-xix-foker-272-1",
+    model: "Focker 272",
+    slug: "infinity-xix-focker-272-1",
     type: "Lancha",
     year: 2023,
     length: "8.2m",
@@ -74,7 +74,7 @@ export const vessels: Vessel[] = [
       responseTime: "Responde em até 30 minutos"
     },
     specifications: [
-      { label: "Modelo", value: "Foker 272" },
+      { label: "Modelo", value: "Focker 272" },
       { label: "Ano Casco", value: "2023" },
       { label: "Motorização", value: "Mercruiser 6.2 350 HP" },
       { label: "Ano Motor", value: "2023" },

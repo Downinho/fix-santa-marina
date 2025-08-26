@@ -15,12 +15,12 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     id: "1",
-    title: "Foker 272 Infinity XIX: A Joia Náutica de Búzios",
-    slug: "foker-272-infinity-xix-joia-nautica-buzios",
-    excerpt: "Conheça a embarcação mais exclusiva do nosso portfólio: a Foker 272 Infinity XIX, com apenas 85h de uso e localizada no paraíso de Búzios.",
+    title: "Focker 272 Infinity XIX: A Joia Náutica de Búzios",
+    slug: "focker-272-infinity-xix-joia-nautica-buzios",
+    excerpt: "Conheça a embarcação mais exclusiva do nosso portfólio: a Focker 272 Infinity XIX, com apenas 85h de uso e localizada no paraíso de Búzios.",
     content: `
       <h2>A Estrela da Frota MARBANA</h2>
-      <p>A Foker 272 Infinity XIX representa o que há de mais refinado na navegação de lazer. Localizada nas águas cristalinas de Búzios, esta embarcação de 2023 com apenas 85h de uso é uma verdadeira obra de arte náutica.</p>
+      <p>A Focker 272 Infinity XIX representa o que há de mais refinado na navegação de lazer. Localizada nas águas cristalinas de Búzios, esta embarcação de 2023 com apenas 85h de uso é uma verdadeira obra de arte náutica.</p>
       
       <h2>Especificações Técnicas de Elite</h2>
       <p>Com motorização Mercruiser 6.2 de 350HP, a Infinity XIX oferece performance excepcional:</p>
