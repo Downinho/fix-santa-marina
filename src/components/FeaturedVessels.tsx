@@ -9,11 +9,11 @@ const FeaturedVessels = () => {
   const displayVessels = vessels.map(vessel => ({
     id: vessel.id,
     name: vessel.name,
-    type: vessel.specifications.type,
+    type: vessel.type,
     price: `R$ ${vessel.price.toLocaleString('pt-BR')}`,
-    location: vessel.owner.location,
-    year: vessel.specifications.year.toString(),
-    length: `${vessel.specifications.length} pés`,
+    location: vessel.location,
+    year: vessel.year.toString(),
+    length: vessel.length,
     image: vessel.images[0],
     featured: true
   }));
