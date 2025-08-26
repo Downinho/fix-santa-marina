@@ -24,75 +24,112 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
-   {
-  id: "1",
-  title: "Focker 272 GTC: Conforto e Performance em Búzios",
-  slug: "focker-272-gtc-conforto-performance-buzios",
-  excerpt: "Conheça a Focker 272 GTC, uma embarcação versátil e completa, com apenas 170h de uso e equipamentos de alta qualidade.",
-  content: `
-    <h2>Detalhes da Embarcação</h2>
-    <p>A <strong>Focker 272 GTC</strong> combina desempenho, conforto e segurança. Com casco de 2019, motor Mercruiser 6.2 300 HP de 2019 e apenas 170 horas de uso, esta embarcação é perfeita para passeios em Búzios com familiares e amigos.</p>
-    
-    <h2>Especificações Técnicas</h2>
-    <ul>
-      <li><strong>Capacidade:</strong> 9 + 1 pessoas</li>
-      <li><strong>Tanque de água doce:</strong> 55L</li>
-      <li><strong>Tanque de combustível:</strong> 240L</li>
-      <li><strong>Combustível:</strong> Gasolina</li>
-    </ul>
-    
-    <h2>Equipamentos e Conforto</h2>
-    <ul>
-      <li>✅ Toalete</li>
-      <li>✅ Sistema de som JBL</li>
-      <li>✅ Sonda potente</li>
-      <li>✅ VHF</li>
-      <li>✅ Piso em EVA antiderrapante</li>
-      <li>✅ Acabamento do costado em PVC e inox</li>
-      <li>✅ Luz de cortesia</li>
-      <li>✅ Luz de navegação em LED</li>
-      <li>✅ Guincho elétrico</li>
-      <li>✅ Para-brisa frontal de alumínio com laterais em fibra</li>
-      <li>✅ Plataforma de popa estendida</li>
-      <li>✅ Vigias laterais</li>
-      <li>✅ Salvatagem completa</li>
-      <li>✅ Flaps</li>
-    </ul>
-    
-    <h2>Diferenciais e Observações</h2>
-    <ul>
-      <li>100% de procedência garantida</li>
-      <li>Estuda possibilidade de troca por carro</li>
-      <li>Estuda possibilidade de troca por terreno em Búzios</li>
-    </ul>
-    
-    <h2>Por que escolher a Focker 272 GTC?</h2>
-    <p>Perfeita para lazer, mergulhos ou passeios de fim de semana, a Focker 272 GTC oferece **conforto premium e performance confiável**. Seus equipamentos completos e acabamento de qualidade proporcionam experiências memoráveis a bordo.</p>
-    
-    <div style="background: linear-gradient(135deg, #1a365d, #2c5282); padding: 2rem; border-radius: 1rem; margin: 2rem 0; text-align: center; color: white;">
-      <h3 style="margin-bottom: 1rem; color: #D4AF37;">Agende sua Visita</h3>
-      <p style="margin-bottom: 1.5rem; color: rgba(255,255,255,0.9);">Venha conhecer a Focker 272 GTC e vivenciar o melhor do lazer náutico em Búzios.</p>
-      <p><strong>WhatsApp MARBANA:</strong> (11) 94015-9202</p>
-    </div>
-    
-    <h2>Próximos Passos</h2>
-    <ul>
-      <li>Agendar visita técnica completa</li>
-      <li>Realizar teste de navegação (sea trial)</li>
-      <li>Discutir condições de financiamento ou trocas</li>
-      <li>Orientação sobre documentação e transferência</li>
-    </ul>
-    
-    <p><strong>Garanta seu lugar no mundo náutico de luxo com a Focker 272 GTC.</strong></p>
-  `,
-  author: "Equipe MARBANA",
-  date: "26 de Agosto, 2025",
-  readTime: "7 min",
-  category: "Embarcações Premium",
-  image: fockerImage,
-  featured: true
-},
-
+  {
+    id: "1",
+    title: "Focker 272 Infinity XIX: A Joia Náutica de Búzios",
+    slug: "focker-272-infinity-xix-joia-nautica-buzios",
+    excerpt: "Conheça a embarcação mais exclusiva do nosso portfólio: a Focker 272 Infinity XIX, com apenas 85h de uso e localizada no paraíso de Búzios.",
+    content: `
+      <h2>A Estrela da Frota MARBANA</h2>
+      <p>A Focker 272 Infinity XIX representa o ápice da engenharia náutica brasileira. Localizada nas águas paradisíacas de Búzios, esta obra-prima de 2023 com apenas 85 horas de uso redefine os padrões de luxo e performance no mercado náutico premium.</p>
+      
+      <h2>Especificações Técnicas de Elite</h2>
+      <p>Equipada com motorização Mercruiser 6.2 de 350HP, a Infinity XIX oferece performance excepcional sem comprometer o conforto:</p>
+      <ul>
+        <li><strong>Comprimento:</strong> 8,2 metros de pura elegância náutica</li>
+        <li><strong>Capacidade:</strong> 12 pessoas com conforto premium absoluto</li>
+        <li><strong>Motorização:</strong> Mercruiser 6.2 350HP (2023) com garantia</li>
+        <li><strong>Velocidade máxima:</strong> 45 nós em condições ideais</li>
+        <li><strong>Autonomia:</strong> 280L para grandes aventuras</li>
+        <li><strong>Estado:</strong> Impecável com manutenção rigorosa</li>
+      </ul>
+      
+      <h2>Design e Tecnologia Integrados</h2>
+      <p>Cada elemento da Infinity XIX foi projetado para criar experiências inesquecíveis:</p>
+      
+      <h3>Cockpit de Comando Premium</h3>
+      <ul>
+        <li>Sonda GPS Garmin 12" com cartas náuticas atualizadas</li>
+        <li>Sistema de navegação integrado com AIS</li>
+        <li>Piloto automático para navegação relaxante</li>
+        <li>Painel de instrumentos digital de última geração</li>
+      </ul>
+      
+      <h3>Entretenimento de Bordo</h3>
+      <ul>
+        <li>Sistema de áudio JL Audio com subwoofer marinizado</li>
+        <li>Conectividade Bluetooth e USB em múltiplos pontos</li>
+        <li>Iluminação LED RGB com 16 milhões de cores</li>
+        <li>Controle remoto para todas as funções</li>
+      </ul>
+      
+      <blockquote>
+        "A Infinity XIX não é apenas uma embarcação, é um portal para o lifestyle náutico mais exclusivo do Brasil." - Equipe MARBANA
+      </blockquote>
+      
+      <h2>Conforto e Funcionalidade</h2>
+      
+      <h3>Áreas de Convivência</h3>
+      <ul>
+        <li>Sofás em "U" com estofamento em couro náutico premium</li>
+        <li>Mesa conversível para diferentes configurações</li>
+        <li>Toldo elétrico retrátil para proteção solar</li>
+        <li>Piso em EVA antiderrapante de alta qualidade</li>
+      </ul>
+      
+      <h3>Facilidades de Bordo</h3>
+      <ul>
+        <li>Chuveiro de popa com água quente pressurizada</li>
+        <li>Geladeira elétrica de grande capacidade</li>
+        <li>Pia com água doce para conveniência</li>
+        <li>Compartimentos de armazenamento estratégicos</li>
+      </ul>
+      
+      <h2>Búzios: O Cenário Perfeito</h2>
+      <p>Posicionada no coração náutico do Rio de Janeiro, a Infinity XIX oferece acesso privilegiado aos destinos mais exclusivos:</p>
+      <ul>
+        <li><strong>Praia da Ferradura:</strong> Águas calmas para relaxamento</li>
+        <li><strong>Ilha Feia:</strong> Mergulho em águas cristalinas</li>
+        <li><strong>Praia Brava:</strong> Aventura e paisagens selvagens</li>
+        <li><strong>João Fernandes:</strong> Gastronomia náutica de primeira</li>
+      </ul>
+      
+      <h2>Investimento Premium</h2>
+      <p>Com valor de <strong>R$ 750.000</strong>, a Focker 272 Infinity XIX representa um investimento sólido no mercado náutico de luxo. Embarcações Focker mantêm excelente valorização, sendo altamente procuradas no mercado secundário.</p>
+      
+      <h3>Diferenciais Competitivos</h3>
+      <ul>
+        <li>Baixíssimas horas de uso (85h)</li>
+        <li>Manutenção preventiva rigorosa documentada</li>
+        <li>Todos os opcionais de fábrica inclusos</li>
+        <li>Localização premium em Búzios</li>
+        <li>Garantia de motor até 2025</li>
+      </ul>
+      
+      <div style="background: linear-gradient(135deg, #1a365d, #2c5282); padding: 2rem; border-radius: 1rem; margin: 2rem 0; text-align: center; color: white;">
+        <h3 style="margin-bottom: 1rem; color: #D4AF37;">Experimente a Infinity XIX</h3>
+        <p style="margin-bottom: 1.5rem; color: rgba(255,255,255,0.9);">Agende uma demonstração exclusiva e navegue pelas águas paradisíacas de Búzios a bordo desta obra-prima náutica.</p>
+        <p><strong>WhatsApp MARBANA:</strong> (11) 94015-9202</p>
+      </div>
+      
+      <h2>Próximos Passos</h2>
+      <p>A Infinity XIX aguarda por um proprietário que valorize a excelência náutica. Entre em contato com nossa equipe para:</p>
+      <ul>
+        <li>Agendar visita técnica completa</li>
+        <li>Realizar sea trial personalizado</li>
+        <li>Discussão de condições especiais de financiamento</li>
+        <li>Orientação sobre documentação e transferência</li>
+      </ul>
+      
+      <p><strong>Esta é sua oportunidade de adquirir uma das embarcações mais cobiçadas do mercado premium brasileiro.</strong></p>
+    `,
+    author: "Equipe MARBANA",
+    date: "15 de Janeiro, 2024",
+    readTime: "8 min",
+    category: "Embarcações Premium",
+    image: fockerImage,
+    featured: true
+  },
   {
     id: "2",
     title: "Segurança Náutica: Equipamentos Essenciais para Navegação Premium",

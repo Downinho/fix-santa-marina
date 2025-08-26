@@ -47,7 +47,7 @@ export const vessels: Vessel[] = [
     price: 42500000, // R$ 425.000,00
     location: "Armação dos Búzios, RJ",
     coordinates: { lat: -22.7496736, lng: -41.886076 },
-    description: "Embarcação premium em estado impecável com apenas 85h de uso. Motorização Mercruiser 6.2 350 HP do ano 2023. Capacidade para 10 + 1 pessoas. Design exclusivo e acabamentos de luxo. Uma verdadeira joia náutica nas águas cristalinas de Búzios.",
+    description: "Embarcação premium em estado impecável com apenas 165h de uso. Motorização Mercruiser 6.2 350 HP do ano 2023. Capacidade para 10 + 1 pessoas. Design exclusivo e acabamentos de luxo. Uma verdadeira joia náutica nas águas cristalinas de Búzios.",
     images: [
       "/BARCOS-IMAGENS/INFINITY07.jpg",
       "/BARCOS-IMAGENS/INFINITY01.jpg",
@@ -86,7 +86,7 @@ export const vessels: Vessel[] = [
       { label: "Modelo", value: "Focker 272" },
       { label: "Ano Casco", value: "2019" },
       { label: "Motorização", value: "Mercruiser 6.2 350 HP" },
-      { label: "Ano Motor", value: "2019" },
+      { label: "Ano Motor", value: "2023" },
       { label: "Horas de uso", value: "165h (baixíssimas)" },
       { label: "Capacidade", value: "10 + 1 pessoas" },
       { label: "Tanque água doce", value: "65L" },
