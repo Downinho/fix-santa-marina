@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Heart, MapPin, Anchor, Eye, Search, Filter, MessageCircle, Star } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import { getVesselSlug } from "@/utils/slugify";
+
 import { vessels } from "@/data/vessels";
 
 const Embarcacoes = () => {
@@ -40,6 +40,7 @@ const Embarcacoes = () => {
     image: vessel.images[0],
     featured: vessel.featured || false,
     description: vessel.description,
+    slug: vessel.slug,
     comments: [] // Sem comentários por enquanto
   }));
 
@@ -181,7 +182,7 @@ const handleSearch = () => {
                         aria-label="Ver detalhes"
                         asChild
                       >
-                        <Link to={`/embarcacao/${getVesselSlug(vessel)}`}>
+                        <Link to={`/embarcacao/${vessel.slug}`}>
                           <Eye className="w-4 h-4" aria-hidden="true" />
                         </Link>
                       </Button>
@@ -260,7 +261,7 @@ const handleSearch = () => {
                       className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body"
                       asChild
                     >
-                      <Link to={`/embarcacao/${getVesselSlug(vessel)}`}>
+                      <Link to={`/embarcacao/${vessel.slug}`}>
                         Ver Detalhes
                       </Link>
                     </Button>
