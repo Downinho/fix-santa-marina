@@ -9,12 +9,21 @@ interface HeroVideoProps {
 
 const HeroVideo: React.FC<HeroVideoProps> = ({ searchType }) => {
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [customVideoError, setCustomVideoError] = useState(false);
   const location = useLocation();
+  
+  // Custom hero video path - you can change this to your uploaded video
+  const customHeroVideo = '/videos/marbana-hero.mp4';
   
   // Get video based on search type or URL params
   const getVideoSrc = () => {
     const urlParams = new URLSearchParams(location.search);
     const type = searchType || urlParams.get('type') || 'default';
+    
+    // If it's the default/home page, use custom hero video
+    if (type === 'default' && !customVideoError) {
+      return customHeroVideo;
+    }
     
     const videoMap: { [key: string]: string } = {
       'jet-ski': '/videos/jetski.mp4',
@@ -31,7 +40,7 @@ const HeroVideo: React.FC<HeroVideoProps> = ({ searchType }) => {
   const videoSrc = getVideoSrc();
 
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[70vh] sm:min-h-[80vh] flex items-center justify-center overflow-hidden">
       {/* Video Background */}
       <div className="absolute inset-0">
         <video
@@ -40,9 +49,16 @@ const HeroVideo: React.FC<HeroVideoProps> = ({ searchType }) => {
           muted
           loop
           playsInline
+          preload="metadata"
           poster={heroImage}
           onLoadedData={() => setVideoLoaded(true)}
-          onError={() => setVideoLoaded(false)}
+          onError={() => {
+            setVideoLoaded(false);
+            // If it's the custom hero video that failed, try fallback
+            if (videoSrc === customHeroVideo) {
+              setCustomVideoError(true);
+            }
+          }}
         >
           <source src={videoSrc} type="video/mp4" />
           Your browser does not support the video tag.
@@ -61,15 +77,15 @@ const HeroVideo: React.FC<HeroVideoProps> = ({ searchType }) => {
       </div>
       
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 py-20">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-20">
         <div className="max-w-4xl">
-          <div className="mb-8">
-            <h1 className="font-display text-5xl md:text-7xl font-bold text-primary-foreground mb-6 leading-tight">
+          <div className="mb-6 sm:mb-8">
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-4 sm:mb-6 leading-tight">
               Maior Ecossistema<br />
               <span className="text-accent-gold">Náutico do Brasil</span><br />
               MARBANA
             </h1>
-            <p className="font-body text-xl text-primary-foreground/90 max-w-2xl leading-relaxed">
+            <p className="font-body text-lg sm:text-xl text-primary-foreground/90 max-w-2xl leading-relaxed">
               A Rainha dos Mares em Búzios/RJ. Curadoria exclusiva, atendimento personalizado e as melhores embarcações exclusivas do Brasil.
             </p>
           </div>
@@ -78,18 +94,18 @@ const HeroVideo: React.FC<HeroVideoProps> = ({ searchType }) => {
           <HeroSearchForm />
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 mt-12">
+          <div className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mt-8 sm:mt-10 lg:mt-12">
             <div className="text-center">
-              <div className="text-3xl font-display font-bold text-accent-gold mb-2">500+</div>
-              <div className="text-primary-foreground/80 font-body">Embarcações Exclusivas</div>
+              <div className="text-2xl sm:text-3xl font-display font-bold text-accent-gold mb-1 sm:mb-2">500+</div>
+              <div className="text-xs sm:text-sm text-primary-foreground/80 font-body">Embarcações Exclusivas</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-display font-bold text-accent-gold mb-2">98%</div>
-              <div className="text-primary-foreground/80 font-body">Clientes Satisfeitos</div>
+              <div className="text-2xl sm:text-3xl font-display font-bold text-accent-gold mb-1 sm:mb-2">98%</div>
+              <div className="text-xs sm:text-sm text-primary-foreground/80 font-body">Clientes Satisfeitos</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-display font-bold text-accent-gold mb-2">15+</div>
-              <div className="text-primary-foreground/80 font-body">Anos de Experiência</div>
+              <div className="text-2xl sm:text-3xl font-display font-bold text-accent-gold mb-1 sm:mb-2">15+</div>
+              <div className="text-xs sm:text-sm text-primary-foreground/80 font-body">Anos de Experiência</div>
             </div>
           </div>
         </div>

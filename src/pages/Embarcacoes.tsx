@@ -67,25 +67,25 @@ const handleSearch = () => {
       
       <main id="main-content" className="pt-6">
         {/* Page Header */}
-        <section className="bg-gradient-ocean py-12">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-8">
-              <h1 className="font-display text-4xl md:text-5xl font-bold text-primary mb-4">
+        <section className="bg-gradient-ocean py-6 sm:py-8 lg:py-12">
+          <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
+            <div className="text-center mb-6 sm:mb-8">
+              <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-3 sm:mb-4">
                 Embarcações Premium
               </h1>
-              <p className="font-body text-xl text-muted-foreground max-w-3xl mx-auto">
+              <p className="font-body text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
                 Descubra a nossa seleção exclusiva de iates, lanchas, veleiros, catamarãs e jet skis. 
                 O maior ecossistema náutico brasileiro.
               </p>
             </div>
 
             {/* Search Filters */}
-            <div className="bg-background/95 backdrop-blur-sm rounded-2xl p-6 shadow-premium max-w-5xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
-                <div className="md:col-span-2">
+            <div className="bg-background/95 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-premium max-w-5xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 mb-3 sm:mb-4">
+                <div className="sm:col-span-2 md:col-span-2">
                   <Input 
                     placeholder="Buscar por nome, marca ou modelo..."
-                    className="h-12 font-body"
+                    className="h-10 sm:h-12 font-body"
                     aria-label="Buscar embarcações"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -93,7 +93,7 @@ const handleSearch = () => {
                 </div>
                 
                 <Select value={selectedType} onValueChange={setSelectedType}>
-                  <SelectTrigger className="h-12 font-body" aria-label="Selecionar tipo de embarcação">
+                  <SelectTrigger className="h-10 sm:h-12 font-body" aria-label="Selecionar tipo de embarcação">
                     <SelectValue placeholder="Tipo" />
                   </SelectTrigger>
                   <SelectContent>
@@ -107,7 +107,7 @@ const handleSearch = () => {
                 </Select>
 
                 <Select value={selectedLocation} onValueChange={setSelectedLocation}>
-                  <SelectTrigger className="h-12 font-body" aria-label="Selecionar localização">
+                  <SelectTrigger className="h-10 sm:h-12 font-body" aria-label="Selecionar localização">
                     <SelectValue placeholder="Localização" />
                   </SelectTrigger>
                   <SelectContent>
@@ -139,15 +139,15 @@ const handleSearch = () => {
         </section>
 
         {/* Results Section */}
-        <section className="py-8">
-          <div className="container mx-auto px-6">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="font-display text-2xl font-semibold text-primary">
+        <section className="py-4 sm:py-6 lg:py-8">
+          <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
+            <div className="flex justify-between items-center mb-4 sm:mb-6">
+              <h2 className="font-display text-xl sm:text-2xl font-semibold text-primary">
                 {filteredVessels.length} embarcações encontradas
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {filteredVessels.map((vessel) => (
                 <Card 
                   key={vessel.id} 

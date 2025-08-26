@@ -152,9 +152,9 @@ const VesselDetail = () => {
         </section>
 
         {/* Hero Section with Image Gallery */}
-        <section className="py-8">
-          <div className="container mx-auto px-6">
-            <div className="flex items-center justify-between mb-6">
+        <section className="py-2 sm:py-4">
+          <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
+            <div className="flex items-center justify-between mb-3 sm:mb-6">
               <Button 
                 variant="ghost" 
                 asChild
@@ -184,42 +184,42 @@ const VesselDetail = () => {
             </div>
 
             {/* Main Image Gallery */}
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-8">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-2 sm:gap-4 mb-4 sm:mb-6 max-w-full overflow-hidden">
               {/* Main Image */}
-              <div className="lg:col-span-3 relative group h-96 lg:h-[500px]">
+              <div className="lg:col-span-3 relative group h-64 sm:h-80 lg:h-[450px] max-w-full">
                 <img 
                   src={vessel.images[selectedImageIndex]}
                   alt={vessel.name}
-                  className="w-full h-full object-cover rounded-xl shadow-premium"
+                  className="w-full h-full object-cover rounded-lg sm:rounded-xl shadow-premium"
                 />
                 
                 {/* Navigation Arrows */}
                 <button
                   onClick={prevImage}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-1.5 sm:p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                 >
-                  <ChevronLeft className="w-6 h-6" />
+                  <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" />
                 </button>
                 <button
                   onClick={nextImage}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-1.5 sm:p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                 >
-                  <ChevronRight className="w-6 h-6" />
+                  <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6" />
                 </button>
 
                 {/* Image Counter */}
-                <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-body">
+                <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 bg-black/70 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-body">
                   {selectedImageIndex + 1} / {vessel.images.length}
                 </div>
               </div>
 
               {/* Thumbnail Grid */}
-              <div className="grid grid-cols-4 lg:grid-cols-1 gap-2 h-96 lg:h-[500px]">
+              <div className="grid grid-cols-4 lg:grid-cols-1 gap-1 sm:gap-2 h-16 sm:h-20 lg:h-[450px] max-w-full overflow-hidden">
                 {vessel.images.slice(0, 4).map((image, index) => (
                   <button
                     key={index}
                     onClick={() => setSelectedImageIndex(index)}
-                    className={`relative h-24 lg:h-[120px] rounded-lg overflow-hidden border-2 ${
+                    className={`relative h-16 sm:h-20 lg:h-[108px] rounded-md sm:rounded-lg overflow-hidden border-2 flex-shrink-0 ${
                       selectedImageIndex === index ? 'border-primary' : 'border-transparent'
                     }`}
                   >
@@ -229,7 +229,7 @@ const VesselDetail = () => {
                       className="w-full h-full object-cover hover:scale-105 transition-transform"
                     />
                     {index === 3 && vessel.images.length > 4 && (
-                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center text-white font-display text-lg font-bold">
+                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center text-white font-display text-sm lg:text-lg font-bold">
                         +{vessel.images.length - 4}
                       </div>
                     )}
@@ -241,11 +241,11 @@ const VesselDetail = () => {
         </section>
 
         {/* Main Content */}
-        <section className="pb-12">
-          <div className="container mx-auto px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <section className="pb-6 sm:pb-12">
+          <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
               {/* Left Column - Details */}
-              <div className="lg:col-span-2 space-y-8">
+              <div className="lg:col-span-2 space-y-4 sm:space-y-6 lg:space-y-8">
                 {/* Header Info */}
                 <div>
                   <div className="flex items-center gap-2 mb-4">
