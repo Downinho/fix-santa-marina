@@ -8,13 +8,15 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { 
   Heart, Share2, Star, Calendar, Users, Anchor, Gauge, 
   Phone, MessageCircle, MapPin, Camera, Play, Zap, 
-  Shield, Award, Clock, CheckCircle, ArrowLeft, ChevronLeft, ChevronRight
+  Shield, Award, Clock, CheckCircle, ArrowLeft, ChevronLeft, ChevronRight, X
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { getVesselBySlug } from "@/data/vessels";
+import marbanaLogo from "@/assets/marbana-logo.png";
 
 declare global {
   interface Window {
@@ -27,6 +29,7 @@ const VesselDetail = () => {
   const { toast } = useToast();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
   const whatsappNumber = "+5511940159202";
   
@@ -119,8 +122,15 @@ const VesselDetail = () => {
     return match && match[2].length === 11 ? match[2] : null;
   };
 
-  const openYouTubeVideo = (url: string) => {
-    window.open(url, '_blank');
+  const openVideoPreview = (url: string) => {
+    const youtubeId = extractYouTubeId(url);
+    if (youtubeId) {
+      setSelectedVideo(youtubeId);
+    }
+  };
+
+  const closeVideoPreview = () => {
+    setSelectedVideo(null);
   };
 
   return (
@@ -334,7 +344,7 @@ const VesselDetail = () => {
                           <Card 
                             key={index} 
                             className="group cursor-pointer hover:shadow-premium transition-all duration-300"
-                            onClick={() => openYouTubeVideo(video.url)}
+                            onClick={() => openVideoPreview(video.url)}
                           >
                             <CardContent className="p-0 relative">
                               <div className="w-full h-48 rounded-lg overflow-hidden">
@@ -456,8 +466,12 @@ const VesselDetail = () => {
                         Vendedor
                       </h4>
                       <div className="flex items-center space-x-3 mb-4">
-                        <div className="w-12 h-12 bg-gradient-hero rounded-full flex items-center justify-center">
-                          <span className="font-display font-bold text-primary-foreground">M</span>
+                        <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center p-2">
+                          <img 
+                            src={marbanaLogo} 
+                            alt="Marbana Exclusive Maritime" 
+                            className="w-full h-full object-contain"
+                          />
                         </div>
                         <div>
                           <h4 className="font-display font-semibold text-primary">
@@ -520,6 +534,31 @@ Mensagem: ${formData.get('message')}`;
           </div>
         </section>
       </main>
+
+      {/* Video Preview Modal */}
+      <Dialog open={!!selectedVideo} onOpenChange={closeVideoPreview}>
+        <DialogContent className="max-w-4xl w-full p-0">
+          <DialogHeader className="p-6 pb-0">
+            <DialogTitle className="font-display text-xl text-primary">
+              Vídeo da Embarcação
+            </DialogTitle>
+          </DialogHeader>
+          <div className="p-6 pt-4">
+            {selectedVideo && (
+              <div className="aspect-video w-full">
+                <iframe
+                  src={`https://www.youtube.com/embed/${selectedVideo}?autoplay=1&rel=0`}
+                  title="Vídeo do YouTube"
+                  className="w-full h-full rounded-lg"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <Footer />
     </div>
