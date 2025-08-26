@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Heart, MapPin, Anchor, Eye, Search, Filter, MessageCircle, Star } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { getVesselSlug } from "@/utils/slugify";
 import { vessels } from "@/data/vessels";
 
