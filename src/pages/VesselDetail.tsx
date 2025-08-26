@@ -113,6 +113,16 @@ const VesselDetail = () => {
     });
   };
 
+  const extractYouTubeId = (url: string) => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return match && match[2].length === 11 ? match[2] : null;
+  };
+
+  const openYouTubeVideo = (url: string) => {
+    window.open(url, '_blank');
+  };
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -164,9 +174,9 @@ const VesselDetail = () => {
             </div>
 
             {/* Main Image Gallery */}
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 h-96 lg:h-[500px] mb-8">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-8">
               {/* Main Image */}
-              <div className="lg:col-span-3 relative group">
+              <div className="lg:col-span-3 relative group h-96 lg:h-[500px]">
                 <img 
                   src={vessel.images[selectedImageIndex]}
                   alt={vessel.name}
@@ -194,12 +204,12 @@ const VesselDetail = () => {
               </div>
 
               {/* Thumbnail Grid */}
-              <div className="grid grid-cols-4 lg:grid-cols-1 gap-2 h-full">
+              <div className="grid grid-cols-4 lg:grid-cols-1 gap-2 h-96 lg:h-[500px]">
                 {vessel.images.slice(0, 4).map((image, index) => (
                   <button
                     key={index}
                     onClick={() => setSelectedImageIndex(index)}
-                    className={`relative h-full rounded-lg overflow-hidden border-2 ${
+                    className={`relative h-24 lg:h-[120px] rounded-lg overflow-hidden border-2 ${
                       selectedImageIndex === index ? 'border-primary' : 'border-transparent'
                     }`}
                   >
@@ -314,27 +324,43 @@ const VesselDetail = () => {
                       Vídeos da Embarcação
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {vessel.videos.map((video, index) => (
-                        <Card key={index} className="group cursor-pointer hover:shadow-premium transition-all duration-300">
-                          <CardContent className="p-0 relative">
-                            <img 
-                              src={video.thumbnail}
-                              alt={video.title}
-                              className="w-full h-48 object-cover rounded-lg"
-                            />
-                            <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/40 transition-colors">
-                              <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center">
-                                <Play className="w-8 h-8 text-primary ml-1" />
+                      {vessel.videos.map((video, index) => {
+                        const youtubeId = extractYouTubeId(video.url);
+                        const thumbnailUrl = youtubeId 
+                          ? `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`
+                          : video.thumbnail;
+                        
+                        return (
+                          <Card 
+                            key={index} 
+                            className="group cursor-pointer hover:shadow-premium transition-all duration-300"
+                            onClick={() => openYouTubeVideo(video.url)}
+                          >
+                            <CardContent className="p-0 relative">
+                              <div className="w-full h-48 rounded-lg overflow-hidden">
+                                <img 
+                                  src={thumbnailUrl}
+                                  alt={video.title}
+                                  className="w-full h-full object-cover"
+                                  onError={(e) => {
+                                    e.currentTarget.src = video.thumbnail;
+                                  }}
+                                />
                               </div>
-                            </div>
-                            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
-                              <h4 className="font-display font-semibold text-white">
-                                {video.title}
-                              </h4>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
+                              <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/40 transition-colors rounded-lg">
+                                <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center shadow-lg">
+                                  <Play className="w-8 h-8 text-white ml-1" />
+                                </div>
+                              </div>
+                              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent rounded-b-lg">
+                                <h4 className="font-display font-semibold text-white text-sm">
+                                  {video.title}
+                                </h4>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        );
+                      })}
                     </div>
                   </div>
                 )}
