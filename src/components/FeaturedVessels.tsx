@@ -2,54 +2,21 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Heart, MapPin, Anchor, Eye } from "lucide-react";
+import { vessels } from "@/data/vessels";
 
 const FeaturedVessels = () => {
-  const vessels = [
-    {
-      id: 1,
-      name: "Azimut 68",
-      type: "Iate",
-      price: "R$ 2.800.000",
-      location: "Angra dos Reis, RJ",
-      year: "2021",
-      length: "68 pés",
-      image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop",
-      featured: true
-    },
-    {
-      id: 2,
-      name: "Ferretti 720",
-      type: "Iate",
-      price: "R$ 4.200.000",
-      location: "Santos, SP",
-      year: "2022",
-      length: "72 pés",
-      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop",
-      featured: true
-    },
-    {
-      id: 3,
-      name: "Princess V50",
-      type: "Lancha",
-      price: "R$ 1.850.000",
-      location: "Guarujá, SP",
-      year: "2020",
-      length: "50 pés",
-      image: "https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?w=800&h=600&fit=crop",
-      featured: false
-    },
-    {
-      id: 4,
-      name: "Sunseeker 74",
-      type: "Iate",
-      price: "R$ 3.900.000",
-      location: "Búzios, RJ",
-      year: "2021",
-      length: "74 pés",
-      image: "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?w=800&h=600&fit=crop",
-      featured: false
-    }
-  ];
+  // Use actual vessel data and transform it for display
+  const displayVessels = vessels.map(vessel => ({
+    id: vessel.id,
+    name: vessel.name,
+    type: vessel.specifications.type,
+    price: `R$ ${vessel.price.toLocaleString('pt-BR')}`,
+    location: vessel.owner.location,
+    year: vessel.specifications.year.toString(),
+    length: `${vessel.specifications.length} pés`,
+    image: vessel.images[0],
+    featured: true
+  }));
 
   return (
     <section className="py-20 bg-gradient-ocean">
@@ -65,7 +32,7 @@ const FeaturedVessels = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-12">
-          {vessels.map((vessel, index) => (
+          {displayVessels.map((vessel, index) => (
             <Card 
               key={vessel.id} 
               className={`group cursor-pointer hover:shadow-premium transition-all duration-300 overflow-hidden ${
