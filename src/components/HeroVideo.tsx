@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import heroImage from "@/assets/hero-yacht-marina.jpg";
 import HeroSearchForm from "./HeroSearchForm";
-import { getVideoSrc, getVesselTitle } from "@/utils/videoMapping";
+import { getVideoSrc, getVesselTitle, getImageSrc } from "@/utils/videoMapping";
 
 interface HeroVideoProps {
   searchType?: string;
@@ -12,6 +12,7 @@ interface HeroVideoProps {
 const HeroVideo: React.FC<HeroVideoProps> = ({ searchType, isHomePage = false }) => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const [showVideo, setShowVideo] = useState(true);
   const location = useLocation();
   
   // Get video and title based on search type or URL params
@@ -20,36 +21,18 @@ const HeroVideo: React.FC<HeroVideoProps> = ({ searchType, isHomePage = false })
   
   const videoSrc = getVideoSrc(currentType, isHomePage);
   const vesselTitle = getVesselTitle(currentType);
+  
+  console.log('HeroVideo - isHomePage:', isHomePage, 'videoSrc:', videoSrc, 'currentType:', currentType);
 
   return (
     <section className="relative min-h-[70vh] sm:min-h-[80vh] flex items-center justify-center overflow-hidden">
       {/* Video Background */}
       <div className="absolute inset-0">
-        <video
-          className="w-full h-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster={heroImage}
-          onLoadedData={() => setVideoLoaded(true)}
-          onError={() => {
-            setVideoLoaded(false);
-            setVideoError(true);
-          }}
-        >
-          <source src={videoSrc} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        
-        {/* Fallback to image if video fails */}
-        {!videoLoaded && (
-          <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${heroImage})` }}
-          />
-        )}
+        {/* Usar imagem gerada como fundo por enquanto */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${getImageSrc(currentType, isHomePage)})` }}
+        />
         
         {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/50 to-transparent"></div>

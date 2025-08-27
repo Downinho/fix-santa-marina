@@ -12,6 +12,20 @@ export const vesselVideoMap: { [key: string]: string } = {
   'default': '/videos/hero-default.mp4'
 };
 
+// Mapeamento de imagens como fallback (usando as imagens geradas)
+export const vesselImageMap: { [key: string]: string } = {
+  'jet ski': '/videos/jetski.mp4',
+  'jetski': '/videos/jetski.mp4',
+  'iate': '/videos/iate.mp4',
+  'yacht': '/videos/iate.mp4',
+  'catamarã': '/videos/catamara.mp4',
+  'catamara': '/videos/catamara.mp4',
+  'lancha': '/videos/lancha.mp4',
+  'veleiro': '/videos/veleiro.mp4',
+  'sailboat': '/videos/veleiro.mp4',
+  'default': '/videos/hero-default.mp4'
+};
+
 export const vesselTitleMap: { [key: string]: string } = {
   'lancha': 'Lanchas Exclusivas',
   'iate': 'Iates Premium',
@@ -26,13 +40,22 @@ export const vesselTitleMap: { [key: string]: string } = {
 };
 
 export const getVideoSrc = (type: string, isHomePage: boolean = false): string => {
-  // Para a página inicial, sempre usar vídeo específico
+  // Para a página inicial, usar imagem como vídeo por enquanto
   if (isHomePage) {
-    return '/videos/marbana-hero.mp4';
+    return '/videos/hero-default.mp4';
   }
   
   const normalizedType = type.toLowerCase();
   return vesselVideoMap[normalizedType] || vesselVideoMap.default;
+};
+
+export const getImageSrc = (type: string, isHomePage: boolean = false): string => {
+  if (isHomePage) {
+    return '/videos/hero-default.mp4';
+  }
+  
+  const normalizedType = type.toLowerCase();
+  return vesselImageMap[normalizedType] || vesselImageMap.default;
 };
 
 export const getVesselTitle = (type: string): string => {
