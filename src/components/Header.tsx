@@ -48,10 +48,10 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-b border-border z-50">
+      <header className="fixed top-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-b border-border z-50 overflow-hidden">
         {/* Main Header */}
-        <div className="container mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 min-w-0">
             {/* Left Side - Hamburger + Logo */}
             <div className="flex items-center gap-4">
               {/* Navigation Sidebar Button */}
@@ -75,23 +75,23 @@ const Header = () => {
             </div>
 
             {/* Smart Search Bar (Desktop) */}
-            <div className="hidden lg:flex items-center bg-white shadow-lg rounded-full border border-gray-200 hover:shadow-xl transition-shadow duration-200">
-              <div className="flex items-center divide-x divide-gray-300">
+            <div className="hidden xl:flex items-center bg-white shadow-lg rounded-full border border-gray-200 hover:shadow-xl transition-shadow duration-200 max-w-2xl mx-4 flex-shrink">
+              <div className="flex items-center divide-x divide-gray-300 w-full">
                 {/* Search Term */}
-                <div className="px-6 py-2 flex-1 min-w-[250px]">
+                <div className="px-4 py-2 flex-1 min-w-0">
                   <Input
                     placeholder="Buscar embarcações..."
-                    className="border-0 shadow-none h-auto p-0 font-semibold text-sm placeholder:text-gray-400"
+                    className="border-0 shadow-none h-auto p-0 font-semibold text-sm placeholder:text-gray-400 w-full"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
-                  <p className="text-xs text-gray-500 mt-0.5">Qual embarcação procura?</p>
+                  <p className="text-xs text-gray-500 mt-0.5 truncate">Qual embarcação procura?</p>
                 </div>
 
                 {/* Type */}
-                <div className="px-6 py-2">
+                <div className="px-4 py-2 min-w-0 flex-shrink-0">
                   <Select value={searchType} onValueChange={setSearchType}>
-                    <SelectTrigger className="border-0 shadow-none h-auto p-0 font-semibold text-sm">
+                    <SelectTrigger className="border-0 shadow-none h-auto p-0 font-semibold text-sm w-16">
                       <SelectValue placeholder="Tipo" />
                     </SelectTrigger>
                     <SelectContent>
@@ -104,12 +104,12 @@ const Header = () => {
                 </div>
 
                 {/* Location */}
-                <div className="px-6 py-2 min-w-[180px]">
+                <div className="px-4 py-2 min-w-0 flex-shrink-0">
                   <StateSelector
                     value={searchLocation}
                     onValueChange={setSearchLocation}
                     placeholder="Estado"
-                    className="border-0 shadow-none h-auto p-0 font-semibold text-sm"
+                    className="border-0 shadow-none h-auto p-0 font-semibold text-sm w-20"
                   />
                   <p className="text-xs text-gray-500 mt-0.5">Local</p>
                 </div>
@@ -118,17 +118,17 @@ const Header = () => {
               {/* Search Button */}
               <button
                 onClick={handleSearch}
-                className="bg-primary text-white p-2 rounded-full m-2 hover:bg-primary-light transition-colors"
+                className="bg-primary text-white p-2 rounded-full m-2 hover:bg-primary-light transition-colors flex-shrink-0"
               >
                 <Search className="w-4 h-4" />
               </button>
             </div>
 
             {/* Right Side */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
               {/* Mobile Search Button */}
               <button
-                className="lg:hidden p-2 rounded-full border border-gray-300 hover:shadow-md transition-shadow"
+                className="xl:hidden p-2 rounded-full border border-gray-300 hover:shadow-md transition-shadow flex-shrink-0"
                 onClick={() => setShowSearch(!showSearch)}
               >
                 <Search className="w-4 h-4" />
@@ -137,17 +137,18 @@ const Header = () => {
               {/* Mobile Menu Button */}
               <button
                 type="button"
-                className="lg:hidden p-2 rounded-full hover:bg-gray-100 transition-colors"
+                className="lg:hidden p-2 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0"
                 onClick={() => setIsOpen(true)}
               >
-                <Menu className="h-6 w-6" />
+                <Menu className="h-5 w-5" />
               </button>
 
               {/* Desktop Actions */}
-              <div className="hidden lg:flex items-center gap-2">
+              <div className="hidden lg:flex items-center gap-1 xl:gap-2">
                 <Button 
                   asChild
-                  className="bg-gradient-hero hover:opacity-90 text-primary-foreground font-body"
+                  size="sm"
+                  className="bg-gradient-hero hover:opacity-90 text-primary-foreground font-body text-xs xl:text-sm px-3 xl:px-4"
                 >
                   <Link to="/anuncie">
                     Anunciar
@@ -157,7 +158,8 @@ const Header = () => {
                 <Button 
                   asChild
                   variant="outline"
-                  className="font-body"
+                  size="sm"
+                  className="font-body text-xs xl:text-sm px-3 xl:px-4"
                 >
                   <Link to="/contato">
                     Contato
