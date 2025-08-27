@@ -147,17 +147,17 @@ const handleSearch = () => {
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-full overflow-hidden">
               {filteredVessels.map((vessel) => (
                 <Card 
                   key={vessel.id} 
-                  className="group cursor-pointer hover:shadow-premium transition-all duration-300 overflow-hidden"
+                  className="group cursor-pointer hover:shadow-premium transition-all duration-300 overflow-hidden max-w-full"
                 >
-                  <div className="relative h-48 overflow-hidden">
+                  <div className="relative h-48 overflow-hidden max-w-full">
                     <img 
                       src={vessel.image} 
                       alt={`${vessel.name} - ${vessel.type}`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 max-w-full"
                     />
                     
                     {vessel.featured && (

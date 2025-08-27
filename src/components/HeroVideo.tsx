@@ -26,11 +26,15 @@ const HeroVideo: React.FC<HeroVideoProps> = ({ searchType }) => {
     }
     
     const videoMap: { [key: string]: string } = {
-      'jet-ski': '/videos/jetski.mp4',
+      'jet ski': '/videos/jetski.mp4',
+      'jetski': '/videos/jetski.mp4',
       'iate': '/videos/iate.mp4',
+      'yacht': '/videos/iate.mp4',
+      'catamarã': '/videos/catamara.mp4',
       'catamara': '/videos/catamara.mp4',
       'lancha': '/videos/lancha.mp4',
       'veleiro': '/videos/veleiro.mp4',
+      'sailboat': '/videos/veleiro.mp4',
       'default': '/videos/hero-default.mp4'
     };
     

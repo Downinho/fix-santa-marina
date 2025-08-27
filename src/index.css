@@ -130,5 +130,6 @@ All colors MUST be HSL. Luxury nautical theme with sophisticated typography.
 
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
   }
 }
