@@ -40,12 +40,10 @@ const Embarcacoes = () => {
     if (locationFromUrl) setSelectedLocation(locationFromUrl);
     if (searchFromUrl) {
       setSearchTerm(searchFromUrl);
-      // Se não tem tipo definido na URL, tenta detectar pelo termo de busca
-      if (!typeFromUrl) {
-        const detectedType = detectVesselType(searchFromUrl);
-        if (detectedType) {
-          setSelectedType(detectedType);
-        }
+      // Auto-detect vessel type from search term 
+      const detectedType = detectVesselType(searchFromUrl);
+      if (detectedType && !typeFromUrl) {
+        setSelectedType(detectedType);
       }
     }
   }, [searchParams]);

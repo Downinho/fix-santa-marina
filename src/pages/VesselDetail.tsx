@@ -116,6 +116,42 @@ const VesselDetail = () => {
     });
   };
 
+  const handleShare = async () => {
+    const shareData = {
+      title: vessel.name,
+      text: `Confira esta embarcação incrível: ${vessel.name} - ${formatPrice(vessel.price)}`,
+      url: window.location.href
+    };
+
+    try {
+      if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+        await navigator.share(shareData);
+      } else {
+        // Fallback: copy to clipboard
+        await navigator.clipboard.writeText(window.location.href);
+        toast({
+          title: "Link copiado!",
+          description: "O link desta embarcação foi copiado para sua área de transferência.",
+        });
+      }
+    } catch (error) {
+      // Fallback: copy to clipboard
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        toast({
+          title: "Link copiado!",
+          description: "O link desta embarcação foi copiado para sua área de transferência.",
+        });
+      } catch (clipboardError) {
+        toast({
+          title: "Erro ao compartilhar",
+          description: "Não foi possível compartilhar ou copiar o link.",
+          variant: "destructive"
+        });
+      }
+    }
+  };
+
   const extractYouTubeId = (url: string) => {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
@@ -176,7 +212,7 @@ const VesselDetail = () => {
                   <Heart className={`w-4 h-4 mr-1 ${isFavorite ? 'fill-current' : ''}`} />
                   Favoritar
                 </Button>
-                <Button variant="ghost" size="sm" className="font-body">
+                <Button variant="ghost" size="sm" className="font-body" onClick={handleShare}>
                   <Share2 className="w-4 h-4 mr-1" />
                   Compartilhar
                 </Button>
@@ -184,7 +220,7 @@ const VesselDetail = () => {
             </div>
 
             {/* Main Image Gallery */}
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-1 sm:gap-4 mb-2 sm:mb-6 max-w-full overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-1 sm:gap-4 mb-2 sm:mb-6 w-full">
               {/* Main Image */}
               <div className="lg:col-span-3 relative group h-48 sm:h-80 lg:h-[450px] max-w-full">
                 <img 

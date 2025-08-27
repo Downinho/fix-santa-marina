@@ -100,16 +100,16 @@ const HeroVideo: React.FC<HeroVideoProps> = ({ searchType }) => {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mt-8 sm:mt-10 lg:mt-12">
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-display font-bold text-accent-gold mb-1 sm:mb-2">500+</div>
-              <div className="text-xs sm:text-sm text-primary-foreground/80 font-body">Embarcações Exclusivas</div>
+              <div className="text-2xl sm:text-3xl font-display font-bold text-accent-gold mb-1 sm:mb-2">10+</div>
+              <div className="text-xs sm:text-sm text-primary-foreground/80 font-body">Embarcações Vendidas</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-display font-bold text-accent-gold mb-1 sm:mb-2">98%</div>
-              <div className="text-xs sm:text-sm text-primary-foreground/80 font-body">Clientes Satisfeitos</div>
+              <div className="text-2xl sm:text-3xl font-display font-bold text-accent-gold mb-1 sm:mb-2">3M+</div>
+              <div className="text-xs sm:text-sm text-primary-foreground/80 font-body">Milhões de Vendas</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-display font-bold text-accent-gold mb-1 sm:mb-2">15+</div>
-              <div className="text-xs sm:text-sm text-primary-foreground/80 font-body">Anos de Experiência</div>
+              <div className="text-2xl sm:text-3xl font-display font-bold text-accent-gold mb-1 sm:mb-2">100%</div>
+              <div className="text-xs sm:text-sm text-primary-foreground/80 font-body">Satisfação</div>
             </div>
           </div>
         </div>
