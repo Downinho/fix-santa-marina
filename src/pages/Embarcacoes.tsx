@@ -17,15 +17,37 @@ const Embarcacoes = () => {
   const [selectedType, setSelectedType] = useState("");
   const [selectedLocation, setSelectedLocation] = useState("");
 
+  // Função para detectar tipo de embarcação baseado no termo de busca
+  const detectVesselType = (term: string) => {
+    const lowerTerm = term.toLowerCase();
+    if (lowerTerm.includes('lancha')) return 'Lancha';
+    if (lowerTerm.includes('iate') || lowerTerm.includes('yacht')) return 'Iate';
+    if (lowerTerm.includes('jet') || lowerTerm.includes('ski')) return 'Jet Ski';
+    if (lowerTerm.includes('veleiro') || lowerTerm.includes('sailboat')) return 'Veleiro';
+    if (lowerTerm.includes('catama') || lowerTerm.includes('cataran')) return 'Catamarã';
+    return '';
+  };
+
   // Aplicar filtros da URL quando a página carrega
   useEffect(() => {
     const typeFromUrl = searchParams.get('type');
     const locationFromUrl = searchParams.get('location');
     const searchFromUrl = searchParams.get('search');
     
-    if (typeFromUrl) setSelectedType(typeFromUrl);
+    if (typeFromUrl) {
+      setSelectedType(typeFromUrl);
+    }
     if (locationFromUrl) setSelectedLocation(locationFromUrl);
-    if (searchFromUrl) setSearchTerm(searchFromUrl);
+    if (searchFromUrl) {
+      setSearchTerm(searchFromUrl);
+      // Se não tem tipo definido na URL, tenta detectar pelo termo de busca
+      if (!typeFromUrl) {
+        const detectedType = detectVesselType(searchFromUrl);
+        if (detectedType) {
+          setSelectedType(detectedType);
+        }
+      }
+    }
   }, [searchParams]);
 
   // Convertendo os dados do vessels.ts para formato compatível com a página
@@ -79,7 +101,7 @@ const handleSearch = () => {
               preload="metadata"
             >
               <source 
-                src={(() => {
+                 src={(() => {
                   const videoMap: { [key: string]: string } = {
                     'jet ski': '/videos/jetski.mp4',
                     'jetski': '/videos/jetski.mp4',
@@ -90,10 +112,10 @@ const handleSearch = () => {
                     'lancha': '/videos/lancha.mp4',
                     'veleiro': '/videos/veleiro.mp4',
                     'sailboat': '/videos/veleiro.mp4',
-                    'default': '/videos/hero-default.mp4'
+                    'default': '/videos/marbana-hero.mp4'
                   };
                   return videoMap[selectedType.toLowerCase()] || videoMap.default;
-                })()} 
+                 })()} 
                 type="video/mp4" 
               />
             </video>

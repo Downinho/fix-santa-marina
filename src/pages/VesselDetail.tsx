@@ -152,9 +152,9 @@ const VesselDetail = () => {
         </section>
 
         {/* Hero Section with Image Gallery */}
-        <section className="py-2 sm:py-4">
+        <section className="py-1 sm:py-4">
           <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
-            <div className="flex items-center justify-between mb-3 sm:mb-6">
+            <div className="flex items-center justify-between mb-2 sm:mb-6">
               <Button 
                 variant="ghost" 
                 asChild
@@ -184,9 +184,9 @@ const VesselDetail = () => {
             </div>
 
             {/* Main Image Gallery */}
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-2 sm:gap-4 mb-4 sm:mb-6 max-w-full overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-1 sm:gap-4 mb-2 sm:mb-6 max-w-full overflow-hidden">
               {/* Main Image */}
-              <div className="lg:col-span-3 relative group h-64 sm:h-80 lg:h-[450px] max-w-full">
+              <div className="lg:col-span-3 relative group h-48 sm:h-80 lg:h-[450px] max-w-full">
                 <img 
                   src={vessel.images[selectedImageIndex]}
                   alt={vessel.name}
@@ -241,14 +241,14 @@ const VesselDetail = () => {
         </section>
 
         {/* Main Content */}
-        <section className="pb-6 sm:pb-12">
+        <section className="pb-4 sm:pb-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8 lg:gap-12">
               {/* Left Column - Details */}
-              <div className="lg:col-span-2 space-y-4 sm:space-y-6 lg:space-y-8">
+              <div className="lg:col-span-2 space-y-2 sm:space-y-6 lg:space-y-8">
                 {/* Header Info */}
                 <div>
-                  <div className="flex items-center gap-2 mb-4">
+                  <div className="flex items-center gap-2 mb-2 sm:mb-4">
                     <Badge className="bg-gradient-hero text-primary-foreground font-body">
                       {vessel.type}
                     </Badge>
@@ -260,19 +260,19 @@ const VesselDetail = () => {
                     </Badge>
                   </div>
                   
-                  <h1 className="font-display text-4xl font-bold text-primary mb-2">
+                  <h1 className="font-display text-3xl sm:text-4xl font-bold text-primary mb-1 sm:mb-2">
                     {vessel.name}
                   </h1>
-                  <h2 className="font-display text-2xl font-medium text-accent-gold mb-4">
+                  <h2 className="font-display text-xl sm:text-2xl font-medium text-accent-gold mb-2 sm:mb-4">
                     {vessel.model}
                   </h2>
                   
-                  <div className="flex items-center text-muted-foreground font-body mb-6">
+                  <div className="flex items-center text-muted-foreground font-body mb-3 sm:mb-6">
                     <MapPin className="w-4 h-4 mr-1" />
                     {vessel.location}
                   </div>
 
-                  <div className="flex items-center space-x-6 mb-6">
+                  <div className="flex items-center space-x-6 mb-3 sm:mb-6">
                     <div className="flex items-center">
                       {[...Array(5)].map((_, i) => (
                         <Star 
@@ -293,10 +293,10 @@ const VesselDetail = () => {
 
                 {/* Highlights */}
                 <div>
-                  <h3 className="font-display text-2xl font-bold text-primary mb-6">
+                  <h3 className="font-display text-xl sm:text-2xl font-bold text-primary mb-3 sm:mb-6">
                     Destaques Exclusivos
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-4">
                     {vessel.highlights.map((highlight, index) => {
                       const IconComponent = highlight.icon === 'Award' ? Award :
                                           highlight.icon === 'Shield' ? Shield :
@@ -306,16 +306,16 @@ const VesselDetail = () => {
                       
                       return (
                         <Card key={index} className="hover:shadow-premium transition-all duration-300">
-                          <CardContent className="p-6">
-                            <div className="flex items-start space-x-4">
-                              <div className="w-12 h-12 bg-gradient-hero rounded-lg flex items-center justify-center">
-                                <IconComponent className="w-6 h-6 text-primary-foreground" />
+                          <CardContent className="p-4 sm:p-6">
+                            <div className="flex items-start space-x-3 sm:space-x-4">
+                              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-hero rounded-lg flex items-center justify-center">
+                                <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
                               </div>
                               <div>
-                                <h4 className="font-display font-semibold text-primary mb-2">
+                                <h4 className="font-display font-semibold text-primary mb-1 sm:mb-2 text-sm sm:text-base">
                                   {highlight.title}
                                 </h4>
-                                <p className="font-body text-sm text-muted-foreground">
+                                <p className="font-body text-xs sm:text-sm text-muted-foreground">
                                   {highlight.description}
                                 </p>
                               </div>

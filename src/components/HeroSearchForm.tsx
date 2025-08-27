@@ -14,8 +14,23 @@ const HeroSearchForm = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    const route = getSearchRoute(searchTerm, selectedType, selectedLocation);
+    // Detectar tipo baseado no termo de busca
+    const detectedType = detectVesselType(searchTerm);
+    const finalType = selectedType || detectedType;
+    
+    const route = getSearchRoute(searchTerm, finalType, selectedLocation);
     navigate(route);
+  };
+
+  // Função para detectar tipo de embarcação baseado no termo de busca
+  const detectVesselType = (term: string) => {
+    const lowerTerm = term.toLowerCase();
+    if (lowerTerm.includes('lancha')) return 'lancha';
+    if (lowerTerm.includes('iate') || lowerTerm.includes('yacht')) return 'iate';
+    if (lowerTerm.includes('jet') || lowerTerm.includes('ski')) return 'jetski';
+    if (lowerTerm.includes('veleiro') || lowerTerm.includes('sailboat')) return 'veleiro';
+    if (lowerTerm.includes('catama') || lowerTerm.includes('cataran')) return 'catamara';
+    return '';
   };
 
   const handleAdvancedFilters = () => {
