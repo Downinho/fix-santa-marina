@@ -10,7 +10,7 @@ const Index = () => {
     <div className="min-h-screen">
       <Header />
       <main id="main-content">
-        <HeroVideo searchType="default" />
+        <HeroVideo searchType="default" isHomePage={true} />
         <FeaturedVessels />
         <About />
         <CTA />

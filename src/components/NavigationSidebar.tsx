@@ -10,7 +10,10 @@ import {
   Info, 
   Mail, 
   X,
-  Megaphone
+  Megaphone,
+  Ship,
+  Waves,
+  Sailboat
 } from "lucide-react";
 import {
   Sidebar,
@@ -40,6 +43,14 @@ const navigationItems = [
   { name: "Blog", href: "/blog", icon: FileText },
   { name: "Sobre", href: "/sobre", icon: Info },
   { name: "Contato", href: "/contato", icon: Mail },
+];
+
+const vesselTypes = [
+  { name: "Lanchas", href: "/embarcacoes?type=Lancha", icon: Ship },
+  { name: "Iates", href: "/embarcacoes?type=Iate", icon: Anchor },
+  { name: "Jet Skis", href: "/embarcacoes?type=Jet Ski", icon: Waves },
+  { name: "Veleiros", href: "/embarcacoes?type=Veleiro", icon: Sailboat },
+  { name: "Catamarãs", href: "/embarcacoes?type=Catamarã", icon: Ship },
 ];
 
 export const NavigationSidebar = ({ isOpen, onClose }: NavigationSidebarProps) => {
@@ -84,6 +95,7 @@ export const NavigationSidebar = ({ isOpen, onClose }: NavigationSidebarProps) =
 
             {/* Content */}
             <SidebarContent>
+              {/* Main Navigation */}
               <SidebarGroup>
                 <SidebarGroupContent>
                   <SidebarMenu>
@@ -103,6 +115,34 @@ export const NavigationSidebar = ({ isOpen, onClose }: NavigationSidebarProps) =
                             >
                               <Icon className="h-5 w-5" />
                               <span className="font-medium">{item.name}</span>
+                            </Link>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      );
+                    })}
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </SidebarGroup>
+
+              {/* Vessel Types */}
+              <SidebarGroup>
+                <div className="px-4 py-2">
+                  <h3 className="text-sm font-semibold text-muted-foreground">TIPOS DE EMBARCAÇÃO</h3>
+                </div>
+                <SidebarGroupContent>
+                  <SidebarMenu>
+                    {vesselTypes.map((vessel) => {
+                      const Icon = vessel.icon;
+                      return (
+                        <SidebarMenuItem key={vessel.name}>
+                          <SidebarMenuButton asChild>
+                            <Link
+                              to={vessel.href}
+                              onClick={onClose}
+                              className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-foreground hover:bg-muted/50"
+                            >
+                              <Icon className="h-4 w-4" />
+                              <span className="text-sm">{vessel.name}</span>
                             </Link>
                           </SidebarMenuButton>
                         </SidebarMenuItem>

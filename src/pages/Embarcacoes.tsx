@@ -10,6 +10,7 @@ import { useState, useMemo, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 
 import { vessels } from "@/data/vessels";
+import { getVideoSrc, getVesselTitle } from "@/utils/videoMapping";
 
 const Embarcacoes = () => {
   const [searchParams] = useSearchParams();
@@ -33,17 +34,22 @@ const Embarcacoes = () => {
     const typeFromUrl = searchParams.get('type');
     const locationFromUrl = searchParams.get('location');
     const searchFromUrl = searchParams.get('search');
-    
+
+    // Set type immediately from URL
     if (typeFromUrl) {
       setSelectedType(typeFromUrl);
     }
+    
     if (locationFromUrl) setSelectedLocation(locationFromUrl);
+    
     if (searchFromUrl) {
       setSearchTerm(searchFromUrl);
-      // Auto-detect vessel type from search term 
-      const detectedType = detectVesselType(searchFromUrl);
-      if (detectedType && !typeFromUrl) {
-        setSelectedType(detectedType);
+      // Auto-detect vessel type from search term only if no type in URL
+      if (!typeFromUrl) {
+        const detectedType = detectVesselType(searchFromUrl);
+        if (detectedType) {
+          setSelectedType(detectedType);
+        }
       }
     }
   }, [searchParams]);
@@ -99,21 +105,7 @@ const handleSearch = () => {
               preload="metadata"
             >
               <source 
-                 src={(() => {
-                  const videoMap: { [key: string]: string } = {
-                    'jet ski': '/videos/jetski.mp4',
-                    'jetski': '/videos/jetski.mp4',
-                    'iate': '/videos/iate.mp4',
-                    'yacht': '/videos/iate.mp4',
-                    'catamarã': '/videos/catamara.mp4',
-                    'catamara': '/videos/catamara.mp4',
-                    'lancha': '/videos/lancha.mp4',
-                    'veleiro': '/videos/veleiro.mp4',
-                    'sailboat': '/videos/veleiro.mp4',
-                    'default': '/videos/marbana-hero.mp4'
-                  };
-                  return videoMap[selectedType.toLowerCase()] || videoMap.default;
-                 })()} 
+                 src={getVideoSrc(selectedType)} 
                 type="video/mp4" 
               />
             </video>
@@ -125,11 +117,11 @@ const handleSearch = () => {
           <div className="relative z-10 container mx-auto px-4 sm:px-6 max-w-7xl">
             <div className="text-center mb-6 sm:mb-8">
               <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-primary-foreground mb-3 sm:mb-4">
-                Embarcações Premium
+                {getVesselTitle(selectedType)}
               </h1>
               <p className="font-body text-lg sm:text-xl text-primary-foreground/90 max-w-3xl mx-auto">
-                Descubra a nossa seleção exclusiva de iates, lanchas, veleiros, catamarãs e jet skis. 
-                O maior ecossistema náutico brasileiro.
+                Descubra nossa seleção exclusiva de {getVesselTitle(selectedType).toLowerCase()}. 
+                Curadoria de qualidade e atendimento personalizado.
               </p>
             </div>
 
