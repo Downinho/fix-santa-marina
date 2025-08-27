@@ -66,14 +66,48 @@ const handleSearch = () => {
       <Header />
       
       <main id="main-content" className="pt-6">
-        {/* Page Header */}
-        <section className="bg-gradient-ocean py-6 sm:py-8 lg:py-12">
-          <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
+        {/* Page Header with Video Background */}
+        <section className="relative min-h-[50vh] sm:min-h-[60vh] flex items-center justify-center overflow-hidden">
+          {/* Video Background */}
+          <div className="absolute inset-0">
+            <video
+              className="w-full h-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+            >
+              <source 
+                src={(() => {
+                  const videoMap: { [key: string]: string } = {
+                    'jet ski': '/videos/jetski.mp4',
+                    'jetski': '/videos/jetski.mp4',
+                    'iate': '/videos/iate.mp4',
+                    'yacht': '/videos/iate.mp4',
+                    'catamarã': '/videos/catamara.mp4',
+                    'catamara': '/videos/catamara.mp4',
+                    'lancha': '/videos/lancha.mp4',
+                    'veleiro': '/videos/veleiro.mp4',
+                    'sailboat': '/videos/veleiro.mp4',
+                    'default': '/videos/hero-default.mp4'
+                  };
+                  return videoMap[selectedType.toLowerCase()] || videoMap.default;
+                })()} 
+                type="video/mp4" 
+              />
+            </video>
+            
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/50 to-transparent"></div>
+          </div>
+
+          <div className="relative z-10 container mx-auto px-4 sm:px-6 max-w-7xl">
             <div className="text-center mb-6 sm:mb-8">
-              <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-3 sm:mb-4">
+              <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-primary-foreground mb-3 sm:mb-4">
                 Embarcações Premium
               </h1>
-              <p className="font-body text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
+              <p className="font-body text-lg sm:text-xl text-primary-foreground/90 max-w-3xl mx-auto">
                 Descubra a nossa seleção exclusiva de iates, lanchas, veleiros, catamarãs e jet skis. 
                 O maior ecossistema náutico brasileiro.
               </p>
