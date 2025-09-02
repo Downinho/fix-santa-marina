@@ -1,5 +1,3 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -90,7 +88,7 @@ const handleSearch = () => {
 
   return (
     <Layout>
-      <div id="main-content" className="pt-6">
+      <div id="main-content" className="flex-1">
         {/* Page Header with Video Background */}
         <section className="relative min-h-[50vh] sm:min-h-[60vh] flex items-center justify-center overflow-hidden">
           {/* Video Background */}
@@ -124,10 +122,22 @@ const handleSearch = () => {
               </p>
             </div>
 
-            {/* Search Filters */}
+            {/* Search Filters - Hidden on mobile, simplified on tablet */}
             <div className="bg-background/95 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-premium max-w-5xl mx-auto">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 mb-3 sm:mb-4">
-                <div className="sm:col-span-2 md:col-span-2">
+              {/* Mobile: Only search input */}
+              <div className="block md:hidden mb-4">
+                <Input 
+                  placeholder="Buscar embarcações..."
+                  className="h-12 font-body"
+                  aria-label="Buscar embarcações"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+
+              {/* Desktop: Full search form */}
+              <div className="hidden md:grid grid-cols-1 md:grid-cols-5 gap-3 sm:gap-4 mb-3 sm:mb-4">
+                <div className="md:col-span-2">
                   <Input 
                     placeholder="Buscar por nome, marca ou modelo..."
                     className="h-10 sm:h-12 font-body"
@@ -175,10 +185,12 @@ const handleSearch = () => {
                 </Button>
               </div>
               
-              <Button variant="outline" size="sm" className="font-body">
-                <Filter className="w-4 h-4 mr-2" aria-hidden="true" />
-                Filtros Avançados
-              </Button>
+              <div className="hidden md:block">
+                <Button variant="outline" size="sm" className="font-body">
+                  <Filter className="w-4 h-4 mr-2" aria-hidden="true" />
+                  Filtros Avançados
+                </Button>
+              </div>
             </div>
           </div>
         </section>
@@ -192,11 +204,11 @@ const handleSearch = () => {
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
               {filteredVessels.map((vessel) => (
                 <Card 
                   key={vessel.id} 
-                  className="group hover:shadow-premium transition-all duration-300 overflow-hidden"
+                  className="group hover:shadow-premium transition-all duration-300 overflow-hidden relative"
                 >
                   <div className="relative h-48 overflow-hidden">
                     <img 
@@ -206,16 +218,16 @@ const handleSearch = () => {
                     />
                     
                     {vessel.featured && (
-                      <Badge className="absolute top-3 left-3 bg-gradient-gold text-accent-gold-foreground font-body z-10">
+                      <Badge className="absolute top-3 left-3 bg-gradient-gold text-accent-gold-foreground font-body z-20">
                         Destaque Premium
                       </Badge>
                     )}
                     
-                    <div className="absolute top-3 right-3 flex space-x-2 z-10">
+                    <div className="absolute top-3 right-3 flex space-x-2 z-20">
                       <Button 
                         size="sm" 
                         variant="outline" 
-                        className="bg-background/90 backdrop-blur-sm border-background/20 hover:bg-background"
+                        className="bg-background/90 backdrop-blur-sm border-background/20 hover:bg-background relative z-30"
                         aria-label="Adicionar aos favoritos"
                       >
                         <Heart className="w-4 h-4" aria-hidden="true" />
@@ -223,17 +235,17 @@ const handleSearch = () => {
                       <Button 
                         size="sm" 
                         variant="outline" 
-                        className="bg-background/90 backdrop-blur-sm border-background/20 hover:bg-background"
+                        className="bg-background/90 backdrop-blur-sm border-background/20 hover:bg-background relative z-30"
                         aria-label="Ver detalhes"
                         asChild
                       >
-                        <Link to={`/embarcacao/${vessel.slug}`}>
+                        <Link to={`/embarcacao/${vessel.slug}`} className="flex items-center justify-center">
                           <Eye className="w-4 h-4" aria-hidden="true" />
                         </Link>
                       </Button>
                     </div>
                     
-                    <div className="absolute bottom-3 right-3 z-10">
+                    <div className="absolute bottom-3 right-3 z-20">
                       <Badge variant="secondary" className="bg-background/90 backdrop-blur-sm font-body">
                         {vessel.type}
                       </Badge>
@@ -303,10 +315,10 @@ const handleSearch = () => {
                     </div>
                     
                     <Button 
-                      className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body z-10 relative"
+                      className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body relative z-30"
                       asChild
                     >
-                      <Link to={`/embarcacao/${vessel.slug}`} className="block w-full">
+                      <Link to={`/embarcacao/${vessel.slug}`} className="flex items-center justify-center w-full h-full">
                         Ver Detalhes
                       </Link>
                     </Button>
@@ -331,8 +343,6 @@ const handleSearch = () => {
           </div>
         </section>
       </div>
-
-      <Footer />
     </Layout>
   );
 };
