@@ -30,29 +30,30 @@ function App() {
       <Toaster />
       <BrowserRouter>
         <SidebarProvider>
-          <SkipToContent />
-          <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/embarcacoes" element={<Embarcacoes />} />
-          <Route path="/embarcacao/:slug" element={<VesselDetail />} />
-          <Route path="/acessorios" element={<Acessorios />} />
-          <Route path="/servicos" element={<Servicos />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-          <Route path="/sobre" element={<Sobre />} />
-          <Route path="/contato" element={<Contato />} />
-          <Route path="/anuncie" element={<Anuncie />} />
-          <Route path="/perfil" element={<Perfil />} />
-          <Route path="/produto/:slug" element={<Produto />} />
-          <Route path="/marinheiros" element={<Marinheiros />} />
-          <Route path="/marinheiro/:id" element={<MarinheirosDetail />} />
-          <Route path="/acessorio/:id" element={<AcessoriosDetail />} />
-          <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
-          <Route path="/termos-uso" element={<TermosUso />} />
-          <Route path="/cookies" element={<Cookies />} />
-          
-          <Route path="*" element={<NotFound />} />
-          </Routes>
+          <div className="min-h-screen flex flex-col">
+            <SkipToContent />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/embarcacoes" element={<Embarcacoes />} />
+              <Route path="/embarcacao/:slug" element={<VesselDetail />} />
+              <Route path="/acessorios" element={<Acessorios />} />
+              <Route path="/servicos" element={<Servicos />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/sobre" element={<Sobre />} />
+              <Route path="/contato" element={<Contato />} />
+              <Route path="/anuncie" element={<Anuncie />} />
+              <Route path="/perfil" element={<Perfil />} />
+              <Route path="/produto/:slug" element={<Produto />} />
+              <Route path="/marinheiros" element={<Marinheiros />} />
+              <Route path="/marinheiro/:id" element={<MarinheirosDetail />} />
+              <Route path="/acessorio/:id" element={<AcessoriosDetail />} />
+              <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
+              <Route path="/termos-uso" element={<TermosUso />} />
+              <Route path="/cookies" element={<Cookies />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
         </SidebarProvider>
       </BrowserRouter>
     </TooltipProvider>

@@ -65,7 +65,7 @@ export function AppSidebar() {
   
   return (
     <Sidebar 
-      className={!open ? "w-14" : "w-[70vw] sm:w-80 md:w-72"}
+      className={!open ? "hidden" : "fixed inset-y-0 left-0 z-40 w-[70vw] sm:w-80 md:w-72"}
       collapsible="icon"
     >
       {/* Header */}

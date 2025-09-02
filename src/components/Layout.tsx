@@ -13,9 +13,9 @@ export function Layout({ children, showSidebar = true }: LayoutProps) {
     return (
       <>
         <Header />
-        <div className="flex-1">
+        <main className="flex-1">
           {children}
-        </div>
+        </main>
         <Footer />
       </>
     );
@@ -23,8 +23,11 @@ export function Layout({ children, showSidebar = true }: LayoutProps) {
 
   return (
     <>
+      {/* Sidebar Overlay */}
+      <AppSidebar />
+      
       {/* Global Header with Sidebar Trigger */}
-      <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-30 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 items-center">
           <SidebarTrigger className="mr-2" />
           <div className="flex-1">
@@ -33,16 +36,13 @@ export function Layout({ children, showSidebar = true }: LayoutProps) {
         </div>
       </header>
 
-      {/* Main Layout */}
-      <div className="flex min-h-[calc(100vh-3.5rem)] w-full">
-        <AppSidebar />
-        <div className="flex-1 flex flex-col overflow-auto">
-          <div className="flex-1">
-            {children}
-          </div>
-          <Footer />
-        </div>
-      </div>
+      {/* Main Content */}
+      <main className="flex-1">
+        {children}
+      </main>
+      
+      {/* Footer at bottom */}
+      <Footer />
     </>
   );
 }
