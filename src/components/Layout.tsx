@@ -12,9 +12,9 @@ export function Layout({ children, showSidebar = true }: LayoutProps) {
     return (
       <>
         <Header />
-        <main className="flex-1">
+        <div className="flex-1">
           {children}
-        </main>
+        </div>
       </>
     );
   }
@@ -34,9 +34,9 @@ export function Layout({ children, showSidebar = true }: LayoutProps) {
       {/* Main Layout */}
       <div className="flex min-h-[calc(100vh-3.5rem)] w-full">
         <AppSidebar />
-        <main className="flex-1 overflow-auto">
+        <div className="flex-1 overflow-auto">
           {children}
-        </main>
+        </div>
       </div>
     </>
   );

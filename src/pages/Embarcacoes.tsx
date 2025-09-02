@@ -90,7 +90,7 @@ const handleSearch = () => {
 
   return (
     <Layout>
-      <main id="main-content" className="pt-6">
+      <div id="main-content" className="pt-6">
         {/* Page Header with Video Background */}
         <section className="relative min-h-[50vh] sm:min-h-[60vh] flex items-center justify-center overflow-hidden">
           {/* Video Background */}
@@ -330,7 +330,7 @@ const handleSearch = () => {
             )}
           </div>
         </section>
-      </main>
+      </div>
 
       <Footer />
     </Layout>
