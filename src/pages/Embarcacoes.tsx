@@ -192,30 +192,30 @@ const handleSearch = () => {
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-full overflow-hidden">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {filteredVessels.map((vessel) => (
                 <Card 
                   key={vessel.id} 
-                  className="group cursor-pointer hover:shadow-premium transition-all duration-300 overflow-hidden max-w-full"
+                  className="group hover:shadow-premium transition-all duration-300 overflow-hidden"
                 >
-                  <div className="relative h-48 overflow-hidden max-w-full">
+                  <div className="relative h-48 overflow-hidden">
                     <img 
                       src={vessel.image} 
                       alt={`${vessel.name} - ${vessel.type}`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 max-w-full"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     
                     {vessel.featured && (
-                      <Badge className="absolute top-4 left-4 bg-gradient-gold text-accent-gold-foreground font-body">
+                      <Badge className="absolute top-3 left-3 bg-gradient-gold text-accent-gold-foreground font-body z-10">
                         Destaque Premium
                       </Badge>
                     )}
                     
-                    <div className="absolute top-4 right-4 flex space-x-2">
+                    <div className="absolute top-3 right-3 flex space-x-2 z-10">
                       <Button 
                         size="sm" 
                         variant="outline" 
-                        className="bg-background/90 backdrop-blur-sm border-background/20"
+                        className="bg-background/90 backdrop-blur-sm border-background/20 hover:bg-background"
                         aria-label="Adicionar aos favoritos"
                       >
                         <Heart className="w-4 h-4" aria-hidden="true" />
@@ -223,7 +223,7 @@ const handleSearch = () => {
                       <Button 
                         size="sm" 
                         variant="outline" 
-                        className="bg-background/90 backdrop-blur-sm border-background/20"
+                        className="bg-background/90 backdrop-blur-sm border-background/20 hover:bg-background"
                         aria-label="Ver detalhes"
                         asChild
                       >
@@ -233,7 +233,7 @@ const handleSearch = () => {
                       </Button>
                     </div>
                     
-                    <div className="absolute bottom-4 right-4">
+                    <div className="absolute bottom-3 right-3 z-10">
                       <Badge variant="secondary" className="bg-background/90 backdrop-blur-sm font-body">
                         {vessel.type}
                       </Badge>
@@ -303,10 +303,10 @@ const handleSearch = () => {
                     </div>
                     
                     <Button 
-                      className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body"
+                      className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body z-10 relative"
                       asChild
                     >
-                      <Link to={`/embarcacao/${vessel.slug}`}>
+                      <Link to={`/embarcacao/${vessel.slug}`} className="block w-full">
                         Ver Detalhes
                       </Link>
                     </Button>
