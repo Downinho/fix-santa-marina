@@ -1,9 +1,7 @@
-import Header from "@/components/Header";
 import HeroVideo from "@/components/HeroVideo";
 import FeaturedVessels from "@/components/FeaturedVessels";
 import About from "@/components/About";
 import CTA from "@/components/CTA";
-import Footer from "@/components/Footer";
 import { Layout } from "@/components/Layout";
 
 const Index = () => {
@@ -15,7 +13,6 @@ const Index = () => {
         <About />
         <CTA />
       </main>
-      <Footer />
     </Layout>
   );
 };

@@ -36,8 +36,10 @@ export function Layout({ children, showSidebar = true }: LayoutProps) {
       {/* Main Layout */}
       <div className="flex min-h-[calc(100vh-3.5rem)] w-full">
         <AppSidebar />
-        <div className="flex-1 overflow-auto">
-          {children}
+        <div className="flex-1 flex flex-col overflow-auto">
+          <div className="flex-1">
+            {children}
+          </div>
           <Footer />
         </div>
       </div>

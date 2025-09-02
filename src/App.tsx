@@ -30,9 +30,8 @@ function App() {
       <Toaster />
       <BrowserRouter>
         <SidebarProvider>
-          <div className="min-h-screen flex w-full">
-            <SkipToContent />
-            <Routes>
+          <SkipToContent />
+          <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/embarcacoes" element={<Embarcacoes />} />
           <Route path="/embarcacao/:slug" element={<VesselDetail />} />
@@ -53,8 +52,7 @@ function App() {
           <Route path="/cookies" element={<Cookies />} />
           
           <Route path="*" element={<NotFound />} />
-            </Routes>
-          </div>
+          </Routes>
         </SidebarProvider>
       </BrowserRouter>
     </TooltipProvider>
