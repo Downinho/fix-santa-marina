@@ -64,7 +64,10 @@ export function AppSidebar() {
   const isVesselTypeActive = vesselTypes.some((vessel) => isActive(vessel.href));
   
   return (
-    <Sidebar className={!open ? "w-14" : "w-72"}>
+    <Sidebar 
+      className={!open ? "w-14" : "w-80 sm:w-72"}
+      collapsible="icon"
+    >
       {/* Header */}
       <SidebarHeader className="border-b border-border p-4">
         <div className="flex items-center justify-between">
