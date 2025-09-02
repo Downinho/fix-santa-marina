@@ -144,6 +144,368 @@ export const vessels: Vessel[] = [
       },
     ],
     featured: true
+  },
+  {
+    id: "2",
+    name: "Coral Supreme",
+    model: "Coral 36HT",
+    slug: "coral-supreme-36ht-2",
+    type: "Iate",
+    year: 2019,
+    length: "11.0m",
+    price: 95000000, // R$ 950.000,00
+    location: "Lagos, Portugal",
+    coordinates: { lat: 37.1021, lng: -8.6731 },
+    description: "Magnífico iate Coral 36HT em excelente estado de conservação. Modelo 2019 com acabamentos premium e equipamentos completos. Ideal para navegação de luxo com amplo espaço e conforto excepcional.",
+    images: [
+      "https://nauticalagos.com.br/wp-content/uploads/2024/01/coral-36ht-2019-1.jpg",
+      "https://nauticalagos.com.br/wp-content/uploads/2024/01/coral-36ht-2019-2.jpg",
+      "https://nauticalagos.com.br/wp-content/uploads/2024/01/coral-36ht-2019-3.jpg",
+      "https://nauticalagos.com.br/wp-content/uploads/2024/01/coral-36ht-2019-4.jpg"
+    ],
+    owner: {
+      name: "Nautical Lagos",
+      rating: 4.8,
+      verified: true,
+      responseTime: "Responde em até 1 hora"
+    },
+    specifications: [
+      { label: "Modelo", value: "Coral 36HT" },
+      { label: "Ano", value: "2019" },
+      { label: "Comprimento", value: "11,0 metros" },
+      { label: "Boca", value: "3,50 metros" },
+      { label: "Calado", value: "1,20 metros" },
+      { label: "Capacidade", value: "12 pessoas" },
+      { label: "Cabines", value: "2 cabines" },
+      { label: "Motorização", value: "2x Volvo Penta D4-300" },
+      { label: "Combustível", value: "Diesel" },
+      { label: "Tanque combustível", value: "800L" },
+      { label: "Tanque água doce", value: "300L" }
+    ],
+    amenities: [
+      "2 cabines com ar condicionado",
+      "2 banheiros completos",
+      "Cozinha totalmente equipada",
+      "Geladeira e freezer",
+      "Sistema de som premium",
+      "GPS/Chartplotter",
+      "VHF Marítimo",
+      "Plataforma de banho",
+      "Chuveiro de popa",
+      "Toldo bimini",
+      "Mesa conversível",
+      "Iluminação LED",
+      "Tomadas 220V",
+      "Inversor de energia"
+    ],
+    highlights: [
+      {
+        icon: "Crown",
+        title: "Iate Premium",
+        description: "Modelo 36HT com acabamentos de luxo"
+      },
+      {
+        icon: "Bed",
+        title: "2 Cabines",
+        description: "Acomodações confortáveis para pernoite"
+      },
+      {
+        icon: "Waves",
+        title: "Performance Excepcional",
+        description: "Motores Volvo Penta de alta performance"
+      },
+      {
+        icon: "Shield",
+        title: "Estado Impecável",
+        description: "Manutenção rigorosa e documentação em dia"
+      }
+    ],
+    featured: true
+  },
+  {
+    id: "3",
+    name: "Real Ocean",
+    model: "Real 24A",
+    slug: "real-ocean-24a-3",
+    type: "Lancha",
+    year: 2008,
+    length: "7.3m",
+    price: 18500000, // R$ 185.000,00
+    location: "Lagos, Portugal",
+    coordinates: { lat: 37.1021, lng: -8.6731 },
+    description: "Lancha Real 24A clássica e confiável. Modelo 2008 em ótimo estado, ideal para passeios em família e pescarias. Design atemporal com excelente custo-benefício.",
+    images: [
+      "https://nauticalagos.com.br/wp-content/uploads/2024/01/real-24a-2008-1.jpg",
+      "https://nauticalagos.com.br/wp-content/uploads/2024/01/real-24a-2008-2.jpg",
+      "https://nauticalagos.com.br/wp-content/uploads/2024/01/real-24a-2008-3.jpg"
+    ],
+    owner: {
+      name: "Nautical Lagos",
+      rating: 4.8,
+      verified: true,
+      responseTime: "Responde em até 1 hora"
+    },
+    specifications: [
+      { label: "Modelo", value: "Real 24A" },
+      { label: "Ano", value: "2008" },
+      { label: "Comprimento", value: "7,3 metros" },
+      { label: "Boca", value: "2,40 metros" },
+      { label: "Capacidade", value: "8 pessoas" },
+      { label: "Motorização", value: "Yamaha 200HP" },
+      { label: "Combustível", value: "Gasolina" },
+      { label: "Tanque combustível", value: "220L" },
+      { label: "Tanque água doce", value: "50L" }
+    ],
+    amenities: [
+      "Cabine com beliches",
+      "Banheiro marinho",
+      "Pia com água doce",
+      "Geladeira portátil",
+      "Sistema de som",
+      "GPS básico",
+      "VHF portátil",
+      "Plataforma de popa",
+      "Escada de banho",
+      "Toldo removível",
+      "Iluminação interna",
+      "Kit salvatagem"
+    ],
+    highlights: [
+      {
+        icon: "DollarSign",
+        title: "Excelente Custo-Benefício",
+        description: "Preço acessível com qualidade comprovada"
+      },
+      {
+        icon: "Fish",
+        title: "Ideal para Pesca",
+        description: "Layout otimizado para pescarias"
+      },
+      {
+        icon: "Users",
+        title: "Familiar",
+        description: "Perfeita para passeios em família"
+      },
+      {
+        icon: "Wrench",
+        title: "Fácil Manutenção",
+        description: "Sistema simples e confiável"
+      }
+    ]
+  },
+  {
+    id: "4",
+    name: "Coral Elite",
+    model: "Coral 33A",
+    slug: "coral-elite-33a-4",
+    type: "Iate",
+    year: 2020,
+    length: "10.0m",
+    price: 75000000, // R$ 750.000,00
+    location: "Lagos, Portugal",
+    coordinates: { lat: 37.1021, lng: -8.6731 },
+    description: "Impressionante Coral 33A modelo 2020, praticamente novo. Design moderno com tecnologia de ponta e acabamentos refinados. Uma das embarcações mais desejadas do mercado.",
+    images: [
+      "https://nauticalagos.com.br/wp-content/uploads/2024/01/coral-33a-2020-1.jpg",
+      "https://nauticalagos.com.br/wp-content/uploads/2024/01/coral-33a-2020-2.jpg",
+      "https://nauticalagos.com.br/wp-content/uploads/2024/01/coral-33a-2020-3.jpg",
+      "https://nauticalagos.com.br/wp-content/uploads/2024/01/coral-33a-2020-4.jpg"
+    ],
+    owner: {
+      name: "Nautical Lagos",
+      rating: 4.8,
+      verified: true,
+      responseTime: "Responde em até 1 hora"
+    },
+    specifications: [
+      { label: "Modelo", value: "Coral 33A" },
+      { label: "Ano", value: "2020" },
+      { label: "Comprimento", value: "10,0 metros" },
+      { label: "Boca", value: "3,20 metros" },
+      { label: "Capacidade", value: "10 pessoas" },
+      { label: "Cabines", value: "2 cabines" },
+      { label: "Motorização", value: "2x Mercury 200HP" },
+      { label: "Combustível", value: "Gasolina" },
+      { label: "Tanque combustível", value: "600L" }
+    ],
+    amenities: [
+      "2 cabines climatizadas",
+      "Banheiro com box",
+      "Cozinha compacta",
+      "Geladeira elétrica",
+      "Sistema multimidia touchscreen",
+      "GPS/Plotter 12 polegadas",
+      "Radar opcional",
+      "Piloto automático",
+      "Plataforma hidráulica",
+      "Chuveiro de popa quente/frio",
+      "Ar condicionado",
+      "Gerador"
+    ],
+    highlights: [
+      {
+        icon: "Sparkles",
+        title: "Praticamente Novo",
+        description: "Modelo 2020 com baixíssimas horas"
+      },
+      {
+        icon: "Cpu",
+        title: "Tecnologia Avançada",
+        description: "Sistemas eletrônicos de última geração"
+      },
+      {
+        icon: "Zap",
+        title: "Alta Performance",
+        description: "Motores Mercury de alto desempenho"
+      },
+      {
+        icon: "Star",
+        title: "Design Premiado",
+        description: "Linhas modernas e elegantes"
+      }
+    ],
+    featured: true
+  },
+  {
+    id: "5",
+    name: "Coral Classic",
+    model: "Coral 26A Full",
+    slug: "coral-classic-26a-full-5",
+    type: "Lancha",
+    year: 2008,
+    length: "8.0m",
+    price: 28000000, // R$ 280.000,00
+    location: "Lagos, Portugal",
+    coordinates: { lat: 37.1021, lng: -8.6731 },
+    description: "Coral 26A Full 2008 com todos os opcionais de fábrica. Embarcação versátil e robusta, perfeita para diferentes tipos de navegação. Manutenção em dia e pronta para navegar.",
+    images: [
+      "https://nauticalagos.com.br/wp-content/uploads/2024/01/coral-26a-2008-1.jpg",
+      "https://nauticalagos.com.br/wp-content/uploads/2024/01/coral-26a-2008-2.jpg",
+      "https://nauticalagos.com.br/wp-content/uploads/2024/01/coral-26a-2008-3.jpg"
+    ],
+    owner: {
+      name: "Nautical Lagos",
+      rating: 4.8,
+      verified: true,
+      responseTime: "Responde em até 1 hora"
+    },
+    specifications: [
+      { label: "Modelo", value: "Coral 26A Full" },
+      { label: "Ano", value: "2008" },
+      { label: "Comprimento", value: "8,0 metros" },
+      { label: "Boca", value: "2,60 metros" },
+      { label: "Capacidade", value: "8 pessoas" },
+      { label: "Motorização", value: "Yamaha 250HP" },
+      { label: "Combustível", value: "Gasolina" },
+      { label: "Tanque combustível", value: "300L" }
+    ],
+    amenities: [
+      "Cabine com cama de casal",
+      "Banheiro completo",
+      "Pia com água pressurizada",
+      "Geladeira 12V",
+      "Som com CD/USB",
+      "GPS/Sonar",
+      "VHF fixo",
+      "Plataforma de popa",
+      "Escada telescópica",
+      "Toldo completo",
+      "Mesa conversível",
+      "Luzes de cortesia"
+    ],
+    highlights: [
+      {
+        icon: "Package",
+        title: "Versão Full",
+        description: "Todos os opcionais de fábrica inclusos"
+      },
+      {
+        icon: "Anchor",
+        title: "Muito Versátil",
+        description: "Ideal para pesca, passeio e pernoite"
+      },
+      {
+        icon: "ThumbsUp",
+        title: "Bem Conservada",
+        description: "Manutenção preventiva rigorosa"
+      },
+      {
+        icon: "MapPin",
+        title: "Pronta para Navegar",
+        description: "Documentação e equipamentos em dia"
+      }
+    ]
+  },
+  {
+    id: "6",
+    name: "Coral Navigator",
+    model: "Coral 31A",
+    slug: "coral-navigator-31a-6",
+    type: "Iate",
+    year: 2013,
+    length: "9.5m",
+    price: 55000000, // R$ 550.000,00
+    location: "Lagos, Portugal", 
+    coordinates: { lat: 37.1021, lng: -8.6731 },
+    description: "Coral 31A 2013 em excelente estado. Iate espaçoso com design clássico e equipamentos atualizados. Ideal para navegação de longo curso e estadias confortáveis.",
+    images: [
+      "https://nauticalagos.com.br/wp-content/uploads/2024/01/coral-31a-2013-1.jpg",
+      "https://nauticalagos.com.br/wp-content/uploads/2024/01/coral-31a-2013-2.jpg",
+      "https://nauticalagos.com.br/wp-content/uploads/2024/01/coral-31a-2013-3.jpg"
+    ],
+    owner: {
+      name: "Nautical Lagos",
+      rating: 4.8,
+      verified: true,
+      responseTime: "Responde em até 1 hora"
+    },
+    specifications: [
+      { label: "Modelo", value: "Coral 31A" },
+      { label: "Ano", value: "2013" },
+      { label: "Comprimento", value: "9,5 metros" },
+      { label: "Boca", value: "3,0 metros" },
+      { label: "Capacidade", value: "10 pessoas" },
+      { label: "Cabines", value: "2 cabines" },
+      { label: "Motorização", value: "2x Volvo Penta 225HP" },
+      { label: "Combustível", value: "Diesel" },
+      { label: "Tanque combustível", value: "500L" }
+    ],
+    amenities: [
+      "2 cabines duplas",
+      "Banheiro com ducha separada",
+      "Cozinha com forno",
+      "Geladeira e congelador",
+      "Sistema de entretenimento",
+      "GPS/Chartplotter",
+      "Radar",
+      "VHF com DSC",
+      "Windlass elétrico",
+      "Plataforma com escada",
+      "Bimini e capota",
+      "Mesa de cockpit"
+    ],
+    highlights: [
+      {
+        icon: "Compass",
+        title: "Navegação Oceânica",
+        description: "Equipado para travessias longas"
+      },
+      {
+        icon: "Home",
+        title: "Muito Espaçoso",
+        description: "Layout otimizado para conforto"
+      },
+      {
+        icon: "Settings",
+        title: "Bem Equipado",
+        description: "Eletrônicos e equipamentos atualizados"
+      },
+      {
+        icon: "Award",
+        title: "Design Atemporal",
+        description: "Linhas clássicas e elegantes"
+      }
+    ]
   }
 ];
 
