@@ -2,6 +2,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import SkipToContent from "@/components/SkipToContent";
 import Index from "./pages/Index";
 import Embarcacoes from "./pages/Embarcacoes";
@@ -28,8 +29,10 @@ function App() {
     <TooltipProvider>
       <Toaster />
       <BrowserRouter>
-        <SkipToContent />
-        <Routes>
+        <SidebarProvider>
+          <div className="min-h-screen flex w-full">
+            <SkipToContent />
+            <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/embarcacoes" element={<Embarcacoes />} />
           <Route path="/embarcacao/:slug" element={<VesselDetail />} />
@@ -50,7 +53,9 @@ function App() {
           <Route path="/cookies" element={<Cookies />} />
           
           <Route path="*" element={<NotFound />} />
-        </Routes>
+            </Routes>
+          </div>
+        </SidebarProvider>
       </BrowserRouter>
     </TooltipProvider>
   );

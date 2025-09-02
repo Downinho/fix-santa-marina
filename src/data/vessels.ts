@@ -506,6 +506,199 @@ export const vessels: Vessel[] = [
         description: "Linhas clássicas e elegantes"
       }
     ]
+  },
+  // Jet Skis da Nautical Lagos
+  {
+    id: "7",
+    name: "Sea Rider",
+    model: "Yamaha VX Cruiser",
+    slug: "sea-rider-yamaha-vx-cruiser-7",
+    type: "Jet Ski",
+    year: 2020,
+    length: "3.35m",
+    price: 5200000, // R$ 52.000,00
+    location: "Cabo Frio, RJ",
+    coordinates: { lat: -22.8794, lng: -42.0197 },
+    description: "Yamaha VX Cruiser em perfeito estado. Jet ski de 3 lugares com excelente estabilidade e performance. Ideal para passeios em família com segurança e diversão.",
+    images: [
+      "/public/site para rerência/nauticalagos.com.br_files/WhatsApp-Image-2025-08-04-at-15.37.43-r9rwah3zm475jjdf0akevkgewrqed3auma0ioszqa8.jpeg"
+    ],
+    owner: {
+      name: "Nautical Lagos",
+      rating: 4.8,
+      verified: true,
+      responseTime: "Responde em até 1 hora"
+    },
+    specifications: [
+      { label: "Modelo", value: "Yamaha VX Cruiser" },
+      { label: "Ano", value: "2020" },
+      { label: "Comprimento", value: "3,35 metros" },
+      { label: "Boca", value: "1,22 metros" },
+      { label: "Motor", value: "1050cc 4 tempos" },
+      { label: "Capacidade combustível", value: "70L" },
+      { label: "Velocidade máxima", value: "65 km/h" },
+      { label: "Capacidade", value: "3 pessoas" }
+    ],
+    amenities: [
+      "Sistema de som integrado",
+      "Compartimento estanque",
+      "Espelho de popa",
+      "Sistema de ancoragem",
+      "Assento ergonômico",
+      "Partida elétrica",
+      "Sistema de direção assistida",
+      "Indicadores digitais"
+    ],
+    highlights: [
+      {
+        icon: "Zap",
+        title: "Alta Performance",
+        description: "Motor 1050cc de última geração"
+      },
+      {
+        icon: "Users",
+        title: "3 Lugares",
+        description: "Capacidade para toda a família"
+      },
+      {
+        icon: "Music",
+        title: "Sistema de Som",
+        description: "Audio premium integrado"
+      },
+      {
+        icon: "Shield",
+        title: "Estado Impecável",
+        description: "Manutenção rigorosa em dia"
+      }
+    ]
+  },
+  {
+    id: "8", 
+    name: "Wave Master",
+    model: "Sea-Doo GTI SE 130",
+    slug: "wave-master-seadoo-gti-se-130-8",
+    type: "Jet Ski",
+    year: 2021,
+    length: "3.20m",
+    price: 4850000, // R$ 48.500,00
+    location: "Lagos, RJ",
+    coordinates: { lat: -22.9068, lng: -42.2713 },
+    description: "Sea-Doo GTI SE 130 com baixas horas de uso. Ideal para iniciantes e famílias que buscam diversão e segurança nas águas.",
+    images: [
+      "/public/site para rerência/nauticalagos.com.br_files/WhatsApp-Image-2025-07-30-at-14.30.44-1-r9j67e65eznmm1jff8tvddcofkwdwjyydf4cyg45ao.jpeg"
+    ],
+    owner: {
+      name: "Nautical Lagos", 
+      rating: 4.8,
+      verified: true,
+      responseTime: "Responde em até 1 hora"
+    },
+    specifications: [
+      { label: "Modelo", value: "Sea-Doo GTI SE 130" },
+      { label: "Ano", value: "2021" },
+      { label: "Comprimento", value: "3,20 metros" },
+      { label: "Boca", value: "1,17 metros" },
+      { label: "Motor", value: "Rotax 1630 ACE" },
+      { label: "Capacidade combustível", value: "60L" },
+      { label: "Velocidade máxima", value: "62 km/h" },
+      { label: "Capacidade", value: "3 pessoas" }
+    ],
+    amenities: [
+      "Sistema iBR (freio e ré)",
+      "Modo ECO para economia",
+      "Plataforma de embarque",
+      "Luvas do mar",
+      "Sistema de direção inteligente",
+      "Painel digital completo",
+      "Sistema anti-roubo",
+      "Kit de reboque"
+    ],
+    highlights: [
+      {
+        icon: "Leaf",
+        title: "Modo ECO",
+        description: "Máxima economia de combustível"
+      },
+      {
+        icon: "Brake",
+        title: "Sistema iBR", 
+        description: "Freio e ré inteligentes"
+      },
+      {
+        icon: "UserCheck",
+        title: "Para Iniciantes",
+        description: "Fácil pilotagem e controle"
+      },
+      {
+        icon: "Calendar",
+        title: "Ano 2021",
+        description: "Modelo mais recente disponível"
+      }
+    ]
+  },
+  {
+    id: "9",
+    name: "Thunder Wave",
+    model: "Kawasaki STX 160",
+    slug: "thunder-wave-kawasaki-stx-160-9", 
+    type: "Jet Ski",
+    year: 2019,
+    length: "3.28m",
+    price: 4500000, // R$ 45.000,00
+    location: "Búzios, RJ",
+    coordinates: { lat: -22.7496, lng: -41.8861 },
+    description: "Kawasaki STX 160 com excelente custo-benefício. Jet ski robusto e confiável para toda família, com design esportivo e performance garantida.",
+    images: [
+      "/public/site para rerência/nauticalagos.com.br_files/WhatsApp-Image-2025-07-24-at-13.18.09-3-r98kwhhx06jyvmmzx7p9ut3fu92vjg3krja49v4yq8.jpeg"
+    ],
+    owner: {
+      name: "Nautical Lagos",
+      rating: 4.8, 
+      verified: true,
+      responseTime: "Responde em até 1 hora"
+    },
+    specifications: [
+      { label: "Modelo", value: "Kawasaki STX 160" },
+      { label: "Ano", value: "2019" },
+      { label: "Comprimento", value: "3,28 metros" },
+      { label: "Boca", value: "1,17 metros" },
+      { label: "Motor", value: "1498cc 4 cilindros" },
+      { label: "Capacidade combustível", value: "65L" },
+      { label: "Velocidade máxima", value: "68 km/h" },
+      { label: "Capacidade", value: "3 pessoas" }
+    ],
+    amenities: [
+      "Deck antiderrapante",
+      "Sistema de partida elétrica", 
+      "Compartimento frontal estanque",
+      "Alça de reboque",
+      "Espelhos retrovisores",
+      "Sistema de trim manual",
+      "Indicador de combustível digital",
+      "Sistema de segurança DESS"
+    ],
+    highlights: [
+      {
+        icon: "DollarSign",
+        title: "Custo-Benefício",
+        description: "Melhor relação preço x qualidade"
+      },
+      {
+        icon: "Wrench", 
+        title: "Robusto",
+        description: "Construção sólida e confiável"
+      },
+      {
+        icon: "Zap",
+        title: "Motor 4 Cilindros",
+        description: "Performance e economia"
+      },
+      {
+        icon: "Users",
+        title: "Familiar",
+        description: "Perfeito para toda família"
+      }
+    ]
   }
 ];
 

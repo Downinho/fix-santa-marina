@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Heart, MapPin, Anchor, Eye, Search, Filter, MessageCircle, Star } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
+import { Layout } from "@/components/Layout";
 
 import { vessels } from "@/data/vessels";
 import { getVideoSrc, getVesselTitle } from "@/utils/videoMapping";
@@ -88,9 +89,7 @@ const handleSearch = () => {
   };
 
   return (
-    <div className="min-h-screen">
-      <Header />
-      
+    <Layout>
       <main id="main-content" className="pt-6">
         {/* Page Header with Video Background */}
         <section className="relative min-h-[50vh] sm:min-h-[60vh] flex items-center justify-center overflow-hidden">
@@ -334,7 +333,7 @@ const handleSearch = () => {
       </main>
 
       <Footer />
-    </div>
+    </Layout>
   );
 };
 
