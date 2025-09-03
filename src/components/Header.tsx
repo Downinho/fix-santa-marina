@@ -52,9 +52,7 @@ const Header = () => {
             {/* Left Side - Hamburger + Logo */}
             <div className="flex items-center gap-4">
               {/* Navigation Sidebar Button */}
-              <SidebarTrigger className="p-2 rounded-lg hover:bg-muted transition-colors">
-                <Menu className="h-5 w-5" />
-              </SidebarTrigger>
+              <SidebarTrigger />
 
               {/* Logo */}
               <Link to="/" className="flex items-center space-x-3 group">
