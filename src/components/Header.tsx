@@ -6,9 +6,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import StateSelector from "./StateSelector";
-import { AppSidebar } from "@/components/AppSidebar";
 import { getSearchRoute } from "@/utils/searchRouter";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,18 +52,9 @@ const Header = () => {
             {/* Left Side - Hamburger + Logo */}
             <div className="flex items-center gap-4">
               {/* Navigation Sidebar Button */}
-              <SidebarProvider>
-                <SidebarTrigger asChild>
-                  <button
-                    type="button"
-                    className="p-2 rounded-lg hover:bg-muted transition-colors"
-                    aria-label="Abrir menu de navegação"
-                  >
-                    <Menu className="h-5 w-5" />
-                  </button>
-                </SidebarTrigger>
-                <AppSidebar />
-              </SidebarProvider>
+              <SidebarTrigger className="p-2 rounded-lg hover:bg-muted transition-colors">
+                <Menu className="h-5 w-5" />
+              </SidebarTrigger>
 
               {/* Logo */}
               <Link to="/" className="flex items-center space-x-3 group">
