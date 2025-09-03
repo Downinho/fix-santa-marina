@@ -6,7 +6,7 @@ import { Layout } from "@/components/Layout";
 
 const Index = () => {
   return (
-    <Layout showSidebar={false}>
+    <Layout>
       <main id="main-content">
         <HeroVideo searchType="default" isHomePage={true} />
         <FeaturedVessels />

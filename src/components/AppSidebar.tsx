@@ -52,7 +52,6 @@ const vesselTypes = [
 ];
 
 export function AppSidebar() {
-  const { open, setOpen } = useSidebar();
   const location = useLocation();
   const currentPath = location.pathname;
   
@@ -61,41 +60,33 @@ export function AppSidebar() {
     return currentPath.startsWith(href);
   };
   
-  const isVesselTypeActive = vesselTypes.some((vessel) => isActive(vessel.href));
-  
   return (
     <Sidebar 
-      className={!open ? "hidden" : "fixed inset-y-0 left-0 z-40 w-[70vw] sm:w-80 md:w-72"}
-      collapsible="icon"
+      className="fixed inset-y-0 left-0 z-[60] w-[85vw] sm:w-80 border-r bg-background/95 backdrop-blur-sm"
+      collapsible="none"
     >
       {/* Header */}
-      <SidebarHeader className="border-b border-border p-4">
+      <SidebarHeader className="border-b border-border p-6">
         <div className="flex items-center justify-between">
-          <Link to="/" className={!open ? "hidden" : "block"}>
+          <Link to="/">
             <div className="flex items-center gap-2">
               <MarbanaLogo className="h-8 w-8" />
-              <h1 className="font-display text-xl font-bold bg-gradient-hero bg-clip-text text-transparent">
+              <h1 className="font-display text-2xl font-bold bg-gradient-hero bg-clip-text text-transparent">
                 MARBANA
               </h1>
             </div>
           </Link>
-          {!open && (
-            <Link to="/">
-              <MarbanaLogo className="h-8 w-8" />
-            </Link>
-          )}
+          <SidebarTrigger className="p-2 hover:bg-muted rounded-lg transition-colors" />
         </div>
       </SidebarHeader>
 
       {/* Content */}
-      <SidebarContent>
+      <SidebarContent className="overflow-y-auto">
         {/* Main Navigation */}
         <SidebarGroup>
-          {open && (
-            <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-              Navegação Principal
-            </SidebarGroupLabel>
-          )}
+          <SidebarGroupLabel className="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+            Navegação Principal
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navigationItems.map((item) => {
@@ -106,14 +97,14 @@ export function AppSidebar() {
                     <SidebarMenuButton asChild>
                       <Link
                         to={item.href}
-                        className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 ${
+                        className={`flex items-center gap-3 mx-4 px-4 py-3 rounded-lg transition-all duration-200 ${
                           active
-                            ? "bg-primary/10 text-primary font-medium border-l-2 border-primary"
+                            ? "bg-primary/10 text-primary font-medium border-l-4 border-primary"
                             : "text-foreground hover:bg-muted/50 hover:text-primary"
                         }`}
                       >
                         <Icon className="h-5 w-5 shrink-0" />
-                        {open && <span className="font-medium">{item.name}</span>}
+                        <span className="font-medium">{item.name}</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -125,11 +116,9 @@ export function AppSidebar() {
 
         {/* Vessel Types */}
         <SidebarGroup>
-          {open && (
-            <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-              Tipos de Embarcação
-            </SidebarGroupLabel>
-          )}
+          <SidebarGroupLabel className="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+            Tipos de Embarcação
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {vesselTypes.map((vessel) => {
@@ -140,14 +129,14 @@ export function AppSidebar() {
                     <SidebarMenuButton asChild>
                       <Link
                         to={vessel.href}
-                        className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 ${
+                        className={`flex items-center gap-3 mx-4 px-4 py-3 rounded-lg transition-all duration-200 ${
                           active
                             ? "bg-primary/10 text-primary font-medium"
                             : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                         }`}
                       >
                         <Icon className="h-4 w-4 shrink-0" />
-                        {open && <span className="text-sm">{vessel.name}</span>}
+                        <span className="text-sm">{vessel.name}</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -159,15 +148,14 @@ export function AppSidebar() {
       </SidebarContent>
 
       {/* Footer */}
-      <SidebarFooter className="border-t border-border p-4">
+      <SidebarFooter className="border-t border-border p-6">
         <Button 
           asChild
           className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground"
-          size={!open ? "icon" : "default"}
         >
           <Link to="/anuncie">
-            <Megaphone className={!open ? "h-4 w-4" : "h-4 w-4 mr-2"} />
-            {open && "Anuncie Aqui"}
+            <Megaphone className="h-4 w-4 mr-2" />
+            Anuncie Aqui
           </Link>
         </Button>
       </SidebarFooter>

@@ -1,48 +1,18 @@
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/AppSidebar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 interface LayoutProps {
   children: React.ReactNode;
-  showSidebar?: boolean;
 }
 
-export function Layout({ children, showSidebar = true }: LayoutProps) {
-  if (!showSidebar) {
-    return (
-      <>
-        <Header />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
-      </>
-    );
-  }
-
+export function Layout({ children }: LayoutProps) {
   return (
-    <>
-      {/* Sidebar Overlay */}
-      <AppSidebar />
-      
-      {/* Global Header with Sidebar Trigger */}
-      <header className="sticky top-0 z-30 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 items-center">
-          <SidebarTrigger className="mr-2" />
-          <div className="flex-1">
-            <Header />
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="flex-1">
+    <div className="min-h-screen flex flex-col w-full overflow-x-hidden">
+      <Header />
+      <main className="flex-1 w-full overflow-x-hidden">
         {children}
       </main>
-      
-      {/* Footer at bottom */}
       <Footer />
-    </>
+    </div>
   );
 }

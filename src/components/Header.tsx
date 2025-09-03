@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Search, ChevronDown, MapPin } from "lucide-react";
@@ -7,20 +6,19 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import StateSelector from "./StateSelector";
-import { NavigationSidebar } from "./NavigationSidebar";
+import { AppSidebar } from "@/components/AppSidebar";
 import { getSearchRoute } from "@/utils/searchRouter";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const [showSidebar, setShowSidebar] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("");
   const [searchLocation, setSearchLocation] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
   
-
 
   const navigation = [
     { name: "Início", href: "/" },
@@ -55,14 +53,18 @@ const Header = () => {
             {/* Left Side - Hamburger + Logo */}
             <div className="flex items-center gap-4">
               {/* Navigation Sidebar Button */}
-              <button
-                type="button"
-                className="p-2 rounded-lg hover:bg-muted transition-colors"
-                onClick={() => setShowSidebar(true)}
-                aria-label="Abrir menu de navegação"
-              >
-                <Menu className="h-5 w-5" />
-              </button>
+              <SidebarProvider>
+                <SidebarTrigger asChild>
+                  <button
+                    type="button"
+                    className="p-2 rounded-lg hover:bg-muted transition-colors"
+                    aria-label="Abrir menu de navegação"
+                  >
+                    <Menu className="h-5 w-5" />
+                  </button>
+                </SidebarTrigger>
+                <AppSidebar />
+              </SidebarProvider>
 
               {/* Logo */}
               <Link to="/" className="flex items-center space-x-3 group">
@@ -269,12 +271,6 @@ const Header = () => {
           </div>
         </div>
       </header>
-
-      {/* Navigation Sidebar */}
-      <NavigationSidebar 
-        isOpen={showSidebar} 
-        onClose={() => setShowSidebar(false)} 
-      />
 
       {/* Backdrop */}
       {isOpen && (
