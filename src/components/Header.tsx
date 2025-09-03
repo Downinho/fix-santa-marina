@@ -1,50 +1,30 @@
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Search, ChevronDown, MapPin } from "lucide-react";
+import { Search } from "lucide-react";
 import MarbanaLogo from "@/components/ui/MarbanaLogo";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import StateSelector from "./StateSelector";
-import { NavigationSidebar } from "./NavigationSidebar";
 import { getSearchRoute } from "@/utils/searchRouter";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const [showSidebar, setShowSidebar] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("");
   const [searchLocation, setSearchLocation] = useState("");
-  const location = useLocation();
   const navigate = useNavigate();
-  
-
-
-  const navigation = [
-    { name: "Início", href: "/" },
-    { name: "Embarcações", href: "/embarcacoes" },
-    { name: "Acessórios", href: "/acessorios" },
-    { name: "Marinheiros", href: "/marinheiros" },
-    { name: "Serviços", href: "/servicos" },
-    { name: "Blog", href: "/blog" },
-    { name: "Sobre", href: "/sobre" },
-    { name: "Contato", href: "/contato" },
-  ];
 
   const searchTypes = [
     "Lancha", "Iate", "Jet Ski", "Catamarã", "Veleiro", "Caiaque"
   ];
-
-  const isActive = (href: string) => location.pathname === href;
 
   const handleSearch = () => {
     const route = getSearchRoute(searchTerm, searchType, searchLocation);
     navigate(route);
     setShowSearch(false);
   };
-
 
   return (
     <>
@@ -55,14 +35,7 @@ const Header = () => {
             {/* Left Side - Hamburger + Logo */}
             <div className="flex items-center gap-4">
               {/* Navigation Sidebar Button */}
-              <button
-                type="button"
-                className="p-2 rounded-lg hover:bg-muted transition-colors"
-                onClick={() => setShowSidebar(true)}
-                aria-label="Abrir menu de navegação"
-              >
-                <Menu className="h-5 w-5" />
-              </button>
+              <SidebarTrigger />
 
               {/* Logo */}
               <Link to="/" className="flex items-center space-x-3 group">
@@ -134,15 +107,6 @@ const Header = () => {
                 <Search className="w-4 h-4" />
               </button>
 
-              {/* Mobile Menu Button */}
-              <button
-                type="button"
-                className="lg:hidden p-2 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0"
-                onClick={() => setIsOpen(true)}
-              >
-                <Menu className="h-5 w-5" />
-              </button>
-
               {/* Desktop Actions */}
               <div className="hidden lg:flex items-center gap-1 xl:gap-2">
                 <Button 
@@ -204,85 +168,7 @@ const Header = () => {
             </div>
           </div>
         )}
-
-        {/* Mobile menu */}
-        <div className={`lg:hidden ${isOpen ? 'fixed inset-0 z-50' : 'hidden'}`}>
-          <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-background px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-border">
-            <div className="flex items-center justify-between">
-              <Link to="/" className="-m-1.5 p-1.5" onClick={() => setIsOpen(false)}>
-                <span className="sr-only">MARBANA Marina</span>
-                <h1 className="font-display text-xl font-bold bg-gradient-hero bg-clip-text text-transparent">
-                  MARBANA
-                </h1>
-              </Link>
-              <button
-                type="button"
-                className="-m-2.5 rounded-md p-2.5 text-foreground"
-                onClick={() => setIsOpen(false)}
-                aria-label="Fechar menu"
-              >
-                <X className="h-6 w-6" aria-hidden="true" />
-              </button>
-            </div>
-
-            <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-border">
-                <div className="space-y-2 py-6">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      onClick={() => setIsOpen(false)}
-                      className={`-mx-3 block rounded-lg px-3 py-2 font-body text-base font-medium transition-colors hover:bg-muted ${
-                        isActive(item.href) ? "text-primary" : "text-foreground"
-                      }`}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-                
-                <div className="py-6 space-y-4">
-                  <Button 
-                    asChild
-                    className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <Link to="/anuncie">
-                      Anuncie Aqui
-                    </Link>
-                  </Button>
-                  
-                  <Button 
-                    asChild
-                    variant="outline"
-                    className="w-full font-body"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <Link to="/contato">
-                      Contato
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </header>
-
-      {/* Navigation Sidebar */}
-      <NavigationSidebar 
-        isOpen={showSidebar} 
-        onClose={() => setShowSidebar(false)} 
-      />
-
-      {/* Backdrop */}
-      {isOpen && (
-        <div 
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden" 
-          onClick={() => setIsOpen(false)}
-        />
-      )}
     </>
   );
 };

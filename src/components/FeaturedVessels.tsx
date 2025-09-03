@@ -37,9 +37,7 @@ const FeaturedVessels = () => {
           {displayVessels.map((vessel, index) => (
             <Card 
               key={vessel.id} 
-              className={`group cursor-pointer hover:shadow-premium transition-all duration-300 overflow-hidden ${
-                index < 2 ? 'md:h-96' : 'md:h-80'
-              }`}
+              className="group cursor-pointer hover:shadow-premium transition-all duration-300 overflow-hidden"
             >
               <div className="relative h-64 md:h-48 overflow-hidden">
                 <img 
@@ -54,18 +52,18 @@ const FeaturedVessels = () => {
                   </Badge>
                 )}
                 
-                <div className="absolute top-4 right-4 flex space-x-2">
+                <div className="absolute top-4 right-4 flex space-x-2 z-20">
                   <Button 
                     size="sm" 
                     variant="outline" 
-                    className="bg-background/90 backdrop-blur-sm border-background/20"
+                    className="bg-background/90 backdrop-blur-sm border-background/20 hover:bg-background z-30"
                   >
                     <Heart className="w-4 h-4" />
                   </Button>
                   <Button 
                     size="sm" 
                     variant="outline" 
-                    className="bg-background/90 backdrop-blur-sm border-background/20"
+                    className="bg-background/90 backdrop-blur-sm border-background/20 hover:bg-background z-30"
                   >
                     <Eye className="w-4 h-4" />
                   </Button>
@@ -104,7 +102,7 @@ const FeaturedVessels = () => {
                   </span>
                 </div>
                 
-                <Button className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body" asChild>
+                <Button className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body relative" asChild>
                   <Link to={`/embarcacao/${vessel.slug}`}>
                     Ver Detalhes
                   </Link>

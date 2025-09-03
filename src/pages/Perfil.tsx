@@ -1,6 +1,5 @@
 import React from 'react';
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Layout } from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -44,10 +43,8 @@ const Perfil = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      <Header />
-      
-      <main className="pt-20 pb-12">
+    <Layout>
+      <main className="pt-16 pb-12">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="mb-8 text-center">
@@ -211,9 +208,7 @@ const Perfil = () => {
           </div>
         </div>
       </main>
-
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 

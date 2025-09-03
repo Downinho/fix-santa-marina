@@ -25,7 +25,7 @@ const HeroVideo: React.FC<HeroVideoProps> = ({ searchType, isHomePage = false })
   console.log('HeroVideo - isHomePage:', isHomePage, 'videoSrc:', videoSrc, 'currentType:', currentType);
 
   return (
-    <section className="relative min-h-[70vh] sm:min-h-[80vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[70vh] sm:min-h-[80vh] flex items-center justify-center overflow-hidden pt-16">
       {/* Video Background */}
       <div className="absolute inset-0">
         {/* Usar imagem gerada como fundo por enquanto */}
