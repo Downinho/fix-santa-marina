@@ -54,18 +54,18 @@ const FeaturedVessels = () => {
                   </Badge>
                 )}
                 
-                <div className="absolute top-4 right-4 flex space-x-2">
+                <div className="absolute top-4 right-4 flex space-x-2 z-20">
                   <Button 
                     size="sm" 
                     variant="outline" 
-                    className="bg-background/90 backdrop-blur-sm border-background/20"
+                    className="bg-background/90 backdrop-blur-sm border-background/20 hover:bg-background z-30"
                   >
                     <Heart className="w-4 h-4" />
                   </Button>
                   <Button 
                     size="sm" 
                     variant="outline" 
-                    className="bg-background/90 backdrop-blur-sm border-background/20"
+                    className="bg-background/90 backdrop-blur-sm border-background/20 hover:bg-background z-30"
                   >
                     <Eye className="w-4 h-4" />
                   </Button>

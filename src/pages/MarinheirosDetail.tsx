@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -65,10 +64,8 @@ const MarinheirosDetail = () => {
   };
 
   return (
-    <div className="min-h-screen">
-      <Header />
-      
-      <main className="pt-24 pb-12">
+    <Layout>
+      <main id="main-content" className="pb-12">
         <div className="container mx-auto px-6">
           {/* Breadcrumb */}
           <nav className="mb-8">
@@ -338,9 +335,7 @@ const MarinheirosDetail = () => {
           </div>
         </div>
       </main>
-
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 
