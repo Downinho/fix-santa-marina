@@ -74,7 +74,7 @@ const Produto = () => {
 
   return (
     <Layout>
-      <main id="main-content">
+      <main id="main-content" className="pt-16">
         {/* Breadcrumb */}
         <section className="py-4 bg-muted/30">
           <div className="container mx-auto px-6">

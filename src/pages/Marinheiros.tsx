@@ -87,7 +87,7 @@ const Marinheiros = () => {
 
   return (
     <Layout>
-      <main id="main-content">
+      <main id="main-content" className="pt-16">
         {/* EM BREVE Section */}  
         <section className="py-32 bg-gradient-ocean">
           <div className="container mx-auto px-6">

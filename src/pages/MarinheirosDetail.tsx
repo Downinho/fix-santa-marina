@@ -65,7 +65,7 @@ const MarinheirosDetail = () => {
 
   return (
     <Layout>
-      <main id="main-content" className="pb-12">
+      <main id="main-content" className="pt-16 pb-12">
         <div className="container mx-auto px-6">
           {/* Breadcrumb */}
           <nav className="mb-8">

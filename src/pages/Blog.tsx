@@ -16,7 +16,7 @@ const Blog = () => {
 
   return (
     <Layout>
-      <main id="main-content">
+      <main id="main-content" className="pt-16">
         {/* Hero Section */}
         <section className="bg-gradient-ocean py-16">
           <div className="container mx-auto px-6">
