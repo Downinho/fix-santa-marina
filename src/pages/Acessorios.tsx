@@ -1,5 +1,4 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Layout } from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -90,10 +89,8 @@ const Acessorios = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      <Header />
-      
-      <main id="main-content" className="pt-6">
+    <Layout>
+      <main id="main-content" className="pt-16">
         {/* EM BREVE Section */}
         <section className="py-32 bg-gradient-ocean">
           <div className="container mx-auto px-6">
@@ -178,9 +175,7 @@ const Acessorios = () => {
           </div>
         </section>
       </main>
-
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 
