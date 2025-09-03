@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { 
   Home, 
@@ -12,8 +11,7 @@ import {
   Megaphone,
   Ship,
   Waves,
-  Sailboat,
-  Menu
+  Sailboat
 } from "lucide-react";
 import {
   Sidebar,
@@ -54,21 +52,27 @@ const vesselTypes = [
 export function AppSidebar() {
   const location = useLocation();
   const currentPath = location.pathname;
+  const { setOpenMobile } = useSidebar();
   
   const isActive = (href: string) => {
     if (href === "/") return currentPath === "/";
     return currentPath.startsWith(href);
   };
+
+  const handleLinkClick = () => {
+    // Close sidebar on mobile when link is clicked
+    setOpenMobile(false);
+  };
   
   return (
     <Sidebar 
-      className="fixed inset-y-0 left-0 z-[60] w-[85vw] sm:w-80 border-r bg-background/95 backdrop-blur-sm"
-      collapsible="none"
+      className="z-[70] border-r bg-background/95 backdrop-blur-sm"
+      collapsible="offcanvas"
     >
       {/* Header */}
       <SidebarHeader className="border-b border-border p-6">
         <div className="flex items-center justify-between">
-          <Link to="/">
+          <Link to="/" onClick={handleLinkClick}>
             <div className="flex items-center gap-2">
               <MarbanaLogo className="h-8 w-8" />
               <h1 className="font-display text-2xl font-bold bg-gradient-hero bg-clip-text text-transparent">
@@ -94,10 +98,11 @@ export function AppSidebar() {
                 const active = isActive(item.href);
                 return (
                   <SidebarMenuItem key={item.name}>
-                    <SidebarMenuButton>
+                    <SidebarMenuButton asChild>
                       <Link
                         to={item.href}
-                        className={`flex items-center gap-3 mx-4 px-4 py-3 rounded-lg transition-all duration-200 w-full ${
+                        onClick={handleLinkClick}
+                        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 w-full ${
                           active
                             ? "bg-primary/10 text-primary font-medium border-l-4 border-primary"
                             : "text-foreground hover:bg-muted/50 hover:text-primary"
@@ -126,10 +131,11 @@ export function AppSidebar() {
                 const active = location.search.includes(`type=${encodeURIComponent(vessel.name.slice(0, -1))}`);
                 return (
                   <SidebarMenuItem key={vessel.name}>
-                    <SidebarMenuButton>
+                    <SidebarMenuButton asChild>
                       <Link
                         to={vessel.href}
-                        className={`flex items-center gap-3 mx-4 px-4 py-3 rounded-lg transition-all duration-200 w-full ${
+                        onClick={handleLinkClick}
+                        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 w-full ${
                           active
                             ? "bg-primary/10 text-primary font-medium"
                             : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
@@ -153,7 +159,7 @@ export function AppSidebar() {
           asChild
           className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground"
         >
-          <Link to="/anuncie" className="flex items-center justify-center">
+          <Link to="/anuncie" onClick={handleLinkClick} className="flex items-center justify-center">
             <Megaphone className="h-4 w-4 mr-2" />
             Anuncie Aqui
           </Link>
