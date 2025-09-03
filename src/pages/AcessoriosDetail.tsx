@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -93,10 +92,8 @@ const AcessoriosDetail = () => {
   const discount = Math.round(((accessory.originalPrice - accessory.price) / accessory.originalPrice) * 100);
 
   return (
-    <div className="min-h-screen">
-      <Header />
-      
-      <main className="pt-24 pb-12">
+    <Layout>
+      <main className="pt-16 pb-12">
         <div className="container mx-auto px-6">
           {/* Breadcrumb */}
           <nav className="mb-8">
@@ -377,9 +374,7 @@ const AcessoriosDetail = () => {
           </div>
         </div>
       </main>
-
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 

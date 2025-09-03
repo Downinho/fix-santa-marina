@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { blogPosts, getPostBySlug } from "@/data/blogPosts";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Layout } from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, User, ArrowLeft } from "lucide-react";
@@ -15,24 +14,20 @@ const BlogPost = () => {
   
   if (!post) {
     return (
-      <div className="min-h-screen">
-        <Header />
-        <main className="container mx-auto px-6 py-20 text-center">
+      <Layout>
+        <main className="container mx-auto px-6 py-20 text-center pt-16">
           <h1 className="font-display text-4xl font-bold text-primary mb-4">Post não encontrado</h1>
           <Button onClick={() => window.location.href = '/blog'}>
             Voltar ao Blog
           </Button>
         </main>
-        <Footer />
-      </div>
+      </Layout>
     );
   }
 
   return (
-    <div className="min-h-screen">
-      <Header />
-      
-      <main id="main-content" className="pt-20">
+    <Layout>
+      <main id="main-content" className="pt-16">
         <article className="container mx-auto px-6 py-12 max-w-4xl">
           <Button variant="ghost" className="mb-6" onClick={() => window.history.back()}>
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -98,9 +93,7 @@ const BlogPost = () => {
           </div>
         </article>
       </main>
-
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 

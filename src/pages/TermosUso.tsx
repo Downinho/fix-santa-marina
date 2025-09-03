@@ -1,12 +1,9 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Layout } from "@/components/Layout";
 
 const TermosUso = () => {
   return (
-    <div className="min-h-screen">
-      <Header />
-      
-      <main id="main-content" className="pt-6">
+    <Layout>
+      <main id="main-content" className="pt-16">
         <div className="container mx-auto px-6 py-16">
           <div className="max-w-4xl mx-auto">
             <h1 className="font-display text-4xl font-bold text-primary mb-8">
@@ -78,9 +75,7 @@ const TermosUso = () => {
           </div>
         </div>
       </main>
-      
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 
