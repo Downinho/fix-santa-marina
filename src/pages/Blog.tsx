@@ -16,10 +16,8 @@ const Blog = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      <Header />
-      
-      <main id="main-content" className="pt-6">
+    <Layout>
+      <main id="main-content">
         {/* Hero Section */}
         <section className="bg-gradient-ocean py-16">
           <div className="container mx-auto px-6">
@@ -196,9 +194,7 @@ const Blog = () => {
           </div>
         </section>
       </main>
-
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 

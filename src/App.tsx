@@ -29,7 +29,7 @@ function App() {
     <TooltipProvider>
       <Toaster />
       <BrowserRouter>
-        <SidebarProvider>
+        <SidebarProvider defaultOpen={false}>
           <div className="min-h-screen w-full overflow-x-hidden">
             <SkipToContent />
             <Routes>

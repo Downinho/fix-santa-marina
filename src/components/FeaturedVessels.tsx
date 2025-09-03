@@ -104,7 +104,7 @@ const FeaturedVessels = () => {
                   </span>
                 </div>
                 
-                <Button className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body z-[70]" asChild>
+                <Button className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body relative" asChild>
                   <Link to={`/embarcacao/${vessel.slug}`}>
                     Ver Detalhes
                   </Link>

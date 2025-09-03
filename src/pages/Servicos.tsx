@@ -1,5 +1,4 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Layout } from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Camera, Search, FileText, Users, Phone, Award } from "lucide-react";
@@ -46,10 +45,8 @@ const Servicos = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      <Header />
-      
-      <main id="main-content" className="pt-6">
+    <Layout>
+      <main id="main-content">
         {/* Hero Section */}
         <section className="bg-gradient-ocean py-16">
           <div className="container mx-auto px-6">
@@ -155,9 +152,7 @@ const Servicos = () => {
           </div>
         </section>
       </main>
-
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 
