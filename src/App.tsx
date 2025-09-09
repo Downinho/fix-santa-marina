@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SkipToContent from "@/components/SkipToContent";
+import SitemapGenerator from "@/components/SitemapGenerator";
 import Index from "./pages/Index";
 import Embarcacoes from "./pages/Embarcacoes";
 import Acessorios from "./pages/Acessorios";
@@ -27,6 +28,7 @@ function App() {
   return (
     <TooltipProvider>
       <Toaster />
+      <SitemapGenerator />
       <BrowserRouter>
         <SkipToContent />
         <Routes>
