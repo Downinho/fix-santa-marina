@@ -10,9 +10,13 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Dashboard from "./pages/admin/Dashboard";
 import VesselsList from "./pages/admin/VesselsList";
+import VesselForm from "./pages/admin/VesselForm";
 import SailorsList from "./pages/admin/SailorsList";
+import SailorForm from "./pages/admin/SailorForm";
 import ProductsList from "./pages/admin/ProductsList";
+import ProductForm from "./pages/admin/ProductForm";
 import BlogPostsList from "./pages/admin/BlogPostsList";
+import BlogPostForm from "./pages/admin/BlogPostForm";
 import Embarcacoes from "./pages/Embarcacoes";
 import Acessorios from "./pages/Acessorios";
 import Servicos from "./pages/Servicos";
@@ -55,9 +59,19 @@ function App() {
                 <VesselsList />
               </ProtectedRoute>
             } />
+            <Route path="/admin/vessels/new" element={
+              <ProtectedRoute>
+                <VesselForm />
+              </ProtectedRoute>
+            } />
             <Route path="/admin/sailors" element={
               <ProtectedRoute>
                 <SailorsList />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/sailors/new" element={
+              <ProtectedRoute>
+                <SailorForm />
               </ProtectedRoute>
             } />
             <Route path="/admin/products" element={
@@ -65,9 +79,19 @@ function App() {
                 <ProductsList />
               </ProtectedRoute>
             } />
+            <Route path="/admin/products/new" element={
+              <ProtectedRoute>
+                <ProductForm />
+              </ProtectedRoute>
+            } />
             <Route path="/admin/blog" element={
               <ProtectedRoute>
                 <BlogPostsList />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/blog/new" element={
+              <ProtectedRoute>
+                <BlogPostForm />
               </ProtectedRoute>
             } />
             
