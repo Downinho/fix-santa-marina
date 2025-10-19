@@ -9,17 +9,30 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
 import { ArrowLeft } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import ImageUpload from '@/components/admin/ImageUpload';
+import MultiImageUpload from '@/components/admin/MultiImageUpload';
 
 export default function ProductForm() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [coverImage, setCoverImage] = useState('');
+  const [gallery, setGallery] = useState<string[]>([]);
   const [formData, setFormData] = useState({
     name: '',
     slug: '',
     description: '',
+    category: '',
+    brand: '',
     price_cents: '',
     currency: 'BRL',
     stock: '',
+    sku: '',
+    dimensions: '',
+    weight: '',
+    warranty: '',
+    contact_email: '',
+    contact_phone: '',
+    contact_whatsapp: '',
     published: false,
   });
 
@@ -40,6 +53,7 @@ export default function ProductForm() {
         currency: formData.currency,
         stock: formData.stock ? parseInt(formData.stock) : 0,
         published: formData.published,
+        cover_image_url: coverImage || null,
       };
 
       const { error } = await supabase
@@ -84,11 +98,11 @@ export default function ProductForm() {
       <h1 className="text-3xl font-bold mb-8">Novo Acessório</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <Card>
-          <CardHeader>
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
             <CardTitle>Informações Básicas</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="name">Nome *</Label>
@@ -110,23 +124,113 @@ export default function ProductForm() {
               </div>
             </div>
 
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="category">Categoria</Label>
+                <Input
+                  id="category"
+                  value={formData.category}
+                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  placeholder="Ex: Segurança, Navegação, Conforto..."
+                />
+              </div>
+              <div>
+                <Label htmlFor="brand">Marca</Label>
+                <Input
+                  id="brand"
+                  value={formData.brand}
+                  onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
+                  placeholder="Marca do produto"
+                />
+              </div>
+            </div>
+
             <div>
-              <Label htmlFor="description">Descrição</Label>
+              <Label htmlFor="description">Descrição Detalhada</Label>
               <Textarea
                 id="description"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                rows={4}
+                rows={5}
+                placeholder="Descreva o produto, suas características, benefícios e especificações..."
               />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
+            <CardTitle>Imagens do Produto</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6 pt-6">
+            <ImageUpload
+              bucket="products"
+              onUpload={setCoverImage}
+              currentImage={coverImage}
+              label="Imagem Principal do Produto"
+            />
+            
+            <MultiImageUpload
+              bucket="products"
+              images={gallery}
+              onImagesChange={setGallery}
+              maxImages={8}
+            />
+          </CardContent>
+        </Card>
+
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
+            <CardTitle>Especificações Técnicas</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 pt-6">
+            <div className="grid grid-cols-3 gap-4">
+              <div>
+                <Label htmlFor="sku">SKU / Código</Label>
+                <Input
+                  id="sku"
+                  value={formData.sku}
+                  onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
+                  placeholder="SKU-001"
+                />
+              </div>
+              <div>
+                <Label htmlFor="dimensions">Dimensões</Label>
+                <Input
+                  id="dimensions"
+                  value={formData.dimensions}
+                  onChange={(e) => setFormData({ ...formData, dimensions: e.target.value })}
+                  placeholder="Ex: 30x20x10 cm"
+                />
+              </div>
+              <div>
+                <Label htmlFor="weight">Peso</Label>
+                <Input
+                  id="weight"
+                  value={formData.weight}
+                  onChange={(e) => setFormData({ ...formData, weight: e.target.value })}
+                  placeholder="Ex: 2.5 kg"
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="warranty">Garantia</Label>
+              <Input
+                id="warranty"
+                value={formData.warranty}
+                onChange={(e) => setFormData({ ...formData, warranty: e.target.value })}
+                placeholder="Ex: 12 meses"
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
             <CardTitle>Preço e Estoque</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="price_cents">Preço (centavos) *</Label>
@@ -151,11 +255,50 @@ export default function ProductForm() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
+            <CardTitle>Informações de Contato</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 pt-6">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="contact_email">E-mail para Vendas</Label>
+                <Input
+                  id="contact_email"
+                  type="email"
+                  value={formData.contact_email}
+                  onChange={(e) => setFormData({ ...formData, contact_email: e.target.value })}
+                  placeholder="vendas@exemplo.com"
+                />
+              </div>
+              <div>
+                <Label htmlFor="contact_phone">Telefone</Label>
+                <Input
+                  id="contact_phone"
+                  value={formData.contact_phone}
+                  onChange={(e) => setFormData({ ...formData, contact_phone: e.target.value })}
+                  placeholder="(00) 00000-0000"
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="contact_whatsapp">WhatsApp</Label>
+              <Input
+                id="contact_whatsapp"
+                value={formData.contact_whatsapp}
+                onChange={(e) => setFormData({ ...formData, contact_whatsapp: e.target.value })}
+                placeholder="(00) 00000-0000"
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
             <CardTitle>Status</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-6">
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="published"

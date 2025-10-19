@@ -10,11 +10,15 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
 import { ArrowLeft } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import ImageUpload from '@/components/admin/ImageUpload';
+import MultiImageUpload from '@/components/admin/MultiImageUpload';
 
 export default function VesselForm() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
+  const [coverImage, setCoverImage] = useState('');
+  const [gallery, setGallery] = useState<string[]>([]);
   const [formData, setFormData] = useState({
     name: '',
     slug: '',
@@ -39,6 +43,11 @@ export default function VesselForm() {
     city: '',
     state: '',
     country: 'Brasil',
+    contact_name: '',
+    contact_email: '',
+    contact_phone: '',
+    contact_whatsapp: '',
+    highlights: '',
     status: 'draft' as 'draft' | 'published'
   });
 
@@ -65,11 +74,35 @@ export default function VesselForm() {
         price_day_cents: formData.price_day_cents ? parseInt(formData.price_day_cents) : null,
       };
 
-      const { error } = await supabase
+      const { data: vessel, error } = await supabase
         .from('vessels')
-        .insert([vesselData]);
+        .insert([vesselData])
+        .select()
+        .single();
 
       if (error) throw error;
+
+      // Inserir imagem de capa como primeira mídia
+      if (coverImage && vessel) {
+        await supabase.from('vessel_media').insert({
+          vessel_id: vessel.id,
+          type: 'image',
+          url: coverImage,
+          position: 0
+        });
+      }
+
+      // Inserir galeria de imagens
+      if (gallery.length > 0 && vessel) {
+        const mediaInserts = gallery.map((url, index) => ({
+          vessel_id: vessel.id,
+          type: 'image' as const,
+          url,
+          position: index + 1
+        }));
+        
+        await supabase.from('vessel_media').insert(mediaInserts);
+      }
 
       toast.success('Embarcação criada com sucesso!');
       navigate('/admin/vessels');
@@ -109,11 +142,11 @@ export default function VesselForm() {
       <h1 className="text-3xl font-bold mb-8">Nova Embarcação</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <Card>
-          <CardHeader>
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
             <CardTitle>Informações Básicas</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="name">Nome *</Label>
@@ -174,11 +207,32 @@ export default function VesselForm() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
+            <CardTitle>Imagens</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6 pt-6">
+            <ImageUpload
+              bucket="vessels"
+              onUpload={setCoverImage}
+              currentImage={coverImage}
+              label="Imagem de Capa Principal"
+            />
+            
+            <MultiImageUpload
+              bucket="vessels"
+              images={gallery}
+              onImagesChange={setGallery}
+              maxImages={15}
+            />
+          </CardContent>
+        </Card>
+
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
             <CardTitle>Especificações Técnicas</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-6">
             <div className="grid grid-cols-3 gap-4">
               <div>
                 <Label htmlFor="length_m">Comprimento (m)</Label>
@@ -263,11 +317,11 @@ export default function VesselForm() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
             <CardTitle>Preços e Disponibilidade</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-6">
             <div className="flex gap-6">
               <div className="flex items-center space-x-2">
                 <Checkbox
@@ -322,37 +376,126 @@ export default function VesselForm() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Localização</CardTitle>
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
+            <CardTitle>Localização e Disponibilidade</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+          <CardContent className="space-y-4 pt-6">
+            <div className="grid grid-cols-3 gap-4">
               <div>
-                <Label htmlFor="city">Cidade</Label>
+                <Label htmlFor="city">Cidade *</Label>
                 <Input
                   id="city"
                   value={formData.city}
                   onChange={(e) => handleChange('city', e.target.value)}
+                  placeholder="Ex: Lagos"
                 />
               </div>
               <div>
-                <Label htmlFor="state">Estado</Label>
+                <Label htmlFor="state">Estado *</Label>
                 <Input
                   id="state"
                   value={formData.state}
                   onChange={(e) => handleChange('state', e.target.value)}
+                  placeholder="Ex: Lagos"
+                />
+              </div>
+              <div>
+                <Label htmlFor="country">País</Label>
+                <Input
+                  id="country"
+                  value={formData.country}
+                  onChange={(e) => handleChange('country', e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="address">Endereço Completo</Label>
+              <Input
+                id="address"
+                value={formData.address}
+                onChange={(e) => handleChange('address', e.target.value)}
+                placeholder="Marina, doca, endereço..."
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
+            <CardTitle>Informações de Contato</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 pt-6">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="contact_name">Nome do Contato</Label>
+                <Input
+                  id="contact_name"
+                  value={formData.contact_name}
+                  onChange={(e) => handleChange('contact_name', e.target.value)}
+                  placeholder="Nome do proprietário ou responsável"
+                />
+              </div>
+              <div>
+                <Label htmlFor="contact_email">E-mail</Label>
+                <Input
+                  id="contact_email"
+                  type="email"
+                  value={formData.contact_email}
+                  onChange={(e) => handleChange('contact_email', e.target.value)}
+                  placeholder="contato@exemplo.com"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="contact_phone">Telefone</Label>
+                <Input
+                  id="contact_phone"
+                  value={formData.contact_phone}
+                  onChange={(e) => handleChange('contact_phone', e.target.value)}
+                  placeholder="(00) 00000-0000"
+                />
+              </div>
+              <div>
+                <Label htmlFor="contact_whatsapp">WhatsApp</Label>
+                <Input
+                  id="contact_whatsapp"
+                  value={formData.contact_whatsapp}
+                  onChange={(e) => handleChange('contact_whatsapp', e.target.value)}
+                  placeholder="(00) 00000-0000"
                 />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Status</CardTitle>
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
+            <CardTitle>Diferenciais e Destaques</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-6">
+            <Label htmlFor="highlights">Principais Características</Label>
+            <Textarea
+              id="highlights"
+              value={formData.highlights}
+              onChange={(e) => handleChange('highlights', e.target.value)}
+              rows={4}
+              placeholder="Liste os principais diferenciais da embarcação (GPS, ar condicionado, som, etc.)"
+            />
+            <p className="text-xs text-muted-foreground mt-2">
+              Separe cada item com quebra de linha
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
+            <CardTitle>Status de Publicação</CardTitle>
+          </CardHeader>
+          <CardContent className="pt-6">
             <Label htmlFor="status">Status da Publicação</Label>
             <Select value={formData.status} onValueChange={(value: 'draft' | 'published') => handleChange('status', value)}>
               <SelectTrigger>

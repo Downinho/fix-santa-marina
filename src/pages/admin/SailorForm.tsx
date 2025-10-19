@@ -9,11 +9,14 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
 import { ArrowLeft } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import ImageUpload from '@/components/admin/ImageUpload';
 
 export default function SailorForm() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState('');
   const [formData, setFormData] = useState({
+    display_name: '',
     bio: '',
     license_number: '',
     years_experience: '',
@@ -22,6 +25,10 @@ export default function SailorForm() {
     city: '',
     state: '',
     service_area: '',
+    contact_phone: '',
+    contact_email: '',
+    contact_whatsapp: '',
+    specialties: '',
     published: false,
   });
 
@@ -52,6 +59,22 @@ export default function SailorForm() {
 
       if (error) throw error;
 
+      // Atualizar perfil do usuário com avatar se necessário
+      if (avatarUrl) {
+        await supabase
+          .from('profiles')
+          .update({ avatar_url: avatarUrl })
+          .eq('id', user.id);
+      }
+
+      // Atualizar nome do perfil
+      if (formData.display_name) {
+        await supabase
+          .from('profiles')
+          .update({ display_name: formData.display_name })
+          .eq('id', user.id);
+      }
+
       toast.success('Marinheiro criado com sucesso!');
       navigate('/admin/sailors');
     } catch (error: any) {
@@ -76,11 +99,36 @@ export default function SailorForm() {
       <h1 className="text-3xl font-bold mb-8">Novo Marinheiro</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <Card>
-          <CardHeader>
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
+            <CardTitle>Perfil e Foto</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 pt-6">
+            <div>
+              <Label htmlFor="display_name">Nome Completo *</Label>
+              <Input
+                id="display_name"
+                value={formData.display_name}
+                onChange={(e) => setFormData({ ...formData, display_name: e.target.value })}
+                required
+                placeholder="Nome do marinheiro profissional"
+              />
+            </div>
+
+            <ImageUpload
+              bucket="avatars"
+              onUpload={setAvatarUrl}
+              currentImage={avatarUrl}
+              label="Foto de Perfil"
+            />
+          </CardContent>
+        </Card>
+
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
             <CardTitle>Informações Profissionais</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-6">
             <div>
               <Label htmlFor="bio">Biografia</Label>
               <Textarea
@@ -110,14 +158,25 @@ export default function SailorForm() {
                 />
               </div>
             </div>
+
+            <div>
+              <Label htmlFor="specialties">Especialidades e Certificações</Label>
+              <Textarea
+                id="specialties"
+                value={formData.specialties}
+                onChange={(e) => setFormData({ ...formData, specialties: e.target.value })}
+                rows={3}
+                placeholder="Ex: Navegação oceânica, Pesca esportiva, Certificação ARRAIS..."
+              />
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
             <CardTitle>Preços</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="hourly_rate_cents">Taxa/Hora (centavos)</Label>
@@ -141,11 +200,11 @@ export default function SailorForm() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
             <CardTitle>Localização e Área de Atuação</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="city">Cidade</Label>
@@ -177,11 +236,51 @@ export default function SailorForm() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
+            <CardTitle>Informações de Contato</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 pt-6">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="contact_email">E-mail *</Label>
+                <Input
+                  id="contact_email"
+                  type="email"
+                  value={formData.contact_email}
+                  onChange={(e) => setFormData({ ...formData, contact_email: e.target.value })}
+                  required
+                  placeholder="contato@exemplo.com"
+                />
+              </div>
+              <div>
+                <Label htmlFor="contact_phone">Telefone</Label>
+                <Input
+                  id="contact_phone"
+                  value={formData.contact_phone}
+                  onChange={(e) => setFormData({ ...formData, contact_phone: e.target.value })}
+                  placeholder="(00) 00000-0000"
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="contact_whatsapp">WhatsApp</Label>
+              <Input
+                id="contact_whatsapp"
+                value={formData.contact_whatsapp}
+                onChange={(e) => setFormData({ ...formData, contact_whatsapp: e.target.value })}
+                placeholder="(00) 00000-0000"
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-2">
+          <CardHeader className="bg-muted/50">
             <CardTitle>Status</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-6">
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="published"
