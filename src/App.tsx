@@ -64,12 +64,22 @@ function App() {
                 <VesselForm />
               </ProtectedRoute>
             } />
+            <Route path="/admin/vessels/:id/edit" element={
+              <ProtectedRoute>
+                <VesselForm />
+              </ProtectedRoute>
+            } />
             <Route path="/admin/sailors" element={
               <ProtectedRoute>
                 <SailorsList />
               </ProtectedRoute>
             } />
             <Route path="/admin/sailors/new" element={
+              <ProtectedRoute>
+                <SailorForm />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/sailors/:id/edit" element={
               <ProtectedRoute>
                 <SailorForm />
               </ProtectedRoute>
@@ -84,12 +94,22 @@ function App() {
                 <ProductForm />
               </ProtectedRoute>
             } />
+            <Route path="/admin/products/:id/edit" element={
+              <ProtectedRoute>
+                <ProductForm />
+              </ProtectedRoute>
+            } />
             <Route path="/admin/blog" element={
               <ProtectedRoute>
                 <BlogPostsList />
               </ProtectedRoute>
             } />
             <Route path="/admin/blog/new" element={
+              <ProtectedRoute>
+                <BlogPostForm />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/blog/:id/edit" element={
               <ProtectedRoute>
                 <BlogPostForm />
               </ProtectedRoute>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -17,6 +17,8 @@ export default function VesselForm() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
+  const [initialLoad, setInitialLoad] = useState(true);
+  const isEditing = !!id;
   const [coverImage, setCoverImage] = useState('');
   const [gallery, setGallery] = useState<string[]>([]);
   const [formData, setFormData] = useState({
@@ -51,6 +53,71 @@ export default function VesselForm() {
     status: 'draft' as 'draft' | 'published'
   });
 
+  useEffect(() => {
+    if (id) {
+      loadVessel();
+    } else {
+      setInitialLoad(false);
+    }
+  }, [id]);
+
+  const loadVessel = async () => {
+    try {
+      const { data: vessel, error } = await supabase
+        .from('vessels')
+        .select('*, vessel_media(*)')
+        .eq('id', id)
+        .single();
+
+      if (error) throw error;
+
+      if (vessel) {
+        setFormData({
+          name: vessel.name || '',
+          slug: vessel.slug || '',
+          type: vessel.type || 'lancha',
+          description: vessel.description || '',
+          year: vessel.year?.toString() || '',
+          length_m: vessel.length_m?.toString() || '',
+          beam_m: vessel.beam_m?.toString() || '',
+          draft_m: vessel.draft_m?.toString() || '',
+          capacity: vessel.capacity?.toString() || '',
+          cabins: vessel.cabins?.toString() || '',
+          engines: vessel.engines || '',
+          horsepower: vessel.horsepower?.toString() || '',
+          fuel: vessel.fuel || '',
+          for_sale: vessel.for_sale || false,
+          for_rent: vessel.for_rent || true,
+          price_sale_cents: vessel.price_sale_cents?.toString() || '',
+          price_hour_cents: vessel.price_hour_cents?.toString() || '',
+          price_day_cents: vessel.price_day_cents?.toString() || '',
+          currency: vessel.currency || 'BRL',
+          address: vessel.address || '',
+          city: vessel.city || '',
+          state: vessel.state || '',
+          country: vessel.country || 'Brasil',
+          contact_name: vessel.contact_name || '',
+          contact_email: vessel.contact_email || '',
+          contact_phone: vessel.contact_phone || '',
+          contact_whatsapp: vessel.contact_whatsapp || '',
+          highlights: vessel.highlights || '',
+          status: vessel.status || 'draft'
+        });
+
+        const media = vessel.vessel_media || [];
+        if (media.length > 0) {
+          setCoverImage(media[0].url);
+          setGallery(media.slice(1).map((m: any) => m.url));
+        }
+      }
+    } catch (error: any) {
+      console.error('Erro ao carregar embarcação:', error);
+      toast.error('Erro ao carregar embarcação: ' + error.message);
+    } finally {
+      setInitialLoad(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -74,18 +141,35 @@ export default function VesselForm() {
         price_day_cents: formData.price_day_cents ? parseInt(formData.price_day_cents) : null,
       };
 
-      const { data: vessel, error } = await supabase
-        .from('vessels')
-        .insert([vesselData])
-        .select()
-        .single();
+      let vesselId = id;
 
-      if (error) throw error;
+      if (isEditing) {
+        // Atualizar embarcação existente
+        const { error } = await supabase
+          .from('vessels')
+          .update(vesselData)
+          .eq('id', id);
+
+        if (error) throw error;
+
+        // Deletar mídias antigas
+        await supabase.from('vessel_media').delete().eq('vessel_id', id);
+      } else {
+        // Criar nova embarcação
+        const { data: vessel, error } = await supabase
+          .from('vessels')
+          .insert([vesselData])
+          .select()
+          .single();
+
+        if (error) throw error;
+        vesselId = vessel.id;
+      }
 
       // Inserir imagem de capa como primeira mídia
-      if (coverImage && vessel) {
+      if (coverImage && vesselId) {
         await supabase.from('vessel_media').insert({
-          vessel_id: vessel.id,
+          vessel_id: vesselId,
           type: 'image',
           url: coverImage,
           position: 0
@@ -93,9 +177,9 @@ export default function VesselForm() {
       }
 
       // Inserir galeria de imagens
-      if (gallery.length > 0 && vessel) {
+      if (gallery.length > 0 && vesselId) {
         const mediaInserts = gallery.map((url, index) => ({
-          vessel_id: vessel.id,
+          vessel_id: vesselId,
           type: 'image' as const,
           url,
           position: index + 1
@@ -104,7 +188,7 @@ export default function VesselForm() {
         await supabase.from('vessel_media').insert(mediaInserts);
       }
 
-      toast.success('Embarcação criada com sucesso!');
+      toast.success(isEditing ? 'Embarcação atualizada com sucesso!' : 'Embarcação criada com sucesso!');
       navigate('/admin/vessels');
     } catch (error: any) {
       console.error('Erro ao criar embarcação:', error);
@@ -128,6 +212,14 @@ export default function VesselForm() {
     }
   };
 
+  if (initialLoad) {
+    return (
+      <div className="p-8 flex items-center justify-center h-96">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="p-8">
       <Button
@@ -139,7 +231,7 @@ export default function VesselForm() {
         Voltar
       </Button>
 
-      <h1 className="text-3xl font-bold mb-8">Nova Embarcação</h1>
+      <h1 className="text-3xl font-bold mb-8">{isEditing ? 'Editar' : 'Nova'} Embarcação</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <Card className="border-2">
@@ -511,7 +603,7 @@ export default function VesselForm() {
 
         <div className="flex gap-4">
           <Button type="submit" disabled={loading}>
-            {loading ? 'Salvando...' : 'Criar Embarcação'}
+            {loading ? 'Salvando...' : (isEditing ? 'Atualizar Embarcação' : 'Criar Embarcação')}
           </Button>
           <Button type="button" variant="outline" onClick={() => navigate('/admin/vessels')}>
             Cancelar
