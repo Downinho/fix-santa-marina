@@ -709,6 +709,10 @@ export type Database = {
           cabins: number | null
           capacity: number | null
           city: string | null
+          contact_email: string | null
+          contact_name: string | null
+          contact_phone: string | null
+          contact_whatsapp: string | null
           country: string | null
           created_at: string
           currency: string
@@ -718,6 +722,7 @@ export type Database = {
           for_rent: boolean
           for_sale: boolean
           fuel: string | null
+          highlights: string | null
           horsepower: number | null
           id: string
           latitude: number | null
@@ -741,6 +746,10 @@ export type Database = {
           cabins?: number | null
           capacity?: number | null
           city?: string | null
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          contact_whatsapp?: string | null
           country?: string | null
           created_at?: string
           currency?: string
@@ -750,6 +759,7 @@ export type Database = {
           for_rent?: boolean
           for_sale?: boolean
           fuel?: string | null
+          highlights?: string | null
           horsepower?: number | null
           id?: string
           latitude?: number | null
@@ -773,6 +783,10 @@ export type Database = {
           cabins?: number | null
           capacity?: number | null
           city?: string | null
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          contact_whatsapp?: string | null
           country?: string | null
           created_at?: string
           currency?: string
@@ -782,6 +796,7 @@ export type Database = {
           for_rent?: boolean
           for_sale?: boolean
           fuel?: string | null
+          highlights?: string | null
           horsepower?: number | null
           id?: string
           latitude?: number | null
