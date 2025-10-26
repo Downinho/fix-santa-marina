@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,7 +13,10 @@ import ImageUpload from '@/components/admin/ImageUpload';
 
 export default function SailorForm() {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [loading, setLoading] = useState(false);
+  const [initialLoad, setInitialLoad] = useState(true);
+  const isEditing = !!id;
   const [avatarUrl, setAvatarUrl] = useState('');
   const [formData, setFormData] = useState({
     display_name: '',
@@ -30,7 +33,56 @@ export default function SailorForm() {
     contact_whatsapp: '',
     specialties: '',
     published: false,
+    verified: false,
   });
+
+  useEffect(() => {
+    if (id) {
+      loadSailor();
+    } else {
+      setInitialLoad(false);
+    }
+  }, [id]);
+
+  const loadSailor = async () => {
+    try {
+      const { data: sailor, error } = await supabase
+        .from('skipper_profiles')
+        .select('*, profiles!inner(*)')
+        .eq('id', id)
+        .single();
+
+      if (error) throw error;
+
+      if (sailor) {
+        setFormData({
+          display_name: sailor.profiles?.display_name || '',
+          bio: sailor.bio || '',
+          license_number: sailor.license_number || '',
+          years_experience: sailor.years_experience?.toString() || '',
+          specialties: sailor.specialties || '',
+          hourly_rate_cents: sailor.hourly_rate_cents?.toString() || '',
+          day_rate_cents: sailor.day_rate_cents?.toString() || '',
+          service_area: sailor.service_area || '',
+          city: sailor.city || '',
+          state: sailor.state || '',
+          contact_phone: sailor.contact_phone || '',
+          contact_email: sailor.contact_email || '',
+          contact_whatsapp: sailor.contact_whatsapp || '',
+          published: sailor.published || false,
+          verified: sailor.verified || false,
+        });
+        if (sailor.profiles?.avatar_url) {
+          setAvatarUrl(sailor.profiles.avatar_url);
+        }
+      }
+    } catch (error: any) {
+      console.error('Erro ao carregar marinheiro:', error);
+      toast.error('Erro ao carregar marinheiro: ' + error.message);
+    } finally {
+      setInitialLoad(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,19 +97,33 @@ export default function SailorForm() {
         bio: formData.bio || null,
         license_number: formData.license_number || null,
         years_experience: formData.years_experience ? parseInt(formData.years_experience) : null,
+        specialties: formData.specialties || null,
         hourly_rate_cents: formData.hourly_rate_cents ? parseInt(formData.hourly_rate_cents) : null,
         day_rate_cents: formData.day_rate_cents ? parseInt(formData.day_rate_cents) : null,
+        service_area: formData.service_area || null,
         city: formData.city || null,
         state: formData.state || null,
-        service_area: formData.service_area || null,
+        contact_phone: formData.contact_phone || null,
+        contact_email: formData.contact_email || null,
+        contact_whatsapp: formData.contact_whatsapp || null,
         published: formData.published,
+        verified: formData.verified,
       };
 
-      const { error } = await supabase
-        .from('skipper_profiles')
-        .insert([sailorData]);
+      if (isEditing) {
+        const { error } = await supabase
+          .from('skipper_profiles')
+          .update(sailorData)
+          .eq('id', id);
 
-      if (error) throw error;
+        if (error) throw error;
+      } else {
+        const { error } = await supabase
+          .from('skipper_profiles')
+          .insert([sailorData]);
+
+        if (error) throw error;
+      }
 
       // Atualizar perfil do usuário com avatar se necessário
       if (avatarUrl) {
@@ -75,15 +141,23 @@ export default function SailorForm() {
           .eq('id', user.id);
       }
 
-      toast.success('Marinheiro criado com sucesso!');
+      toast.success(isEditing ? 'Marinheiro atualizado com sucesso!' : 'Marinheiro criado com sucesso!');
       navigate('/admin/sailors');
     } catch (error: any) {
-      console.error('Erro ao criar marinheiro:', error);
-      toast.error('Erro ao criar marinheiro: ' + error.message);
+      console.error('Erro ao salvar marinheiro:', error);
+      toast.error('Erro ao salvar marinheiro: ' + error.message);
     } finally {
       setLoading(false);
     }
   };
+
+  if (initialLoad) {
+    return (
+      <div className="p-8 flex items-center justify-center h-96">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-8">
@@ -96,7 +170,7 @@ export default function SailorForm() {
         Voltar
       </Button>
 
-      <h1 className="text-3xl font-bold mb-8">Novo Marinheiro</h1>
+      <h1 className="text-3xl font-bold mb-8">{isEditing ? 'Editar' : 'Novo'} Marinheiro</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <Card className="border-2">
@@ -281,20 +355,30 @@ export default function SailorForm() {
             <CardTitle>Status</CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="published"
-                checked={formData.published}
-                onCheckedChange={(checked) => setFormData({ ...formData, published: checked as boolean })}
-              />
-              <Label htmlFor="published">Publicado</Label>
+            <div className="flex flex-col space-y-2">
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="published"
+                  checked={formData.published}
+                  onCheckedChange={(checked) => setFormData({ ...formData, published: checked as boolean })}
+                />
+                <Label htmlFor="published">Publicado</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="verified"
+                  checked={formData.verified}
+                  onCheckedChange={(checked) => setFormData({ ...formData, verified: checked as boolean })}
+                />
+                <Label htmlFor="verified">Verificado</Label>
+              </div>
             </div>
           </CardContent>
         </Card>
 
         <div className="flex gap-4">
           <Button type="submit" disabled={loading}>
-            {loading ? 'Salvando...' : 'Criar Marinheiro'}
+            {loading ? 'Salvando...' : (isEditing ? 'Atualizar Marinheiro' : 'Criar Marinheiro')}
           </Button>
           <Button type="button" variant="outline" onClick={() => navigate('/admin/sailors')}>
             Cancelar

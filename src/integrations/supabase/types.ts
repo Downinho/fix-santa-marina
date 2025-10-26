@@ -399,6 +399,8 @@ export type Database = {
       }
       products: {
         Row: {
+          brand: string | null
+          category: string | null
           cover_image_url: string | null
           created_at: string
           currency: string
@@ -408,11 +410,14 @@ export type Database = {
           price_cents: number
           published: boolean
           slug: string
+          specifications: string | null
           stock: number
           updated_at: string
           vendor_profile_id: string
         }
         Insert: {
+          brand?: string | null
+          category?: string | null
           cover_image_url?: string | null
           created_at?: string
           currency?: string
@@ -422,11 +427,14 @@ export type Database = {
           price_cents: number
           published?: boolean
           slug: string
+          specifications?: string | null
           stock?: number
           updated_at?: string
           vendor_profile_id: string
         }
         Update: {
+          brand?: string | null
+          category?: string | null
           cover_image_url?: string | null
           created_at?: string
           currency?: string
@@ -436,6 +444,7 @@ export type Database = {
           price_cents?: number
           published?: boolean
           slug?: string
+          specifications?: string | null
           stock?: number
           updated_at?: string
           vendor_profile_id?: string
@@ -493,6 +502,9 @@ export type Database = {
         Row: {
           bio: string | null
           city: string | null
+          contact_email: string | null
+          contact_phone: string | null
+          contact_whatsapp: string | null
           created_at: string
           day_rate_cents: number | null
           hourly_rate_cents: number | null
@@ -503,6 +515,7 @@ export type Database = {
           profile_id: string
           published: boolean
           service_area: string | null
+          specialties: string | null
           state: string | null
           updated_at: string
           verified: boolean
@@ -511,6 +524,9 @@ export type Database = {
         Insert: {
           bio?: string | null
           city?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          contact_whatsapp?: string | null
           created_at?: string
           day_rate_cents?: number | null
           hourly_rate_cents?: number | null
@@ -521,6 +537,7 @@ export type Database = {
           profile_id: string
           published?: boolean
           service_area?: string | null
+          specialties?: string | null
           state?: string | null
           updated_at?: string
           verified?: boolean
@@ -529,6 +546,9 @@ export type Database = {
         Update: {
           bio?: string | null
           city?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          contact_whatsapp?: string | null
           created_at?: string
           day_rate_cents?: number | null
           hourly_rate_cents?: number | null
@@ -539,6 +559,7 @@ export type Database = {
           profile_id?: string
           published?: boolean
           service_area?: string | null
+          specialties?: string | null
           state?: string | null
           updated_at?: string
           verified?: boolean
@@ -688,6 +709,10 @@ export type Database = {
           cabins: number | null
           capacity: number | null
           city: string | null
+          contact_email: string | null
+          contact_name: string | null
+          contact_phone: string | null
+          contact_whatsapp: string | null
           country: string | null
           created_at: string
           currency: string
@@ -697,6 +722,7 @@ export type Database = {
           for_rent: boolean
           for_sale: boolean
           fuel: string | null
+          highlights: string | null
           horsepower: number | null
           id: string
           latitude: number | null
@@ -720,6 +746,10 @@ export type Database = {
           cabins?: number | null
           capacity?: number | null
           city?: string | null
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          contact_whatsapp?: string | null
           country?: string | null
           created_at?: string
           currency?: string
@@ -729,6 +759,7 @@ export type Database = {
           for_rent?: boolean
           for_sale?: boolean
           fuel?: string | null
+          highlights?: string | null
           horsepower?: number | null
           id?: string
           latitude?: number | null
@@ -752,6 +783,10 @@ export type Database = {
           cabins?: number | null
           capacity?: number | null
           city?: string | null
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          contact_whatsapp?: string | null
           country?: string | null
           created_at?: string
           currency?: string
@@ -761,6 +796,7 @@ export type Database = {
           for_rent?: boolean
           for_sale?: boolean
           fuel?: string | null
+          highlights?: string | null
           horsepower?: number | null
           id?: string
           latitude?: number | null

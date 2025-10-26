@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,7 +14,10 @@ import MultiImageUpload from '@/components/admin/MultiImageUpload';
 
 export default function ProductForm() {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [loading, setLoading] = useState(false);
+  const [initialLoad, setInitialLoad] = useState(true);
+  const isEditing = !!id;
   const [coverImage, setCoverImage] = useState('');
   const [gallery, setGallery] = useState<string[]>([]);
   const [formData, setFormData] = useState({
@@ -22,19 +25,58 @@ export default function ProductForm() {
     slug: '',
     description: '',
     category: '',
-    brand: '',
+    specifications: '',
     price_cents: '',
     currency: 'BRL',
     stock: '',
-    sku: '',
-    dimensions: '',
-    weight: '',
-    warranty: '',
     contact_email: '',
     contact_phone: '',
     contact_whatsapp: '',
     published: false,
   });
+
+  useEffect(() => {
+    if (id) {
+      loadProduct();
+    } else {
+      setInitialLoad(false);
+    }
+  }, [id]);
+
+  const loadProduct = async () => {
+    try {
+      const { data: product, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (error) throw error;
+
+      if (product) {
+        setFormData({
+          name: product.name || '',
+          slug: product.slug || '',
+          description: product.description || '',
+          price_cents: product.price_cents?.toString() || '',
+          stock: product.stock?.toString() || '',
+          currency: product.currency || 'BRL',
+          category: product.category || '',
+          specifications: product.specifications || '',
+          contact_email: product.contact_email || '',
+          contact_phone: product.contact_phone || '',
+          contact_whatsapp: product.contact_whatsapp || '',
+          published: product.published || false,
+        });
+        setCoverImage(product.cover_image_url || '');
+      }
+    } catch (error: any) {
+      console.error('Erro ao carregar produto:', error);
+      toast.error('Erro ao carregar produto: ' + error.message);
+    } finally {
+      setInitialLoad(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,7 +137,7 @@ export default function ProductForm() {
         Voltar
       </Button>
 
-      <h1 className="text-3xl font-bold mb-8">Novo Acessório</h1>
+      <h1 className="text-3xl font-bold mb-8">{isEditing ? 'Editar' : 'Novo'} Produto</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <Card className="border-2">
@@ -135,12 +177,12 @@ export default function ProductForm() {
                 />
               </div>
               <div>
-                <Label htmlFor="brand">Marca</Label>
+                <Label htmlFor="specifications">Especificações</Label>
                 <Input
-                  id="brand"
-                  value={formData.brand}
-                  onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-                  placeholder="Marca do produto"
+                  id="specifications"
+                  value={formData.specifications}
+                  onChange={(e) => setFormData({ ...formData, specifications: e.target.value })}
+                  placeholder="Detalhes técnicos"
                 />
               </div>
             </div>
@@ -169,60 +211,6 @@ export default function ProductForm() {
               currentImage={coverImage}
               label="Imagem Principal do Produto"
             />
-            
-            <MultiImageUpload
-              bucket="products"
-              images={gallery}
-              onImagesChange={setGallery}
-              maxImages={8}
-            />
-          </CardContent>
-        </Card>
-
-        <Card className="border-2">
-          <CardHeader className="bg-muted/50">
-            <CardTitle>Especificações Técnicas</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4 pt-6">
-            <div className="grid grid-cols-3 gap-4">
-              <div>
-                <Label htmlFor="sku">SKU / Código</Label>
-                <Input
-                  id="sku"
-                  value={formData.sku}
-                  onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
-                  placeholder="SKU-001"
-                />
-              </div>
-              <div>
-                <Label htmlFor="dimensions">Dimensões</Label>
-                <Input
-                  id="dimensions"
-                  value={formData.dimensions}
-                  onChange={(e) => setFormData({ ...formData, dimensions: e.target.value })}
-                  placeholder="Ex: 30x20x10 cm"
-                />
-              </div>
-              <div>
-                <Label htmlFor="weight">Peso</Label>
-                <Input
-                  id="weight"
-                  value={formData.weight}
-                  onChange={(e) => setFormData({ ...formData, weight: e.target.value })}
-                  placeholder="Ex: 2.5 kg"
-                />
-              </div>
-            </div>
-
-            <div>
-              <Label htmlFor="warranty">Garantia</Label>
-              <Input
-                id="warranty"
-                value={formData.warranty}
-                onChange={(e) => setFormData({ ...formData, warranty: e.target.value })}
-                placeholder="Ex: 12 meses"
-              />
-            </div>
           </CardContent>
         </Card>
 
@@ -312,7 +300,7 @@ export default function ProductForm() {
 
         <div className="flex gap-4">
           <Button type="submit" disabled={loading}>
-            {loading ? 'Salvando...' : 'Criar Acessório'}
+            {loading ? 'Salvando...' : (isEditing ? 'Atualizar Produto' : 'Criar Produto')}
           </Button>
           <Button type="button" variant="outline" onClick={() => navigate('/admin/products')}>
             Cancelar

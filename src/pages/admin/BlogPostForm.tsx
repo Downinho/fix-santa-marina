@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,10 +9,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { toast } from 'sonner';
 import { ArrowLeft } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import ImageUpload from '@/components/admin/ImageUpload';
 
 export default function BlogPostForm() {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [loading, setLoading] = useState(false);
+  const [initialLoad, setInitialLoad] = useState(true);
+  const isEditing = !!id;
+  const [coverImage, setCoverImage] = useState('');
   const [formData, setFormData] = useState({
     title: '',
     slug: '',
@@ -20,6 +25,42 @@ export default function BlogPostForm() {
     content_md: '',
     status: 'draft' as 'draft' | 'published',
   });
+
+  useEffect(() => {
+    if (id) {
+      loadPost();
+    } else {
+      setInitialLoad(false);
+    }
+  }, [id]);
+
+  const loadPost = async () => {
+    try {
+      const { data: post, error } = await supabase
+        .from('blog_posts')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (error) throw error;
+
+      if (post) {
+        setFormData({
+          title: post.title || '',
+          slug: post.slug || '',
+          excerpt: post.excerpt || '',
+          content_md: post.content_md || '',
+          status: post.status || 'draft',
+        });
+        setCoverImage(post.cover_image_url || '');
+      }
+    } catch (error: any) {
+      console.error('Erro ao carregar post:', error);
+      toast.error('Erro ao carregar post: ' + error.message);
+    } finally {
+      setInitialLoad(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,19 +74,29 @@ export default function BlogPostForm() {
         author_profile_id: user.id,
         title: formData.title,
         slug: formData.slug,
-        excerpt: formData.excerpt || null,
-        content_md: formData.content_md || null,
+        excerpt: formData.excerpt,
+        content_md: formData.content_md,
         status: formData.status,
         published_at: formData.status === 'published' ? new Date().toISOString() : null,
+        cover_image_url: coverImage,
       };
 
-      const { error } = await supabase
-        .from('blog_posts')
-        .insert([postData]);
+      if (isEditing) {
+        const { error } = await supabase
+          .from('blog_posts')
+          .update(postData)
+          .eq('id', id);
 
-      if (error) throw error;
+        if (error) throw error;
+        toast.success('Post atualizado com sucesso!');
+      } else {
+        const { error } = await supabase
+          .from('blog_posts')
+          .insert([postData]);
 
-      toast.success('Post criado com sucesso!');
+        if (error) throw error;
+        toast.success('Post criado com sucesso!');
+      }
       navigate('/admin/blog');
     } catch (error: any) {
       console.error('Erro ao criar post:', error);
@@ -160,7 +211,7 @@ export default function BlogPostForm() {
 
         <div className="flex gap-4">
           <Button type="submit" disabled={loading}>
-            {loading ? 'Salvando...' : 'Criar Post'}
+            {loading ? 'Salvando...' : (isEditing ? 'Atualizar Post' : 'Criar Post')}
           </Button>
           <Button type="button" variant="outline" onClick={() => navigate('/admin/blog')}>
             Cancelar
