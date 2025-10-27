@@ -35,6 +35,7 @@ import NotFound from "./pages/NotFound";
 import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
 import TermosUso from "./pages/TermosUso";
 import Cookies from "./pages/Cookies";
+import Sitemap from "./pages/Sitemap";
 
 function App() {
   return (
@@ -133,6 +134,7 @@ function App() {
           <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
           <Route path="/termos-uso" element={<TermosUso />} />
           <Route path="/cookies" element={<Cookies />} />
+          <Route path="/sitemap.xml" element={<Sitemap />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

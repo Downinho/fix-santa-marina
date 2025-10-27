@@ -3,22 +3,24 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Heart, MapPin, Anchor, Eye } from "lucide-react";
-import { vessels } from "@/data/vessels";
+import { useVessels } from "@/hooks/useVessels";
 
 const FeaturedVessels = () => {
-  // Use actual vessel data and transform it for display
-  const displayVessels = vessels.map(vessel => ({
-    id: vessel.id,
-    name: vessel.name,
-    type: vessel.type,
-    price: `R$ ${(vessel.price / 100).toLocaleString('pt-BR')}`,
-    location: vessel.location,
-    year: vessel.year.toString(),
-    length: vessel.length,
-    image: vessel.images[0],
-    slug: vessel.slug,
-    featured: true
-  }));
+  // Buscar embarcações do banco de dados
+  const { vessels: displayVessels, loading } = useVessels({});
+
+  if (loading) {
+    return (
+      <section className="py-20 bg-gradient-ocean">
+        <div className="container mx-auto px-6">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Carregando embarcações...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 bg-gradient-ocean">
@@ -34,7 +36,7 @@ const FeaturedVessels = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-12">
-          {displayVessels.map((vessel, index) => (
+          {displayVessels.slice(0, 4).map((vessel, index) => (
             <Card 
               key={vessel.id} 
               className="group cursor-pointer hover:shadow-premium transition-all duration-300 overflow-hidden"

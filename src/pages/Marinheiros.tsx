@@ -6,69 +6,15 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MapPin, Star, Award, Phone, Mail, Calendar, Clock, Search, Filter, User, Shield } from "lucide-react";
+import { useSkippers } from "@/hooks/useSkippers";
 
 const Marinheiros = () => {
   const [searchLocation, setSearchLocation] = useState('');
   const [priceRange, setPriceRange] = useState('');
   const [experience, setExperience] = useState('');
 
-  // Mock skippers data - in real app, this would come from database
-  const skippers = [
-    {
-      id: '1',
-      name: 'Capitão João Silva',
-      bio: 'Marinheiro experiente com mais de 20 anos navegando pelas costas brasileiras. Especialista em embarcações de luxo e turismo náutico.',
-      years_experience: 20,
-      hourly_rate_cents: 15000, // R$ 150/hora
-      day_rate_cents: 80000, // R$ 800/dia
-      city: 'Búzios',
-      state: 'Rio de Janeiro',
-      rating: 4.9,
-      reviews_count: 156,
-      verified: true,
-      license_number: 'CHA-BR-12345',
-      avatar_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
-      specialties: ['Iates de Luxo', 'Navegação Oceânica', 'Turismo Náutico'],
-      languages: ['Português', 'Inglês', 'Espanhol'],
-      certifications: ['CHA - Capitão de Alto Mar', 'STCW Basic Safety', 'Primeiros Socorros']
-    },
-    {
-      id: '2',
-      name: 'Marina Costa',
-      bio: 'Primeira marinheira certificada da região com especialização em veleiros e regatas. Experiência internacional em competições.',
-      years_experience: 15,
-      hourly_rate_cents: 12000,
-      day_rate_cents: 65000,
-      city: 'Angra dos Reis',
-      state: 'Rio de Janeiro',
-      rating: 4.8,
-      reviews_count: 89,
-      verified: true,
-      license_number: 'CHM-BR-67890',
-      avatar_url: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
-      specialties: ['Veleiros', 'Regatas', 'Ensino de Vela'],
-      languages: ['Português', 'Inglês'],
-      certifications: ['CHM - Capitão de Altura', 'Instrutor de Vela', 'Radio Operador']
-    },
-    {
-      id: '3',
-      name: 'Roberto Marinho',
-      bio: 'Especialista em pescarias oceânicas e turismo esportivo. Conhece todos os pontos de pesca da região sudeste.',
-      years_experience: 25,
-      hourly_rate_cents: 18000,
-      day_rate_cents: 95000,
-      city: 'Cabo Frio',
-      state: 'Rio de Janeiro',
-      rating: 4.7,
-      reviews_count: 203,
-      verified: true,
-      license_number: 'CHA-BR-11122',
-      avatar_url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-      specialties: ['Pesca Oceânica', 'Turismo Esportivo', 'Embarcações Esportivas'],
-      languages: ['Português'],
-      certifications: ['CHA - Capitão de Alto Mar', 'Guia de Pesca', 'Mergulho Autônomo']
-    }
-  ];
+  // Buscar marinheiros do banco de dados
+  const { skippers, loading, error } = useSkippers({ location: searchLocation });
 
   const formatPrice = (priceInCents: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -77,74 +23,88 @@ const Marinheiros = () => {
     }).format(priceInCents / 100);
   };
 
-  const filteredSkippers = skippers.filter(skipper => {
-    if (searchLocation && !skipper.city.toLowerCase().includes(searchLocation.toLowerCase()) &&
-        !skipper.state.toLowerCase().includes(searchLocation.toLowerCase())) {
-      return false;
-    }
-    return true;
-  });
-
   return (
     <Layout>
       <main id="main-content" className="pt-16">
-        {/* EM BREVE Section */}  
-        <section className="py-32 bg-gradient-ocean">
+        {/* Hero Section */}
+        <section className="py-20 bg-gradient-ocean">
           <div className="container mx-auto px-6">
-            <div className="text-center max-w-4xl mx-auto">
+            <div className="text-center max-w-4xl mx-auto mb-12">
               <div className="mb-8">
-                <User className="w-24 h-24 text-accent-gold mx-auto mb-6" />
+                <User className="w-20 h-20 text-accent-gold mx-auto mb-6" />
               </div>
-              <h1 className="font-display text-5xl md:text-7xl font-bold text-primary mb-8">
-                Em Breve
+              <h1 className="font-display text-4xl md:text-6xl font-bold text-primary mb-6">
+                Marinheiros Profissionais
               </h1>
-              <h2 className="font-display text-2xl md:text-3xl font-medium text-accent-gold mb-8">
-                Marinheiros Profissionais MARBANA
-              </h2>
-              <p className="font-body text-xl text-muted-foreground leading-relaxed mb-12 max-w-3xl mx-auto">
-                Estamos desenvolvendo uma plataforma exclusiva para conectar você aos melhores marinheiros profissionais certificados. 
-                Em breve você poderá contratar capitães experientes, instrutores de vela e especialistas náuticos para suas aventuras.
+              <p className="font-body text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+                Conecte-se com os melhores marinheiros profissionais certificados. 
+                Capitães experientes, instrutores de vela e especialistas náuticos para suas aventuras.
               </p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-12">
-                <div className="text-center p-6">
-                  <div className="w-16 h-16 bg-accent-gold/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Award className="w-8 h-8 text-accent-gold" />
-                  </div>
-                  <h3 className="font-display text-lg font-semibold text-primary mb-3">
-                    Profissionais Certificados
-                  </h3>
-                  <p className="font-body text-muted-foreground text-sm">
-                    Marinheiros com licenças válidas e experiência comprovada
-                  </p>
+            </div>
+
+            {/* Search Bar */}
+            <div className="bg-background/95 backdrop-blur-sm rounded-2xl p-6 shadow-premium max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="md:col-span-2">
+                  <Input 
+                    placeholder="Buscar por localização..."
+                    className="h-12 font-body"
+                    value={searchLocation}
+                    onChange={(e) => setSearchLocation(e.target.value)}
+                  />
                 </div>
-                <div className="text-center p-6">
-                  <div className="w-16 h-16 bg-accent-gold/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Calendar className="w-8 h-8 text-accent-gold" />
-                  </div>
-                  <h3 className="font-display text-lg font-semibold text-primary mb-3">
-                    Disponibilidade Flexível
-                  </h3>
-                  <p className="font-body text-muted-foreground text-sm">
-                    Contratação por hora, diária ou para viagens longas
-                  </p>
-                </div>
-                <div className="text-center p-6">
-                  <div className="w-16 h-16 bg-accent-gold/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Star className="w-8 h-8 text-accent-gold" />
-                  </div>
-                  <h3 className="font-display text-lg font-semibold text-primary mb-3">
-                    Avaliações Verificadas
-                  </h3>
-                  <p className="font-body text-muted-foreground text-sm">
-                    Sistema de reviews transparente e confiável
-                  </p>
-                </div>
-              </div>
+                
+                <Select value={priceRange} onValueChange={setPriceRange}>
+                  <SelectTrigger className="h-12 font-body">
+                    <SelectValue placeholder="Faixa de Preço" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Todas</SelectItem>
+                    <SelectItem value="0-500">Até R$ 500/dia</SelectItem>
+                    <SelectItem value="500-1000">R$ 500 - R$ 1.000</SelectItem>
+                    <SelectItem value="1000+">Acima de R$ 1.000</SelectItem>
+                  </SelectContent>
+                </Select>
 
                 <Button 
                   size="lg" 
-                  className="bg-gradient-hero hover:opacity-90 text-primary-foreground font-body font-medium"
+                  className="bg-gradient-hero hover:opacity-90 text-primary-foreground font-body h-12"
+                >
+                  <Search className="w-5 h-5 mr-2" />
+                  Buscar
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Skippers List */}
+        <section className="py-12">
+          <div className="container mx-auto px-6">
+            {loading ? (
+              <div className="text-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+                <p className="text-muted-foreground">Carregando marinheiros...</p>
+              </div>
+            ) : error ? (
+              <div className="text-center py-12">
+                <p className="text-destructive">Erro ao carregar marinheiros: {error}</p>
+              </div>
+            ) : skippers.length === 0 ? (
+              <div className="text-center py-20">
+                <div className="mb-8">
+                  <User className="w-24 h-24 text-muted-foreground/50 mx-auto mb-6" />
+                </div>
+                <h2 className="font-display text-3xl font-bold text-primary mb-6">
+                  Em Breve
+                </h2>
+                <p className="font-body text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                  Estamos finalizando o cadastro dos marinheiros profissionais. 
+                  Em breve você terá acesso a uma seleção exclusiva de capitães certificados.
+                </p>
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-hero hover:opacity-90 text-primary-foreground font-body"
                   onClick={() => {
                     const message = "Olá! Gostaria de ser notificado sobre o lançamento da plataforma de Marinheiros Profissionais MARBANA.";
                     window.open(`https://wa.me/5511940159202?text=${encodeURIComponent(message)}`, '_blank');
@@ -153,19 +113,95 @@ const Marinheiros = () => {
                   <Mail className="w-5 h-5 mr-2" />
                   Notificar-me do Lançamento
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="font-body"
-                  onClick={() => {
-                    const message = "Olá! Tenho interesse em me cadastrar como Marinheiro Profissional na plataforma MARBANA.";
-                    window.open(`https://wa.me/5511940159202?text=${encodeURIComponent(message)}`, '_blank');
-                  }}
-                >
-                  <User className="w-5 h-5 mr-2" />
-                  Quero ser Marinheiro MARBANA
-                </Button>
-            </div>
+              </div>
+            ) : (
+              <>
+                <div className="flex justify-between items-center mb-8">
+                  <h2 className="font-display text-2xl font-semibold text-primary">
+                    {skippers.length} marinheiros encontrados
+                  </h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {skippers.map((skipper) => (
+                    <Card key={skipper.id} className="group hover:shadow-premium transition-all duration-300">
+                      <CardContent className="p-6">
+                        <div className="flex items-start space-x-4 mb-4">
+                          <div className="relative">
+                            <img 
+                              src={skipper.avatar_url} 
+                              alt={skipper.name}
+                              className="w-16 h-16 rounded-full object-cover"
+                            />
+                            {skipper.verified && (
+                              <Badge className="absolute -bottom-1 -right-1 h-6 w-6 p-0 flex items-center justify-center bg-green-500">
+                                <Shield className="w-3 h-3" />
+                              </Badge>
+                            )}
+                          </div>
+                          
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-display text-xl font-semibold text-primary mb-1 truncate">
+                              {skipper.name}
+                            </h3>
+                            <div className="flex items-center text-sm text-muted-foreground mb-2">
+                              <MapPin className="w-4 h-4 mr-1 shrink-0" />
+                              <span className="truncate">{skipper.city}, {skipper.state}</span>
+                            </div>
+                            <div className="flex items-center text-sm text-muted-foreground">
+                              <Award className="w-4 h-4 mr-1 shrink-0" />
+                              <span>{skipper.years_experience} anos de experiência</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <p className="text-sm text-muted-foreground font-body mb-4 line-clamp-3">
+                          {skipper.bio}
+                        </p>
+
+                        {skipper.specialties && (
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {skipper.specialties.split(',').slice(0, 3).map((specialty: string, idx: number) => (
+                              <Badge key={idx} variant="secondary" className="text-xs">
+                                {specialty.trim()}
+                              </Badge>
+                            ))}
+                          </div>
+                        )}
+
+                        <div className="border-t pt-4 mb-4">
+                          <div className="flex justify-between items-center">
+                            <div>
+                              <p className="text-xs text-muted-foreground mb-1">A partir de</p>
+                              <p className="font-display text-lg font-bold text-primary">
+                                {formatPrice(skipper.day_rate_cents)}/dia
+                              </p>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-xs text-muted-foreground mb-1">Por hora</p>
+                              <p className="font-body text-sm font-semibold text-primary">
+                                {formatPrice(skipper.hourly_rate_cents)}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <Button 
+                          className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body"
+                          onClick={() => {
+                            const message = `Olá! Gostaria de mais informações sobre o marinheiro ${skipper.name}.`;
+                            const whatsapp = skipper.contact_whatsapp || '5511940159202';
+                            window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
+                          }}
+                        >
+                          Solicitar Contato
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </section>
       </main>

@@ -7,8 +7,7 @@ import { Heart, MapPin, Anchor, Eye, Search, Filter, MessageCircle, Star } from 
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { Layout } from "@/components/Layout";
-
-import { vessels } from "@/data/vessels";
+import { useVessels } from "@/hooks/useVessels";
 import { getVideoSrc, getVesselTitle } from "@/utils/videoMapping";
 
 const Embarcacoes = () => {
@@ -53,33 +52,17 @@ const Embarcacoes = () => {
     }
   }, [searchParams]);
 
-  // Convertendo os dados do vessels.ts para formato compatível com a página
-  const vesselsList = vessels.map(vessel => ({
-    id: parseInt(vessel.id),
-    name: vessel.name,
-    type: vessel.type,
-    price: `R$ ${(vessel.price / 100).toLocaleString('pt-BR')}`,
-    location: vessel.location,
-    year: vessel.year.toString(),
-    length: vessel.length,
-    image: vessel.images[0],
-    featured: vessel.featured || false,
-    description: vessel.description,
-    slug: vessel.slug,
-    comments: [] // Sem comentários por enquanto
-  }));
+  // Buscar embarcações do banco de dados
+  const { vessels: vesselsList, loading, error } = useVessels({
+    type: selectedType,
+    location: selectedLocation,
+    search: searchTerm
+  });
 
   const filteredVessels = useMemo(() => {
-    return vesselsList.filter(vessel => {
-      const matchesSearch = vessel.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           vessel.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           vessel.description.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesType = selectedType === "" || selectedType === "todos" || vessel.type === selectedType;
-      const matchesLocation = selectedLocation === "" || selectedLocation === "todas" || vessel.location.includes(selectedLocation);
-      
-      return matchesSearch && matchesType && matchesLocation;
-    });
-  }, [searchTerm, selectedType, selectedLocation]);
+    // Filtros já aplicados no hook useVessels
+    return vesselsList;
+  }, [vesselsList]);
 
 const handleSearch = () => {
     // A busca já funciona automaticamente através do useMemo
@@ -198,13 +181,24 @@ const handleSearch = () => {
         {/* Results Section */}
         <section className="py-4 sm:py-6 lg:py-8">
           <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
-            <div className="flex justify-between items-center mb-4 sm:mb-6">
-              <h2 className="font-display text-xl sm:text-2xl font-semibold text-primary">
-                {filteredVessels.length} embarcações encontradas
-              </h2>
-            </div>
+            {loading ? (
+              <div className="text-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+                <p className="text-muted-foreground">Carregando embarcações...</p>
+              </div>
+            ) : error ? (
+              <div className="text-center py-12">
+                <p className="text-destructive">Erro ao carregar embarcações: {error}</p>
+              </div>
+            ) : (
+              <>
+                <div className="flex justify-between items-center mb-4 sm:mb-6">
+                  <h2 className="font-display text-xl sm:text-2xl font-semibold text-primary">
+                    {filteredVessels.length} embarcações encontradas
+                  </h2>
+                </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
               {filteredVessels.map((vessel) => (
                 <Card 
                   key={vessel.id} 
@@ -327,18 +321,20 @@ const handleSearch = () => {
               ))}
             </div>
 
-            {filteredVessels.length === 0 && (
-              <div className="text-center py-12">
-                <div className="mx-auto w-24 h-24 bg-muted rounded-full flex items-center justify-center mb-4">
-                  <Search className="w-8 h-8 text-muted-foreground" />
-                </div>
-                <h3 className="font-display text-xl font-semibold text-primary mb-2">
-                  Nenhuma embarcação encontrada
-                </h3>
-                <p className="text-muted-foreground font-body">
-                  Tente ajustar os filtros de busca para encontrar mais resultados.
-                </p>
-              </div>
+                {filteredVessels.length === 0 && (
+                  <div className="text-center py-12">
+                    <div className="mx-auto w-24 h-24 bg-muted rounded-full flex items-center justify-center mb-4">
+                      <Search className="w-8 h-8 text-muted-foreground" />
+                    </div>
+                    <h3 className="font-display text-xl font-semibold text-primary mb-2">
+                      Nenhuma embarcação encontrada
+                    </h3>
+                    <p className="text-muted-foreground font-body">
+                      Tente ajustar os filtros de busca para encontrar mais resultados.
+                    </p>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </section>
