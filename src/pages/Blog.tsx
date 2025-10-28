@@ -1,4 +1,4 @@
-import { blogPosts } from "@/data/blogPosts";
+import { useBlogPosts } from "@/hooks/useBlogPosts";
 import { Layout } from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,8 +7,35 @@ import { Calendar, User, ArrowRight, TrendingUp } from "lucide-react";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
 const Blog = () => {
-  const featuredPost = blogPosts.find(post => post.featured) || blogPosts[0];
-  const otherPosts = blogPosts.filter(post => !post.featured);
+  const { posts, loading } = useBlogPosts();
+  const featuredPost = posts.find(post => post.featured) || posts[0];
+  const otherPosts = posts.filter(post => !post.featured);
+
+  if (loading) {
+    return (
+      <Layout>
+        <main className="pt-16">
+          <section className="container mx-auto px-6 py-20 text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Carregando posts...</p>
+          </section>
+        </main>
+      </Layout>
+    );
+  }
+
+  if (posts.length === 0) {
+    return (
+      <Layout>
+        <main className="pt-16">
+          <section className="container mx-auto px-6 py-20 text-center">
+            <h1 className="font-display text-4xl font-bold text-primary mb-4">Nenhum post encontrado</h1>
+            <p className="text-muted-foreground">Em breve teremos conteúdo exclusivo para você.</p>
+          </section>
+        </main>
+      </Layout>
+    );
+  }
 
   const categories = [
     "Todos", "Guias", "Mercado", "Destinos", "Manutenção", "Reviews", "Eventos", "Sustentabilidade"

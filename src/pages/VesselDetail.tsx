@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { extractIdFromSlug } from "@/utils/slugify";
+import { useVesselBySlug } from "@/hooks/useVesselBySlug";
 import { Layout } from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,6 @@ import {
   Shield, Award, Clock, CheckCircle, ArrowLeft, ChevronLeft, ChevronRight, X
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
-import { getVesselBySlug } from "@/data/vessels";
 import marbanaLogo from "@/assets/marbana-logo.png";
 
 declare global {
@@ -38,22 +37,10 @@ const VesselDetail = () => {
     window.open(url, '_blank');
   };
 
-  const vessel = getVesselBySlug(slug || '');
+  const { vessel, loading, error } = useVesselBySlug(slug || '');
 
-  if (!vessel) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-primary mb-4">Embarcação não encontrada</h1>
-          <Button asChild>
-            <Link to="/embarcacoes">Voltar para Embarcações</Link>
-          </Button>
-        </div>
-      </div>
-    );
-  }
-
-  const formatPrice = (priceInCents: number) => {
+  const formatPrice = (priceInCents: number | undefined) => {
+    if (!priceInCents) return 'Consulte-nos';
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL',
@@ -62,11 +49,37 @@ const VesselDetail = () => {
     }).format(priceInCents / 100);
   };
 
+  if (loading) {
+    return (
+      <Layout>
+        <main className="container mx-auto px-6 py-20 text-center pt-16">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Carregando embarcação...</p>
+        </main>
+      </Layout>
+    );
+  }
+
+  if (error || !vessel) {
+    return (
+      <Layout>
+        <main className="container mx-auto px-6 py-20 text-center pt-16">
+          <h1 className="font-display text-4xl font-bold text-primary mb-4">Embarcação não encontrada</h1>
+          <Button asChild>
+            <Link to="/embarcacoes">Voltar para Embarcações</Link>
+          </Button>
+        </main>
+      </Layout>
+    );
+  }
+
   // Initialize OpenStreetMap
   useEffect(() => {
+    if (!vessel) return;
+    
     const initMap = () => {
       const mapContainer = document.getElementById('map');
-      if (mapContainer) {
+      if (mapContainer && vessel.latitude && vessel.longitude) {
         mapContainer.innerHTML = `
           <iframe
             width="100%"
@@ -75,11 +88,11 @@ const VesselDetail = () => {
             scrolling="no"
             marginheight="0"
             marginwidth="0"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=${vessel.coordinates.lng - 0.01}%2C${vessel.coordinates.lat - 0.01}%2C${vessel.coordinates.lng + 0.01}%2C${vessel.coordinates.lat + 0.01}&amp;layer=mapnik&amp;marker=${vessel.coordinates.lat}%2C${vessel.coordinates.lng}"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=${vessel.longitude - 0.01}%2C${vessel.latitude - 0.01}%2C${vessel.longitude + 0.01}%2C${vessel.latitude + 0.01}&amp;layer=mapnik&amp;marker=${vessel.latitude}%2C${vessel.longitude}"
             style="border: 1px solid #ccc; border-radius: 8px;"
           ></iframe>
           <div style="margin-top: 8px; font-size: 12px; color: #666;">
-            <a href="https://www.openstreetmap.org/?mlat=${vessel.coordinates.lat}&mlon=${vessel.coordinates.lng}#map=15/${vessel.coordinates.lat}/${vessel.coordinates.lng}" target="_blank" style="color: #0066cc;">
+            <a href="https://www.openstreetmap.org/?mlat=${vessel.latitude}&mlon=${vessel.longitude}#map=15/${vessel.latitude}/${vessel.longitude}" target="_blank" style="color: #0066cc;">
               Ver mapa maior
             </a>
           </div>
@@ -91,7 +104,8 @@ const VesselDetail = () => {
   }, [vessel]);
 
   const handleContactWhatsApp = () => {
-    const message = `Olá! Tenho interesse na ${vessel.name} (${vessel.model}) localizada em ${vessel.location}. Gostaria de mais informações.`;
+    const location = vessel.city && vessel.state ? `${vessel.city}, ${vessel.state}` : vessel.location || 'Brasil';
+    const message = `Olá! Tenho interesse na ${vessel.name} localizada em ${location}. Gostaria de mais informações.`;
     openWhatsApp(message);
   };
 

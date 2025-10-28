@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useProductBySlug } from '@/hooks/useProductBySlug';
 import { Layout } from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,48 +16,38 @@ const Produto = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
 
-  // Mock product data - in real app, this would come from database
-  const product = {
-    id: '1',
-    name: 'Âncora Premium Inox 15kg',
-    slug: 'ancora-premium-inox-15kg',
-    price: 89900, // in cents
-    currency: 'BRL',
-    description: 'Âncora de alta qualidade em aço inoxidável, ideal para embarcações de 30 a 45 pés. Design aerodinâmico com excelente poder de fixação.',
-    stock: 15,
-    images: [
-      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop'
-    ],
-    vendor: {
-      name: 'Marina Premium Store',
-      rating: 4.8,
-      verified: true
-    },
-    specifications: [
-      { label: 'Peso', value: '15kg' },
-      { label: 'Material', value: 'Aço Inoxidável 316L' },
-      { label: 'Comprimento', value: '65cm' },
-      { label: 'Largura', value: '45cm' },
-      { label: 'Embarcações', value: '30-45 pés' },
-      { label: 'Garantia', value: '5 anos' }
-    ],
-    features: [
-      'Resistente à corrosão marinha',
-      'Design hidrodinâmico',
-      'Excelente poder de fixação',
-      'Acabamento premium',
-      'Certificação internacional'
-    ]
-  };
+  const { product, loading, error } = useProductBySlug(slug || '');
 
-  const formatPrice = (priceInCents: number) => {
+  const formatPrice = (price: number) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL'
-    }).format(priceInCents / 100);
+    }).format(price);
   };
+
+  if (loading) {
+    return (
+      <Layout>
+        <main className="container mx-auto px-6 py-20 text-center pt-16">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Carregando produto...</p>
+        </main>
+      </Layout>
+    );
+  }
+
+  if (error || !product) {
+    return (
+      <Layout>
+        <main className="container mx-auto px-6 py-20 text-center pt-16">
+          <h1 className="font-display text-4xl font-bold text-primary mb-4">Produto não encontrado</h1>
+          <Button onClick={() => window.location.href = '/acessorios'}>
+            Voltar aos Acessórios
+          </Button>
+        </main>
+      </Layout>
+    );
+  }
 
   const handleAddToCart = () => {
     toast({

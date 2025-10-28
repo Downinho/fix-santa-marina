@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { blogPosts, getPostBySlug } from "@/data/blogPosts";
+import { useBlogPostBySlug } from "@/hooks/useBlogPostBySlug";
 import { Layout } from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,9 +10,20 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 const BlogPost = () => {
   const { slug } = useParams();
   
-  const post = getPostBySlug(slug || '');
+  const { post, loading, error } = useBlogPostBySlug(slug || '');
   
-  if (!post) {
+  if (loading) {
+    return (
+      <Layout>
+        <main className="container mx-auto px-6 py-20 text-center pt-16">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Carregando post...</p>
+        </main>
+      </Layout>
+    );
+  }
+
+  if (error || !post) {
     return (
       <Layout>
         <main className="container mx-auto px-6 py-20 text-center pt-16">

@@ -30,7 +30,6 @@ import Produto from "./pages/Produto";
 import VesselDetail from "./pages/VesselDetail";
 import Marinheiros from "./pages/Marinheiros";
 import MarinheirosDetail from "./pages/MarinheirosDetail";
-import AcessoriosDetail from "./pages/AcessoriosDetail";
 import NotFound from "./pages/NotFound";
 import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
 import TermosUso from "./pages/TermosUso";
@@ -130,7 +129,6 @@ function App() {
           <Route path="/produto/:slug" element={<Produto />} />
           <Route path="/marinheiros" element={<Marinheiros />} />
           <Route path="/marinheiro/:id" element={<MarinheirosDetail />} />
-          <Route path="/acessorio/:id" element={<AcessoriosDetail />} />
           <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
           <Route path="/termos-uso" element={<TermosUso />} />
           <Route path="/cookies" element={<Cookies />} />

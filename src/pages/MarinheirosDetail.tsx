@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { useSkipperById } from "@/hooks/useSkipperById";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,59 +10,38 @@ import { Star, MapPin, Clock, Award, Phone, MessageCircle, Calendar, Users, Anch
 const MarinheirosDetail = () => {
   const { id } = useParams();
 
-  // Mock data - in a real app, this would come from an API
-  const marinheiro = {
-    id: "1",
-    name: "Capitão Roberto Silva",
-    avatar: "/placeholder.svg",
-    rating: 4.9,
-    totalReviews: 127,
-    location: "Rio de Janeiro, RJ",
-    experience: "15 anos",
-    specialties: ["Navegação Oceânica", "Pesca Esportiva", "Turismo Náutico"],
-    certifications: ["Arrais Amador", "Capitão Amador", "Curso de Sobrevivência"],
-    languages: ["Português", "Inglês", "Espanhol"],
-    bio: "Capitão experiente com mais de 15 anos navegando pelas águas brasileiras. Especialista em navegação oceânica e turismo náutico de luxo. Já conduziu mais de 500 expedições seguras.",
-    hourlyRate: 15000, // em centavos
-    dailyRate: 80000, // em centavos
-    availability: "Disponível",
-    portfolio: [
-      "/placeholder.svg",
-      "/placeholder.svg",
-      "/placeholder.svg",
-      "/placeholder.svg"
-    ],
-    reviews: [
-      {
-        id: 1,
-        author: "Maria Santos",
-        rating: 5,
-        date: "Março 2024",
-        comment: "Excelente profissional! Muito experiente e cuidadoso. Passeio incrível pela Baía de Guanabara."
-      },
-      {
-        id: 2,
-        author: "João Pereira",
-        rating: 5,
-        date: "Fevereiro 2024",
-        comment: "Capitão Roberto é excepcional. Conhece muito bem a região e proporcionou um dia inesquecível."
-      }
-    ],
-    services: [
-      "Condução de embarcações",
-      "Turismo náutico",
-      "Pesca esportiva",
-      "Eventos corporativos",
-      "Aulas de navegação"
-    ]
-  };
+  const { skipper: marinheiro, loading, error } = useSkipperById(id || '');
 
-  const formatPrice = (priceInCents: number) => {
+  const formatPrice = (price: number) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL'
-    }).format(priceInCents / 100);
+    }).format(price);
   };
+
+  if (loading) {
+    return (
+      <Layout>
+        <main className="container mx-auto px-6 py-20 text-center pt-16">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Carregando marinheiro...</p>
+        </main>
+      </Layout>
+    );
+  }
+
+  if (error || !marinheiro) {
+    return (
+      <Layout>
+        <main className="container mx-auto px-6 py-20 text-center pt-16">
+          <h1 className="font-display text-4xl font-bold text-primary mb-4">Marinheiro não encontrado</h1>
+          <Button onClick={() => window.location.href = '/marinheiros'}>
+            Voltar aos Marinheiros
+          </Button>
+        </main>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
