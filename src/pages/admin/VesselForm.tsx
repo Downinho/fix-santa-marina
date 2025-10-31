@@ -23,6 +23,7 @@ export default function VesselForm() {
   const [gallery, setGallery] = useState<string[]>([]);
   const [formData, setFormData] = useState({
     name: '',
+    model: '',
     slug: '',
     type: 'lancha',
     description: '',
@@ -74,6 +75,7 @@ export default function VesselForm() {
       if (vessel) {
         setFormData({
           name: vessel.name || '',
+          model: vessel.model || '',
           slug: vessel.slug || '',
           type: vessel.type || 'lancha',
           description: vessel.description || '',
@@ -247,17 +249,29 @@ export default function VesselForm() {
                   value={formData.name}
                   onChange={(e) => handleChange('name', e.target.value)}
                   required
+                  placeholder="Ex: Infinity XIX"
                 />
               </div>
               <div>
-                <Label htmlFor="slug">Slug *</Label>
+                <Label htmlFor="model">Modelo *</Label>
                 <Input
-                  id="slug"
-                  value={formData.slug}
-                  onChange={(e) => handleChange('slug', e.target.value)}
+                  id="model"
+                  value={formData.model}
+                  onChange={(e) => handleChange('model', e.target.value)}
                   required
+                  placeholder="Ex: Focker 272 GTC"
                 />
               </div>
+            </div>
+
+            <div>
+              <Label htmlFor="slug">Slug *</Label>
+              <Input
+                id="slug"
+                value={formData.slug}
+                onChange={(e) => handleChange('slug', e.target.value)}
+                required
+              />
             </div>
 
             <div className="grid grid-cols-2 gap-4">

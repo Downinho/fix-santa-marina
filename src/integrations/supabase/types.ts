@@ -728,6 +728,7 @@ export type Database = {
           latitude: number | null
           length_m: number | null
           longitude: number | null
+          model: string | null
           name: string
           owner_profile_id: string
           price_day_cents: number | null
@@ -765,6 +766,7 @@ export type Database = {
           latitude?: number | null
           length_m?: number | null
           longitude?: number | null
+          model?: string | null
           name: string
           owner_profile_id: string
           price_day_cents?: number | null
@@ -802,6 +804,7 @@ export type Database = {
           latitude?: number | null
           length_m?: number | null
           longitude?: number | null
+          model?: string | null
           name?: string
           owner_profile_id?: string
           price_day_cents?: number | null
