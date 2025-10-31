@@ -24,7 +24,7 @@ export const useVesselBySlug = (slug: string) => {
           `)
           .eq('slug', slug)
           .eq('status', 'published')
-          .single();
+          .maybeSingle();
         
         if (error) throw error;
         
@@ -48,13 +48,41 @@ export const useVesselBySlug = (slug: string) => {
             ? data.price_sale_cents 
             : (data.price_day_cents || data.price_hour_cents);
 
+          // Construir specifications dinamicamente
+          const specifications = [
+            { label: 'Ano', value: data.year?.toString() || 'N/A' },
+            { label: 'Tipo', value: data.type || 'N/A' },
+            ...(data.length_m ? [{ label: 'Comprimento', value: `${data.length_m}m` }] : []),
+            ...(data.beam_m ? [{ label: 'Largura', value: `${data.beam_m}m` }] : []),
+            ...(data.draft_m ? [{ label: 'Calado', value: `${data.draft_m}m` }] : []),
+            ...(data.capacity ? [{ label: 'Capacidade', value: `${data.capacity} pessoas` }] : []),
+            ...(data.cabins ? [{ label: 'Cabines', value: data.cabins.toString() }] : []),
+            ...(data.engines ? [{ label: 'Motores', value: data.engines }] : []),
+            ...(data.horsepower ? [{ label: 'Potência', value: `${data.horsepower} HP` }] : []),
+            ...(data.fuel ? [{ label: 'Combustível', value: data.fuel }] : []),
+          ];
+
+          // Construir amenities (equipamentos) - array simples
+          const amenities = [
+            'GPS',
+            'Rádio VHF',
+            'Âncora',
+            'Coletes salva-vidas',
+          ];
+
+          // Garantir que sempre haja pelo menos uma imagem (placeholder)
+          const images = data.vessel_media?.sort((a: any, b: any) => a.position - b.position).map((m: any) => m.url) || [];
+          const finalImages = images.length > 0 ? images : ['/placeholder.svg'];
+
           setVessel({
             ...data,
             model: data.model || data.name, // Fallback para nome se model não existir
             location,
             price,
             highlights: parsedHighlights,
-            images: data.vessel_media?.sort((a: any, b: any) => a.position - b.position).map((m: any) => m.url) || [],
+            specifications,
+            amenities,
+            images: finalImages,
             videos: data.vessel_media?.filter((m: any) => m.type === 'video').map((m: any) => ({ url: m.url, title: 'Vídeo', thumbnail: '' })) || [],
             owner: {
               name: 'MARBANA',

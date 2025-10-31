@@ -110,15 +110,19 @@ const VesselDetail = () => {
   };
 
   const nextImage = () => {
-    setSelectedImageIndex((prev) => 
-      prev === vessel.images.length - 1 ? 0 : prev + 1
-    );
+    if (vessel.images.length > 0) {
+      setSelectedImageIndex((prev) => 
+        prev === vessel.images.length - 1 ? 0 : prev + 1
+      );
+    }
   };
 
   const prevImage = () => {
-    setSelectedImageIndex((prev) => 
-      prev === 0 ? vessel.images.length - 1 : prev - 1
-    );
+    if (vessel.images.length > 0) {
+      setSelectedImageIndex((prev) => 
+        prev === 0 ? vessel.images.length - 1 : prev - 1
+      );
+    }
   };
 
   const handleFavorite = () => {
