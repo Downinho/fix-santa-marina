@@ -39,6 +39,36 @@ const VesselDetail = () => {
 
   const { vessel, loading, error } = useVesselBySlug(slug || '');
 
+  // Initialize OpenStreetMap - MUST be before early returns
+  useEffect(() => {
+    if (!vessel) return;
+    
+    const initMap = () => {
+      const mapContainer = document.getElementById('map');
+      if (mapContainer && vessel.latitude && vessel.longitude) {
+        mapContainer.innerHTML = `
+          <iframe
+            width="100%"
+            height="400"
+            frameborder="0"
+            scrolling="no"
+            marginheight="0"
+            marginwidth="0"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=${vessel.longitude - 0.01}%2C${vessel.latitude - 0.01}%2C${vessel.longitude + 0.01}%2C${vessel.latitude + 0.01}&amp;layer=mapnik&amp;marker=${vessel.latitude}%2C${vessel.longitude}"
+            style="border: 1px solid #ccc; border-radius: 8px;"
+          ></iframe>
+          <div style="margin-top: 8px; font-size: 12px; color: #666;">
+            <a href="https://www.openstreetmap.org/?mlat=${vessel.latitude}&mlon=${vessel.longitude}#map=15/${vessel.latitude}/${vessel.longitude}" target="_blank" style="color: #0066cc;">
+              Ver mapa maior
+            </a>
+          </div>
+        `;
+      }
+    };
+    
+    initMap();
+  }, [vessel]);
+
   const formatPrice = (priceInCents: number | undefined) => {
     if (!priceInCents) return 'Consulte-nos';
     return new Intl.NumberFormat('pt-BR', {
@@ -72,36 +102,6 @@ const VesselDetail = () => {
       </Layout>
     );
   }
-
-  // Initialize OpenStreetMap
-  useEffect(() => {
-    if (!vessel) return;
-    
-    const initMap = () => {
-      const mapContainer = document.getElementById('map');
-      if (mapContainer && vessel.latitude && vessel.longitude) {
-        mapContainer.innerHTML = `
-          <iframe
-            width="100%"
-            height="400"
-            frameborder="0"
-            scrolling="no"
-            marginheight="0"
-            marginwidth="0"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=${vessel.longitude - 0.01}%2C${vessel.latitude - 0.01}%2C${vessel.longitude + 0.01}%2C${vessel.latitude + 0.01}&amp;layer=mapnik&amp;marker=${vessel.latitude}%2C${vessel.longitude}"
-            style="border: 1px solid #ccc; border-radius: 8px;"
-          ></iframe>
-          <div style="margin-top: 8px; font-size: 12px; color: #666;">
-            <a href="https://www.openstreetmap.org/?mlat=${vessel.latitude}&mlon=${vessel.longitude}#map=15/${vessel.latitude}/${vessel.longitude}" target="_blank" style="color: #0066cc;">
-              Ver mapa maior
-            </a>
-          </div>
-        `;
-      }
-    };
-    
-    initMap();
-  }, [vessel]);
 
   const handleContactWhatsApp = () => {
     const location = vessel.city && vessel.state ? `${vessel.city}, ${vessel.state}` : vessel.location || 'Brasil';
