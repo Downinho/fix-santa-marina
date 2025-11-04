@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, Star, Award, Phone, Mail, Calendar, Clock, Search, Filter, User, Shield } from "lucide-react";
+import { MapPin, Star, Award, Phone, Mail, Calendar, Clock, Search, Filter, User, Shield, AlertCircle } from "lucide-react";
 import { useSkippers } from "@/hooks/useSkippers";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const Marinheiros = () => {
   const [searchLocation, setSearchLocation] = useState('');
@@ -133,25 +134,49 @@ const Marinheiros = () => {
                               alt={skipper.name}
                               className="w-16 h-16 rounded-full object-cover"
                             />
-                            {skipper.verified && (
-                              <Badge className="absolute -bottom-1 -right-1 h-6 w-6 p-0 flex items-center justify-center bg-green-500">
-                                <Shield className="w-3 h-3" />
-                              </Badge>
-                            )}
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Badge className={`absolute -bottom-1 -right-1 h-6 w-6 p-0 flex items-center justify-center ${
+                                    skipper.verified 
+                                      ? 'bg-green-500 hover:bg-green-600' 
+                                      : 'bg-yellow-500 hover:bg-yellow-600'
+                                  }`}>
+                                    {skipper.verified ? (
+                                      <Shield className="w-3 h-3" />
+                                    ) : (
+                                      <AlertCircle className="w-3 h-3" />
+                                    )}
+                                  </Badge>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p>{skipper.verified ? 'Marinheiro Verificado' : 'Em Verificação'}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
                           </div>
                           
                           <div className="flex-1 min-w-0">
-                            <h3 className="font-display text-xl font-semibold text-primary mb-1 truncate">
-                              {skipper.name}
-                            </h3>
+                            <div className="flex items-center gap-2 mb-1">
+                              <h3 className="font-display text-xl font-semibold text-primary truncate">
+                                {skipper.name}
+                              </h3>
+                              {!skipper.verified && (
+                                <Badge variant="outline" className="text-xs">
+                                  Em Verificação
+                                </Badge>
+                              )}
+                            </div>
                             <div className="flex items-center text-sm text-muted-foreground mb-2">
                               <MapPin className="w-4 h-4 mr-1 shrink-0" />
                               <span className="truncate">{skipper.city}, {skipper.state}</span>
                             </div>
-                            <div className="flex items-center text-sm text-muted-foreground">
-                              <Award className="w-4 h-4 mr-1 shrink-0" />
-                              <span>{skipper.years_experience} anos de experiência</span>
-                            </div>
+                            {skipper.years_experience > 0 && (
+                              <div className="flex items-center text-sm text-muted-foreground">
+                                <Award className="w-4 h-4 mr-1 shrink-0" />
+                                <span>{skipper.years_experience} anos de experiência</span>
+                              </div>
+                            )}
                           </div>
                         </div>
 

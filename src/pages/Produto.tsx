@@ -7,12 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ShoppingCart, Heart, Share2, Star, Truck, Shield, ArrowLeft, Plus, Minus } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
+import { Heart, Share2, Star, Truck, Shield, ArrowLeft, Plus, Minus, MessageCircle } from "lucide-react";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 const Produto = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
 
@@ -49,18 +48,13 @@ const Produto = () => {
     );
   }
 
-  const handleAddToCart = () => {
-    toast({
-      title: "Produto adicionado ao carrinho",
-      description: `${quantity}x ${product.name}`,
-    });
+  const getWhatsAppMessage = () => {
+    const total = product.price * quantity;
+    return `Olá! Gostaria de comprar:\n\n📦 ${quantity}x ${product.name}\n💰 Total: ${formatPrice(total)}\n\n🔗 ${window.location.href}`;
   };
 
-  const handleBuyNow = () => {
-    toast({
-      title: "Redirecionando para checkout",
-      description: "Você será redirecionado para finalizar a compra",
-    });
+  const getVendorPhone = () => {
+    return product.vendor.phone || '+5511940159202';
   };
 
   return (
@@ -206,24 +200,15 @@ const Produto = () => {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Button 
-                      size="lg" 
-                      onClick={handleBuyNow}
-                      className="bg-gradient-hero hover:opacity-90 text-primary-foreground font-body font-medium"
-                    >
-                      Comprar Agora
-                    </Button>
-                    <Button 
-                      size="lg" 
-                      variant="outline" 
-                      onClick={handleAddToCart}
-                      className="font-body"
-                    >
-                      <ShoppingCart className="w-5 h-5 mr-2" />
-                      Adicionar ao Carrinho
-                    </Button>
-                  </div>
+                  <WhatsAppButton
+                    phoneNumber={getVendorPhone()}
+                    message={getWhatsAppMessage()}
+                    size="lg"
+                    className="w-full bg-green-600 hover:bg-green-700 text-white font-body font-medium"
+                  >
+                    <MessageCircle className="w-5 h-5 mr-2" />
+                    Comprar via WhatsApp
+                  </WhatsAppButton>
 
                   <div className="flex space-x-4">
                     <Button variant="ghost" size="sm" className="font-body">
@@ -302,35 +287,6 @@ const Produto = () => {
           </div>
         </section>
 
-        {/* Contact Vendor */}
-        <section className="py-12">
-          <div className="container mx-auto px-6">
-            <Card className="max-w-2xl mx-auto">
-              <CardContent className="p-8">
-                <h3 className="font-display text-2xl font-bold text-primary mb-6">
-                  Fale com o Vendedor
-                </h3>
-                <form className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Input placeholder="Seu nome" className="font-body" />
-                    <Input placeholder="Seu e-mail" type="email" className="font-body" />
-                  </div>
-                  <Input placeholder="Telefone (opcional)" className="font-body" />
-                  <Textarea 
-                    placeholder="Sua mensagem sobre o produto..."
-                    className="font-body min-h-24"
-                  />
-                  <Button 
-                    type="submit"
-                    className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body"
-                  >
-                    Enviar Mensagem
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
       </main>
     </Layout>
   );

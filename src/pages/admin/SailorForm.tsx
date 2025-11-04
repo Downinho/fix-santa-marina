@@ -86,6 +86,24 @@ export default function SailorForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validar campos obrigatórios antes de publicar
+    if (formData.published) {
+      const missingFields = [];
+      if (!formData.display_name) missingFields.push('Nome Completo');
+      if (!formData.bio || formData.bio.length < 50) missingFields.push('Biografia (mínimo 50 caracteres)');
+      if (!formData.years_experience) missingFields.push('Anos de Experiência');
+      if (!formData.city) missingFields.push('Cidade');
+      if (!formData.state) missingFields.push('Estado');
+      if (!formData.contact_email) missingFields.push('E-mail');
+      if (!formData.hourly_rate_cents && !formData.day_rate_cents) missingFields.push('Taxa por Hora ou Dia');
+
+      if (missingFields.length > 0) {
+        toast.error(`Preencha os campos obrigatórios antes de publicar: ${missingFields.join(', ')}`);
+        return;
+      }
+    }
+    
     setLoading(true);
 
     try {
@@ -204,13 +222,17 @@ export default function SailorForm() {
           </CardHeader>
           <CardContent className="space-y-4 pt-6">
             <div>
-              <Label htmlFor="bio">Biografia</Label>
+              <Label htmlFor="bio">Biografia *</Label>
               <Textarea
                 id="bio"
                 value={formData.bio}
                 onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
                 rows={4}
+                placeholder="Mínimo 50 caracteres (obrigatório para publicar)"
               />
+              <p className="text-xs text-muted-foreground mt-1">
+                {formData.bio.length}/50 caracteres
+              </p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -223,12 +245,13 @@ export default function SailorForm() {
                 />
               </div>
               <div>
-                <Label htmlFor="years_experience">Anos de Experiência</Label>
+                <Label htmlFor="years_experience">Anos de Experiência *</Label>
                 <Input
                   id="years_experience"
                   type="number"
                   value={formData.years_experience}
                   onChange={(e) => setFormData({ ...formData, years_experience: e.target.value })}
+                  placeholder="Obrigatório para publicar"
                 />
               </div>
             </div>
@@ -253,24 +276,29 @@ export default function SailorForm() {
           <CardContent className="space-y-4 pt-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="hourly_rate_cents">Taxa/Hora (centavos)</Label>
+                <Label htmlFor="hourly_rate_cents">Taxa/Hora (centavos) *</Label>
                 <Input
                   id="hourly_rate_cents"
                   type="number"
                   value={formData.hourly_rate_cents}
                   onChange={(e) => setFormData({ ...formData, hourly_rate_cents: e.target.value })}
+                  placeholder="Ex: 15000 = R$ 150/hora"
                 />
               </div>
               <div>
-                <Label htmlFor="day_rate_cents">Taxa/Dia (centavos)</Label>
+                <Label htmlFor="day_rate_cents">Taxa/Dia (centavos) *</Label>
                 <Input
                   id="day_rate_cents"
                   type="number"
                   value={formData.day_rate_cents}
                   onChange={(e) => setFormData({ ...formData, day_rate_cents: e.target.value })}
+                  placeholder="Ex: 80000 = R$ 800/dia"
                 />
               </div>
             </div>
+            <p className="text-xs text-muted-foreground">
+              * Pelo menos uma das taxas é obrigatória para publicar
+            </p>
           </CardContent>
         </Card>
 
@@ -281,19 +309,22 @@ export default function SailorForm() {
           <CardContent className="space-y-4 pt-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="city">Cidade</Label>
+                <Label htmlFor="city">Cidade *</Label>
                 <Input
                   id="city"
                   value={formData.city}
                   onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                  placeholder="Obrigatório para publicar"
                 />
               </div>
               <div>
-                <Label htmlFor="state">Estado</Label>
+                <Label htmlFor="state">Estado *</Label>
                 <Input
                   id="state"
                   value={formData.state}
                   onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+                  placeholder="SP, RJ, etc."
+                  maxLength={2}
                 />
               </div>
             </div>

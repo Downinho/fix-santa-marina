@@ -26,7 +26,6 @@ export const useSkippers = (filters?: SkipperFilters) => {
             )
           `)
           .eq('published', true)
-          .eq('verified', true)
           .order('created_at', { ascending: false });
 
         // Aplicar filtros
@@ -41,8 +40,8 @@ export const useSkippers = (filters?: SkipperFilters) => {
         const transformedSkippers = data?.map(skipper => ({
           id: skipper.id,
           name: skipper.profiles?.display_name || 'Marinheiro',
-          bio: skipper.bio || '',
-          years_experience: skipper.years_experience,
+          bio: skipper.bio || 'Marinheiro profissional certificado',
+          years_experience: skipper.years_experience || 0,
           hourly_rate_cents: skipper.hourly_rate_cents,
           day_rate_cents: skipper.day_rate_cents,
           city: skipper.city,
