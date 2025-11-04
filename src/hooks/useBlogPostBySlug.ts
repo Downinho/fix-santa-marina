@@ -27,17 +27,27 @@ export const useBlogPostBySlug = (slug: string) => {
         if (error) throw error;
         
         if (data) {
+          // Calcular tempo de leitura baseado no conteúdo
+          const wordCount = (data.content_md || data.excerpt || '').split(/\s+/).length;
+          const readTime = Math.max(1, Math.ceil(wordCount / 200)); // ~200 palavras por minuto
+
           setPost({
             id: data.id,
             slug: data.slug,
             title: data.title,
-            excerpt: data.excerpt,
-            content: data.content_md || data.excerpt,
+            excerpt: data.excerpt || 'Artigo sobre náutica e navegação.',
+            content: data.content_md || data.excerpt || '',
             image: data.cover_image_url || '/placeholder.svg',
-            author: data.profiles?.display_name || 'MARBANA',
-            date: new Date(data.published_at || data.created_at).toLocaleDateString('pt-BR'),
-            readTime: '5 min',
-            category: 'Artigo'
+            author: data.profiles?.display_name || 'MARBANA Editorial',
+            authorAvatar: data.profiles?.avatar_url || '/placeholder.svg',
+            date: new Date(data.published_at || data.created_at).toLocaleDateString('pt-BR', {
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric'
+            }),
+            readTime: `${readTime} min`,
+            category: 'Náutica',
+            tags: ['Navegação', 'Dicas', 'Embarcações']
           });
         }
       } catch (err: any) {

@@ -28,6 +28,36 @@ export const useProductBySlug = (slug: string) => {
         if (error) throw error;
         
         if (data) {
+          // Parse specifications - se for string JSON, parseia; se não, cria array padrão
+          let specifications = [];
+          if (data.specifications) {
+            try {
+              const parsed = typeof data.specifications === 'string' 
+                ? JSON.parse(data.specifications) 
+                : data.specifications;
+              
+              // Se for objeto, converte para array
+              if (typeof parsed === 'object' && !Array.isArray(parsed)) {
+                specifications = Object.entries(parsed).map(([key, value]) => ({
+                  label: key,
+                  value: String(value)
+                }));
+              } else if (Array.isArray(parsed)) {
+                specifications = parsed;
+              }
+            } catch (e) {
+              console.error('Error parsing specifications:', e);
+            }
+          }
+
+          // Se ainda estiver vazio, adiciona specs básicas
+          if (specifications.length === 0) {
+            specifications = [
+              { label: 'Categoria', value: data.category || 'Geral' },
+              { label: 'Marca', value: data.brand || 'MARBANA' },
+            ];
+          }
+
           setProduct({
             id: data.id,
             name: data.name,
@@ -40,7 +70,7 @@ export const useProductBySlug = (slug: string) => {
             brand: data.brand || 'MARBANA',
             image: data.cover_image_url || '/placeholder.svg',
             images: [data.cover_image_url || '/placeholder.svg'],
-            specifications: data.specifications ? JSON.parse(data.specifications) : {},
+            specifications,
             features: [],
             rating: 4.5,
             reviews: [],
