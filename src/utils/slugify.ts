@@ -20,3 +20,20 @@ export function extractIdFromSlug(slug: string): number | null {
   const id = parseInt(lastPart, 10);
   return isNaN(id) ? null : id;
 }
+
+// Funções para marinheiros
+export function getSkipperSlug(skipper: { id: string; name: string }): string {
+  return `${createSlug(skipper.name)}-${skipper.id.substring(0, 8)}`;
+}
+
+// Funções para marinas
+export function getMarinaSlug(marina: { id: string; name: string }): string {
+  return `${createSlug(marina.name)}-${marina.id.substring(0, 8)}`;
+}
+
+// Extrair UUID de slug (primeiros 8 caracteres do UUID)
+export function extractUuidFromSlug(slug: string): string | null {
+  const parts = slug.split('-');
+  const lastPart = parts[parts.length - 1];
+  return lastPart.length >= 8 ? lastPart : null;
+}

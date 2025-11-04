@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
-export const useSkipperById = (id: string) => {
+export const useSkipperById = (slugOrId: string) => {
   const [skipper, setSkipper] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -11,6 +11,7 @@ export const useSkipperById = (id: string) => {
       try {
         setLoading(true);
         
+        // Tentar buscar por slug primeiro, depois por ID
         const { data, error } = await supabase
           .from('skipper_profiles')
           .select(`
@@ -21,9 +22,8 @@ export const useSkipperById = (id: string) => {
               phone
             )
           `)
-          .eq('id', id)
+          .or(`slug.eq.${slugOrId},id.eq.${slugOrId}`)
           .eq('published', true)
-          .eq('verified', true)
           .single();
         
         if (error) throw error;
@@ -101,10 +101,10 @@ export const useSkipperById = (id: string) => {
       }
     };
 
-    if (id) {
+    if (slugOrId) {
       fetchSkipper();
     }
-  }, [id]);
+  }, [slugOrId]);
 
   return { skipper, loading, error };
 };

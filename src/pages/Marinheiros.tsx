@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, Star, Award, Phone, Mail, Calendar, Clock, Search, Filter, User, Shield, AlertCircle } from "lucide-react";
+import { MapPin, Star, Award, Phone, Mail, Calendar, Clock, Search, Filter, User, Shield, AlertCircle, MessageCircle } from "lucide-react";
 import { useSkippers } from "@/hooks/useSkippers";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -125,8 +126,13 @@ const Marinheiros = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {skippers.map((skipper) => (
-                    <Card key={skipper.id} className="group hover:shadow-premium transition-all duration-300">
-                      <CardContent className="p-6">
+                    <Link 
+                      key={skipper.id} 
+                      to={`/marinheiros/${skipper.slug}`}
+                      className="block h-full"
+                    >
+                      <Card className="group hover:shadow-premium transition-all duration-300 h-full">
+                        <CardContent className="p-6">
                         <div className="flex items-start space-x-4 mb-4">
                           <div className="relative">
                             <img 
@@ -211,18 +217,33 @@ const Marinheiros = () => {
                           </div>
                         </div>
 
-                        <Button 
-                          className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body"
-                          onClick={() => {
-                            const message = `Olá! Gostaria de mais informações sobre o marinheiro ${skipper.name}.`;
-                            const whatsapp = skipper.contact_whatsapp || '5511940159202';
-                            window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
-                          }}
-                        >
-                          Solicitar Contato
-                        </Button>
-                      </CardContent>
-                    </Card>
+                        <div className="flex gap-2">
+                          <Button 
+                            className="flex-1 bg-gradient-hero hover:opacity-90"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                            }}
+                          >
+                            Ver Perfil Completo
+                          </Button>
+                          <Button 
+                            variant="outline"
+                            size="icon"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              const message = `Olá! Gostaria de mais informações sobre o marinheiro ${skipper.name}.`;
+                              const whatsapp = skipper.contact_whatsapp || '5511940159202';
+                              window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
+                            }}
+                          >
+                            <MessageCircle className="w-5 h-5" />
+                          </Button>
+                        </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
                   ))}
                 </div>
               </>

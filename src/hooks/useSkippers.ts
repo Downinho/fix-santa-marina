@@ -20,6 +20,7 @@ export const useSkippers = (filters?: SkipperFilters) => {
           .from('skipper_profiles')
           .select(`
             *,
+            slug,
             profiles (
               display_name,
               avatar_url

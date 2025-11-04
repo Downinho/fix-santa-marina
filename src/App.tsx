@@ -31,6 +31,10 @@ import Produto from "./pages/Produto";
 import VesselDetail from "./pages/VesselDetail";
 import Marinheiros from "./pages/Marinheiros";
 import MarinheirosDetail from "./pages/MarinheirosDetail";
+import Marinas from "./pages/Marinas";
+import MarinaDetail from "./pages/MarinaDetail";
+import MarinasList from "./pages/admin/MarinasList";
+import MarinaForm from "./pages/admin/MarinaForm";
 import NotFound from "./pages/NotFound";
 import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
 import TermosUso from "./pages/TermosUso";
@@ -115,6 +119,21 @@ function App() {
                 <BlogPostForm />
               </ProtectedRoute>
             } />
+            <Route path="/admin/marinas" element={
+              <ProtectedRoute>
+                <MarinasList />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/marinas/new" element={
+              <ProtectedRoute>
+                <MarinaForm />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/marinas/:id/edit" element={
+              <ProtectedRoute>
+                <MarinaForm />
+              </ProtectedRoute>
+            } />
             
             {/* Public Routes */}
             <Route path="/embarcacoes" element={<Embarcacoes />} />
@@ -129,7 +148,9 @@ function App() {
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/produto/:slug" element={<Produto />} />
           <Route path="/marinheiros" element={<Marinheiros />} />
-          <Route path="/marinheiro/:id" element={<MarinheirosDetail />} />
+          <Route path="/marinheiros/:slug" element={<MarinheirosDetail />} />
+          <Route path="/marinas" element={<Marinas />} />
+          <Route path="/marinas/:slug" element={<MarinaDetail />} />
           <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
           <Route path="/termos-uso" element={<TermosUso />} />
           <Route path="/cookies" element={<Cookies />} />

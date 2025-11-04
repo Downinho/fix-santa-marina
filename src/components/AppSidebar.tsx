@@ -37,6 +37,7 @@ const navigationItems = [
   { name: "Embarcações", href: "/embarcacoes", icon: Anchor },
   { name: "Acessórios", href: "/acessorios", icon: Package },
   { name: "Marinheiros", href: "/marinheiros", icon: Users },
+  { name: "Marinas", href: "/marinas", icon: Anchor },
   { name: "Serviços", href: "/servicos", icon: Settings },
   { name: "Blog", href: "/blog", icon: FileText },
   { name: "Sobre", href: "/sobre", icon: Info },

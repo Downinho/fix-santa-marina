@@ -8,9 +8,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Star, MapPin, Clock, Award, Phone, MessageCircle, Calendar, Users, Anchor, Shield } from "lucide-react";
 
 const MarinheirosDetail = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
 
-  const { skipper: marinheiro, loading, error } = useSkipperById(id || '');
+  const { skipper: marinheiro, loading, error } = useSkipperById(slug || '');
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -249,20 +249,46 @@ const MarinheirosDetail = () => {
                   </div>
 
                   <div className="space-y-3 mb-6">
-                    <Button size="lg" className="w-full bg-gradient-hero">
+                    <Button 
+                      size="lg" 
+                      className="w-full bg-gradient-hero"
+                      onClick={() => {
+                        const message = `Olá ${marinheiro.name}! Gostaria de contratar seus serviços profissionais.`;
+                        const whatsapp = marinheiro.contact_whatsapp || '5511940159202';
+                        window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
+                      }}
+                    >
                       <Calendar className="w-5 h-5 mr-2" />
                       Contratar Agora
                     </Button>
                     
-                    <Button size="lg" variant="outline" className="w-full">
+                    <Button 
+                      size="lg" 
+                      variant="outline" 
+                      className="w-full"
+                      onClick={() => {
+                        const message = `Olá ${marinheiro.name}! Gostaria de mais informações sobre seus serviços.`;
+                        const whatsapp = marinheiro.contact_whatsapp || '5511940159202';
+                        window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
+                      }}
+                    >
                       <MessageCircle className="w-5 h-5 mr-2" />
                       Enviar Mensagem
                     </Button>
                     
-                    <Button size="lg" variant="outline" className="w-full">
-                      <Phone className="w-5 h-5 mr-2" />
-                      Ligar Agora
-                    </Button>
+                    {marinheiro.contact_phone && (
+                      <Button 
+                        size="lg" 
+                        variant="outline" 
+                        className="w-full"
+                        onClick={() => {
+                          window.location.href = `tel:${marinheiro.contact_phone}`;
+                        }}
+                      >
+                        <Phone className="w-5 h-5 mr-2" />
+                        Ligar Agora
+                      </Button>
+                    )}
                   </div>
 
                   <div className="pt-4 border-t border-border">
