@@ -62,6 +62,38 @@ export type Database = {
           },
         ]
       }
+      blog_post_related_content: {
+        Row: {
+          content_id: string
+          content_type: string
+          created_at: string | null
+          id: string
+          post_id: string
+        }
+        Insert: {
+          content_id: string
+          content_type: string
+          created_at?: string | null
+          id?: string
+          post_id: string
+        }
+        Update: {
+          content_id?: string
+          content_type?: string
+          created_at?: string | null
+          id?: string
+          post_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_post_related_content_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       blog_post_tags: {
         Row: {
           post_id: string
@@ -401,6 +433,7 @@ export type Database = {
         Row: {
           brand: string | null
           category: string | null
+          compatible_vessel_types: string[] | null
           cover_image_url: string | null
           created_at: string
           currency: string
@@ -418,6 +451,7 @@ export type Database = {
         Insert: {
           brand?: string | null
           category?: string | null
+          compatible_vessel_types?: string[] | null
           cover_image_url?: string | null
           created_at?: string
           currency?: string
@@ -435,6 +469,7 @@ export type Database = {
         Update: {
           brand?: string | null
           category?: string | null
+          compatible_vessel_types?: string[] | null
           cover_image_url?: string | null
           created_at?: string
           currency?: string
@@ -516,6 +551,7 @@ export type Database = {
           published: boolean
           service_area: string | null
           specialties: string | null
+          specialty_types: string[] | null
           state: string | null
           updated_at: string
           verified: boolean
@@ -538,6 +574,7 @@ export type Database = {
           published?: boolean
           service_area?: string | null
           specialties?: string | null
+          specialty_types?: string[] | null
           state?: string | null
           updated_at?: string
           verified?: boolean
@@ -560,6 +597,7 @@ export type Database = {
           published?: boolean
           service_area?: string | null
           specialties?: string | null
+          specialty_types?: string[] | null
           state?: string | null
           updated_at?: string
           verified?: boolean
@@ -607,6 +645,36 @@ export type Database = {
           subscription_end?: string | null
           subscription_tier?: string | null
           updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      user_interactions: {
+        Row: {
+          content_id: string
+          content_type: string
+          created_at: string | null
+          id: string
+          interaction_type: string
+          session_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          content_id: string
+          content_type: string
+          created_at?: string | null
+          id?: string
+          interaction_type: string
+          session_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          content_id?: string
+          content_type?: string
+          created_at?: string | null
+          id?: string
+          interaction_type?: string
+          session_id?: string | null
           user_id?: string | null
         }
         Relationships: []

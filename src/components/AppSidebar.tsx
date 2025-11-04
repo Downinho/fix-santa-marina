@@ -11,7 +11,8 @@ import {
   Megaphone,
   Ship,
   Waves,
-  Sailboat
+  Sailboat,
+  Search
 } from "lucide-react";
 import {
   Sidebar,
@@ -32,6 +33,7 @@ import MarbanaLogo from "@/components/ui/MarbanaLogo";
 
 const navigationItems = [
   { name: "Início", href: "/", icon: Home },
+  { name: "Busca", href: "/busca", icon: Search },
   { name: "Embarcações", href: "/embarcacoes", icon: Anchor },
   { name: "Acessórios", href: "/acessorios", icon: Package },
   { name: "Marinheiros", href: "/marinheiros", icon: Users },

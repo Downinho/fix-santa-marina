@@ -2,6 +2,8 @@ import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useVesselBySlug } from "@/hooks/useVesselBySlug";
 import { Layout } from "@/components/Layout";
+import { RecommendedSkippers } from "@/components/RecommendedSkippers";
+import { RecommendedProducts } from "@/components/RecommendedProducts";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -617,6 +619,23 @@ Mensagem: ${formData.get('message')}`;
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Marinheiros Recomendados */}
+      <div className="container mx-auto px-6 pb-8">
+        <RecommendedSkippers 
+          vesselType={vessel.type}
+          vesselState={vessel.state}
+          vesselName={vessel.name}
+        />
+      </div>
+
+      {/* Produtos Recomendados */}
+      <div className="container mx-auto px-6 pb-12">
+        <RecommendedProducts 
+          vesselType={vessel.type}
+          vesselName={vessel.name}
+        />
+      </div>
     </Layout>
   );
 };

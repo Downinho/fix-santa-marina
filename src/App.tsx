@@ -25,6 +25,7 @@ import BlogPost from "./pages/BlogPost";
 import Sobre from "./pages/Sobre";
 import Contato from "./pages/Contato";
 import Anuncie from "./pages/Anuncie";
+import Busca from "./pages/Busca";
 import Perfil from "./pages/Perfil";
 import Produto from "./pages/Produto";
 import VesselDetail from "./pages/VesselDetail";
@@ -132,6 +133,7 @@ function App() {
           <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
           <Route path="/termos-uso" element={<TermosUso />} />
           <Route path="/cookies" element={<Cookies />} />
+          <Route path="/busca" element={<Busca />} />
           <Route path="/sitemap.xml" element={<Sitemap />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
