@@ -14,11 +14,11 @@ const Contato = () => {
       title: "Sede - Búzios, RJ",
       details: ["Rua das Embarcações, 123", "Búzios, Rio de Janeiro", "CEP: 28950-000"]
     },
-    {
-      icon: Phone,
-      title: "Telefone & WhatsApp",
-      details: ["+55 11 940159202"]
-    },
+      {
+        icon: Phone,
+        title: "Telefone & WhatsApp",
+        details: ["+55 11 94787-9662"]
+      },
     {
       icon: Mail,
       title: "E-mail",

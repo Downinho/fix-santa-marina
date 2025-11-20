@@ -23,6 +23,7 @@ interface AdminLayoutProps {
 const menuItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/admin/dashboard' },
   { icon: Ship, label: 'Embarcações', path: '/admin/vessels' },
+  { icon: Anchor, label: 'Marinas', path: '/admin/marinas' },
   { icon: Anchor, label: 'Marinheiros', path: '/admin/sailors' },
   { icon: ShoppingBag, label: 'Acessórios', path: '/admin/products' },
   { icon: FileText, label: 'Blog', path: '/admin/blog' },

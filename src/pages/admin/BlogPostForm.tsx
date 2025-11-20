@@ -173,6 +173,20 @@ export default function BlogPostForm() {
 
         <Card>
           <CardHeader>
+            <CardTitle>Imagem de Capa</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ImageUpload
+              bucket="blog"
+              currentImage={coverImage}
+              onUpload={(url) => setCoverImage(url)}
+              label="Imagem de capa do artigo"
+            />
+          </CardContent>
+        </Card>
+ 
+        <Card>
+          <CardHeader>
             <CardTitle>Conteúdo</CardTitle>
           </CardHeader>
           <CardContent>
