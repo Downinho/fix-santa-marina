@@ -20,7 +20,6 @@ export const useSkippers = (filters?: SkipperFilters) => {
           .from('skipper_profiles')
           .select(`
             *,
-            slug,
             profiles (
               display_name,
               avatar_url
@@ -50,6 +49,7 @@ export const useSkippers = (filters?: SkipperFilters) => {
         
         const transformedSkippers = data?.map(skipper => ({
           id: skipper.id,
+          slug: skipper.id,
           name: skipper.profiles?.display_name || 'Marinheiro',
           bio: skipper.bio || 'Marinheiro profissional certificado',
           years_experience: skipper.years_experience || 0,

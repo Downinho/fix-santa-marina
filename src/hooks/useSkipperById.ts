@@ -22,7 +22,7 @@ export const useSkipperById = (slugOrId: string) => {
               phone
             )
           `)
-          .or(`slug.eq.${slugOrId},id.eq.${slugOrId}`)
+          .eq('id', slugOrId)
           .eq('published', true)
           .single();
         
