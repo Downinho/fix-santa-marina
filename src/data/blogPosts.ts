@@ -72,7 +72,7 @@ export const blogPosts: BlogPost[] = [
     <div style="background: linear-gradient(135deg, #1a365d, #2c5282); padding: 2rem; border-radius: 1rem; margin: 2rem 0; text-align: center; color: white;">
       <h3 style="margin-bottom: 1rem; color: #D4AF37;">Agende sua Visita</h3>
       <p style="margin-bottom: 1.5rem; color: rgba(255,255,255,0.9);">Venha conhecer a Focker 272 GTC e vivenciar o melhor do lazer náutico em Búzios.</p>
-      <p><strong>WhatsApp MARBANA:</strong> (11) 94015-9202</p>
+      <p><strong>WhatsApp MARBANA:</strong> (11) 94787-9662</p>
     </div>
     
     <h2>Próximos Passos</h2>
@@ -188,7 +188,7 @@ export const blogPosts: BlogPost[] = [
       <div style="background: linear-gradient(135deg, #dc2626, #b91c1c); padding: 2rem; border-radius: 1rem; margin: 2rem 0; text-align: center; color: white;">
         <h3 style="margin-bottom: 1rem; color: white;">Consultoria em Segurança Náutica</h3>
         <p style="margin-bottom: 1.5rem; color: rgba(255,255,255,0.9);">Nossa equipe técnica especializada avalia suas necessidades específicas e desenvolve soluções personalizadas de segurança.</p>
-        <p><strong>WhatsApp Segurança:</strong> (11) 94015-9202</p>
+        <p><strong>WhatsApp Segurança:</strong> (11) 94787-9662</p>
       </div>
       
       <h2>Tendências em Segurança Náutica</h2>
@@ -347,7 +347,7 @@ export const blogPosts: BlogPost[] = [
       <div style="background: linear-gradient(135deg, #059669, #047857); padding: 2rem; border-radius: 1rem; margin: 2rem 0; text-align: center; color: white;">
         <h3 style="margin-bottom: 1rem; color: white;">Plano de Manutenção Personalizado</h3>
         <p style="margin-bottom: 1.5rem; color: rgba(255,255,255,0.9);">Desenvolvemos cronogramas específicos para cada modelo e perfil de uso, garantindo máxima eficiência e economia.</p>
-        <p><strong>WhatsApp Técnico:</strong> (11) 94015-9202</p>
+        <p><strong>WhatsApp Técnico:</strong> (11) 94787-9662</p>
       </div>
       
       <h2>Investimento vs. Economia</h2>
@@ -529,7 +529,7 @@ export const blogPosts: BlogPost[] = [
       <div style="background: linear-gradient(135deg, #0369a1, #0284c7); padding: 2rem; border-radius: 1rem; margin: 2rem 0; text-align: center; color: white;">
         <h3 style="margin-bottom: 1rem; color: white;">Expedições Premium de Pesca</h3>
         <p style="margin-bottom: 1.5rem; color: rgba(255,255,255,0.9);">Organize sua expedição dos sonhos com capitães especialistas, embarcações equipadas e roteiros exclusivos para os melhores pesqueiros.</p>
-        <p><strong>WhatsApp Pesca:</strong> (11) 94015-9202</p>
+        <p><strong>WhatsApp Pesca:</strong> (11) 94787-9662</p>
       </div>
       
       <h2>Investimento em Experiências Únicas</h2>
@@ -730,7 +730,7 @@ export const blogPosts: BlogPost[] = [
       <div style="background: linear-gradient(135deg, #7c3aed, #6d28d9); padding: 2rem; border-radius: 1rem; margin: 2rem 0; text-align: center; color: white;">
         <h3 style="margin-bottom: 1rem; color: white;">Design Naval Personalizado</h3>
         <p style="margin-bottom: 1.5rem; color: rgba(255,255,255,0.9);">Conectamos você aos melhores designers navais especializados em interiores premium, criando ambientes únicos que refletem sua personalidade.</p>
-        <p><strong>WhatsApp Design:</strong> (11) 94015-9202</p>
+        <p><strong>WhatsApp Design:</strong> (11) 94787-9662</p>
       </div>
       
       <h2>Tendências Futuras</h2>

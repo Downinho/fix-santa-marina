@@ -27,8 +27,17 @@ export const useBlogPostBySlug = (slug: string) => {
         if (error) throw error;
         
         if (data) {
+          const rawContent = data.content_md || data.excerpt || '';
+          const normalized = rawContent.replace(/\r\n/g, "\n");
+          const paragraphs = normalized.split(/\n{2,}/).map(p =>
+            p.trim().replace(/\n/g, '<br />')
+          ).filter(p => p.length > 0);
+          const formattedContent = paragraphs.length
+            ? `<p>${paragraphs.join('</p><p>')}</p>`
+            : '';
+
           // Calcular tempo de leitura baseado no conteúdo
-          const wordCount = (data.content_md || data.excerpt || '').split(/\s+/).length;
+          const wordCount = rawContent.split(/\s+/).length;
           const readTime = Math.max(1, Math.ceil(wordCount / 200)); // ~200 palavras por minuto
 
           setPost({
@@ -36,7 +45,7 @@ export const useBlogPostBySlug = (slug: string) => {
             slug: data.slug,
             title: data.title,
             excerpt: data.excerpt || 'Artigo sobre náutica e navegação.',
-            content: data.content_md || data.excerpt || '',
+            content: formattedContent,
             image: data.cover_image_url || '/placeholder.svg',
             author: data.profiles?.display_name || 'MARBANA Editorial',
             authorAvatar: data.profiles?.avatar_url || '/placeholder.svg',

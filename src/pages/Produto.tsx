@@ -54,7 +54,7 @@ const Produto = () => {
   };
 
   const getVendorPhone = () => {
-    return product.vendor.phone || '+5511940159202';
+    return product.vendor.phone || '+5511947879662';
   };
 
   return (
