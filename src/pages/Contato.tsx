@@ -204,7 +204,7 @@ const Contato = () => {
                       asChild
                     >
                       <a 
-                        href="https://wa.me/5511940159202?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20embarca%C3%A7%C3%B5es%20premium"
+                        href="https://wa.me/5511947879662?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20embarca%C3%A7%C3%B5es%20premium"
                         target="_blank"
                         rel="noopener noreferrer"
                       >

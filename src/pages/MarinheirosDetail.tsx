@@ -254,7 +254,7 @@ const MarinheirosDetail = () => {
                       className="w-full bg-gradient-hero"
                       onClick={() => {
                         const message = `Olá ${marinheiro.name}! Gostaria de contratar seus serviços profissionais.`;
-                        const whatsapp = marinheiro.contact_whatsapp || '5511940159202';
+                        const whatsapp = marinheiro.contact_whatsapp || '5511947879662';
                         window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
                       }}
                     >
@@ -268,7 +268,7 @@ const MarinheirosDetail = () => {
                       className="w-full"
                       onClick={() => {
                         const message = `Olá ${marinheiro.name}! Gostaria de mais informações sobre seus serviços.`;
-                        const whatsapp = marinheiro.contact_whatsapp || '5511940159202';
+                        const whatsapp = marinheiro.contact_whatsapp || '5511947879662';
                         window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
                       }}
                     >

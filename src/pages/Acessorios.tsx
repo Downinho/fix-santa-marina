@@ -130,7 +130,7 @@ const Acessorios = () => {
                     className="bg-gradient-hero hover:opacity-90 text-primary-foreground font-body"
                     onClick={() => {
                       const message = "Olá! Gostaria de ser notificado sobre o lançamento do Marketplace de Acessórios Náuticos Premium MARBANA.";
-                      window.open(`https://wa.me/5511940159202?text=${encodeURIComponent(message)}`, '_blank');
+                      window.open(`https://wa.me/5511947879662?text=${encodeURIComponent(message)}`, '_blank');
                     }}
                   >
                     <Mail className="w-5 h-5 mr-2" />
@@ -142,7 +142,7 @@ const Acessorios = () => {
                     className="font-body"
                     onClick={() => {
                       const message = "Olá! Gostaria de criar uma lista de desejos premium de acessórios náuticos MARBANA.";
-                      window.open(`https://wa.me/5511940159202?text=${encodeURIComponent(message)}`, '_blank');
+                      window.open(`https://wa.me/5511947879662?text=${encodeURIComponent(message)}`, '_blank');
                     }}
                   >
                     <Anchor className="w-5 h-5 mr-2" />

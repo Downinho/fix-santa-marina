@@ -17,7 +17,7 @@ const NotFound = () => {
 
   const handleWhatsApp = () => {
     const message = `Olá! Tentei acessar a página ${location.pathname} mas ela não foi encontrada. Podem me ajudar?`;
-    const whatsappUrl = `https://wa.me/5511940159202?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/5511947879662?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
