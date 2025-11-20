@@ -31,7 +31,17 @@ export const useSkippers = (filters?: SkipperFilters) => {
 
         // Aplicar filtros
         if (filters?.location) {
-          query = query.or(`city.ilike.%${filters.location}%,state.ilike.%${filters.location}%`);
+          const ufMap: Record<string, string> = {
+            RJ: 'Rio de Janeiro',
+            SP: 'São Paulo',
+            SC: 'Santa Catarina',
+            BA: 'Bahia',
+          };
+
+          const rawLocation = filters.location.trim();
+          const mappedLocation = ufMap[rawLocation.toUpperCase()] || rawLocation;
+
+          query = query.or(`city.ilike.%${mappedLocation}%,state.ilike.%${mappedLocation}%`);
         }
 
         const { data, error } = await query;

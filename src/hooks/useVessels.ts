@@ -31,15 +31,24 @@ export const useVessels = (filters?: VesselFilters) => {
           .eq('status', 'published')
           .order('created_at', { ascending: false });
 
-        // Aplicar filtros se existirem
         if (filters?.type && filters.type !== 'todos') {
           query = query.ilike('type', `%${filters.type}%`);
         }
         
         if (filters?.location && filters.location !== 'todas') {
-          query = query.or(`state.ilike.%${filters.location}%,city.ilike.%${filters.location}%`);
-        }
+          const ufMap: Record<string, string> = {
+            RJ: 'Rio de Janeiro',
+            SP: 'São Paulo',
+            SC: 'Santa Catarina',
+            BA: 'Bahia',
+          };
 
+          const rawLocation = filters.location.trim();
+          const mappedLocation = ufMap[rawLocation.toUpperCase()] || rawLocation;
+
+          query = query.or(`state.ilike.%${mappedLocation}%,city.ilike.%${mappedLocation}%`);
+        }
+ 
         if (filters?.search) {
           query = query.or(`name.ilike.%${filters.search}%,description.ilike.%${filters.search}%`);
         }
