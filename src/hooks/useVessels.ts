@@ -33,11 +33,11 @@ export const useVessels = (filters?: VesselFilters) => {
 
         // Aplicar filtros se existirem
         if (filters?.type && filters.type !== 'todos') {
-          query = query.eq('type', filters.type);
+          query = query.ilike('type', `%${filters.type}%`);
         }
         
         if (filters?.location && filters.location !== 'todas') {
-          query = query.ilike('state', `%${filters.location}%`);
+          query = query.or(`state.ilike.%${filters.location}%,city.ilike.%${filters.location}%`);
         }
 
         if (filters?.search) {

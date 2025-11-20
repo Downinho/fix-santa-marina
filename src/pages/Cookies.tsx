@@ -78,7 +78,7 @@ const Cookies = () => {
                 </p>
                 <div className="mt-4 p-4 bg-muted rounded-lg">
                   <p className="text-muted-foreground">
-                    <strong>WhatsApp:</strong> +55 11 94015-9202<br />
+                    <strong>WhatsApp:</strong> +55 11 94787-9662<br />
                     <strong>E-mail:</strong> contato@marbana.com.br
                   </p>
                 </div>
