@@ -45,7 +45,7 @@ const Anuncie = () => {
       types: ["Berços", "Garagem seca", "Serviços"]
     }
   ];
-  const whatsappNumber = "+5511940159202";
+  const whatsappNumber = "+5511947879662";
   
   const openWhatsApp = (message: string) => {
     const encodedMessage = encodeURIComponent(message);

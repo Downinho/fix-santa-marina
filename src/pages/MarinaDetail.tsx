@@ -224,7 +224,7 @@ const MarinaDetail = () => {
                       className="w-full bg-gradient-hero"
                       onClick={() => {
                         const message = `Olá! Gostaria de informações sobre vagas na marina ${marina.name}.`;
-                        const whatsapp = marina.contact_whatsapp || '5511940159202';
+                        const whatsapp = marina.contact_whatsapp || '5511947879662';
                         window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
                       }}
                     >

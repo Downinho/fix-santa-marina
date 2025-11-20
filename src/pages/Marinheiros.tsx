@@ -109,7 +109,7 @@ const Marinheiros = () => {
                   className="bg-gradient-hero hover:opacity-90 text-primary-foreground font-body"
                   onClick={() => {
                     const message = "Olá! Gostaria de ser notificado sobre o lançamento da plataforma de Marinheiros Profissionais MARBANA.";
-                    window.open(`https://wa.me/5511940159202?text=${encodeURIComponent(message)}`, '_blank');
+                    window.open(`https://wa.me/5511947879662?text=${encodeURIComponent(message)}`, '_blank');
                   }}
                 >
                   <Mail className="w-5 h-5 mr-2" />
@@ -234,7 +234,7 @@ const Marinheiros = () => {
                               e.preventDefault();
                               e.stopPropagation();
                               const message = `Olá! Gostaria de mais informações sobre o marinheiro ${skipper.name}.`;
-                              const whatsapp = skipper.contact_whatsapp || '5511940159202';
+                              const whatsapp = skipper.contact_whatsapp || '5511947879662';
                               window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
                             }}
                           >

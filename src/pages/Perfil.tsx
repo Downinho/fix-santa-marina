@@ -7,7 +7,7 @@ import { User, Phone, MessageCircle, Crown, Anchor, ShoppingBag, Compass, Mail }
 import { Link } from 'react-router-dom';
 
 const Perfil = () => {
-  const whatsappNumber = "+5511940159202";
+  const whatsappNumber = "+5511947879662";
   
   const openWhatsApp = (message: string) => {
     const encodedMessage = encodeURIComponent(message);
