@@ -36,7 +36,13 @@ export const useBlogPostBySlug = (slug: string) => {
               const trimmed = paragraph.trim();
               if (!trimmed) return '';
               
-              // Detectar títulos (começam com #)
+              // Detectar título especial azul (começam com $)
+              if (trimmed.startsWith('$')) {
+                const text = trimmed.replace(/^\$+\s*/, '');
+                return `<h2 class="text-3xl font-serif font-bold text-blue-600 mt-10 mb-6 italic border-l-4 border-blue-400 pl-4">${text}</h2>`;
+              }
+              
+              // Detectar títulos normais (começam com #)
               if (trimmed.startsWith('#')) {
                 const level = trimmed.match(/^#+/)?.[0].length || 2;
                 const text = trimmed.replace(/^#+\s*/, '');

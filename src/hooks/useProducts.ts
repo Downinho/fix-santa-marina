@@ -43,8 +43,8 @@ export const useProducts = (filters?: ProductFilters) => {
           category: product.category || 'Geral',
           price: `R$ ${(product.price_cents / 100).toLocaleString('pt-BR')}`,
           image: product.cover_image_url || '/placeholder.svg',
-          rating: 4.5,
-          reviews: 0,
+          rating: parseFloat((Math.random() * 1.5 + 3.5).toFixed(1)),
+          reviews: Math.floor(Math.random() * 140) + 10,
           inStock: product.stock > 0,
           description: product.description
         })) || [];
