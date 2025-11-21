@@ -13,7 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { 
   Heart, Share2, Star, Calendar, Users, Anchor, Gauge, 
   Phone, MessageCircle, MapPin, Camera, Play, Zap, 
-  Shield, Award, Clock, CheckCircle, ArrowLeft, ChevronLeft, ChevronRight, X, Mail
+  Shield, Award, Clock, CheckCircle, ArrowLeft, ChevronLeft, ChevronRight, X
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import marbanaLogo from "@/assets/marbana-logo.png";
@@ -449,7 +449,7 @@ const VesselDetail = () => {
                   </Card>
                 </div>
 
-                {/* Location Map */}
+                {/* Contact Information */}
                 <div>
                   <h3 className="font-display text-2xl font-bold text-primary mb-6">
                     Contato & Informações
@@ -459,20 +459,13 @@ const VesselDetail = () => {
                       <p className="font-body text-muted-foreground mb-4">
                         Entre em contato para mais informações sobre esta embarcação.
                       </p>
-                      <div className="flex flex-col gap-3">
-                        {vessel.contact_whatsapp && (
-                          <Button className="w-full bg-green-600 hover:bg-green-700">
-                            <MessageCircle className="w-4 h-4 mr-2" />
-                            Contato via WhatsApp
-                          </Button>
-                        )}
-                        {vessel.contact_email && (
-                          <Button variant="outline" className="w-full">
-                            <Mail className="w-4 h-4 mr-2" />
-                            Enviar E-mail
-                          </Button>
-                        )}
-                      </div>
+                      <Button 
+                        className="w-full bg-green-600 hover:bg-green-700"
+                        onClick={() => openWhatsApp(`Olá! Gostaria de mais informações sobre ${vessel.name}.`)}
+                      >
+                        <MessageCircle className="w-4 h-4 mr-2" />
+                        Contato via WhatsApp
+                      </Button>
                     </CardContent>
                   </Card>
                 </div>
