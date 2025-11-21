@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Heart, MapPin, Anchor, Eye } from "lucide-react";
+import { Heart, MapPin, Anchor, Eye, Users } from "lucide-react";
 import { useVessels } from "@/hooks/useVessels";
 
 const FeaturedVessels = () => {
@@ -36,7 +36,9 @@ const FeaturedVessels = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-12">
-          {displayVessels.slice(0, 4).map((vessel, index) => (
+          {displayVessels.slice(0, 4).map((vessel, index) => {
+            const viewingNow = Math.floor(Math.random() * 3) + 3; // 3-5 pessoas
+            return (
             <Card 
               key={vessel.id} 
               className="group cursor-pointer hover:shadow-premium transition-all duration-300 overflow-hidden"
@@ -71,6 +73,12 @@ const FeaturedVessels = () => {
                   </Button>
                 </div>
                 
+                <div className="absolute bottom-4 left-4 flex gap-2">
+                  <Badge className="bg-blue-600/90 text-white backdrop-blur-sm font-body">
+                    <Users className="w-3 h-3 mr-1" />
+                    {viewingNow} vendo agora
+                  </Badge>
+                </div>
                 <div className="absolute bottom-4 right-4">
                   <Badge variant="secondary" className="bg-background/90 backdrop-blur-sm font-body">
                     {vessel.type}
@@ -111,7 +119,8 @@ const FeaturedVessels = () => {
                 </Button>
               </CardContent>
             </Card>
-          ))}
+          )}
+          )}
         </div>
 
         <div className="text-center">

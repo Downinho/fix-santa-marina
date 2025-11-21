@@ -13,7 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { 
   Heart, Share2, Star, Calendar, Users, Anchor, Gauge, 
   Phone, MessageCircle, MapPin, Camera, Play, Zap, 
-  Shield, Award, Clock, CheckCircle, ArrowLeft, ChevronLeft, ChevronRight, X
+  Shield, Award, Clock, CheckCircle, ArrowLeft, ChevronLeft, ChevronRight, X, Mail
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import marbanaLogo from "@/assets/marbana-logo.png";
@@ -452,11 +452,27 @@ const VesselDetail = () => {
                 {/* Location Map */}
                 <div>
                   <h3 className="font-display text-2xl font-bold text-primary mb-6">
-                    Localização
+                    Contato & Informações
                   </h3>
-                  <Card className="overflow-hidden">
-                    <CardContent className="p-0">
-                      <div id="map" className="w-full h-96"></div>
+                  <Card>
+                    <CardContent className="p-6">
+                      <p className="font-body text-muted-foreground mb-4">
+                        Entre em contato para mais informações sobre esta embarcação.
+                      </p>
+                      <div className="flex flex-col gap-3">
+                        {vessel.contact_whatsapp && (
+                          <Button className="w-full bg-green-600 hover:bg-green-700">
+                            <MessageCircle className="w-4 h-4 mr-2" />
+                            Contato via WhatsApp
+                          </Button>
+                        )}
+                        {vessel.contact_email && (
+                          <Button variant="outline" className="w-full">
+                            <Mail className="w-4 h-4 mr-2" />
+                            Enviar E-mail
+                          </Button>
+                        )}
+                      </div>
                     </CardContent>
                   </Card>
                 </div>
