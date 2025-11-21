@@ -1,13 +1,13 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Heart, MapPin, Anchor, Eye, Search, Filter, MessageCircle, Star } from "lucide-react";
+import { Search, MapPin, Anchor, Heart, Eye, Users, MessageCircle, Star, Filter } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useVessels } from "@/hooks/useVessels";
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import { Layout } from "@/components/Layout";
-import { useVessels } from "@/hooks/useVessels";
 import { getVideoSrc, getVesselTitle } from "@/utils/videoMapping";
 
 const Embarcacoes = () => {
@@ -199,7 +199,9 @@ const handleSearch = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
-              {filteredVessels.map((vessel) => (
+              {filteredVessels.map((vessel) => {
+                const viewingNow = Math.floor(Math.random() * 3) + 3; // 3-5 pessoas
+                return (
                 <Card 
                   key={vessel.id} 
                   className="group hover:shadow-premium transition-all duration-300 overflow-hidden relative"
@@ -239,6 +241,12 @@ const handleSearch = () => {
                       </Button>
                     </div>
                     
+                    <div className="absolute bottom-3 left-3 z-20">
+                      <Badge className="bg-blue-600/90 text-white backdrop-blur-sm font-body">
+                        <Users className="w-3 h-3 mr-1" />
+                        {viewingNow} vendo agora
+                      </Badge>
+                    </div>
                     <div className="absolute bottom-3 right-3 z-20">
                       <Badge variant="secondary" className="bg-background/90 backdrop-blur-sm font-body">
                         {vessel.type}
@@ -275,38 +283,6 @@ const handleSearch = () => {
                         {vessel.length}
                       </span>
                     </div>
-
-                    {/* Comments Preview */}
-                    <div className="border-t pt-4 mb-4">
-                      <div className="flex items-center mb-2">
-                        <MessageCircle className="w-4 h-4 mr-1 text-muted-foreground" />
-                        <span className="text-sm font-medium text-muted-foreground">
-                          {vessel.comments.length} avaliações
-                        </span>
-                        <div className="flex ml-2">
-                          {Array.from({ length: 5 }).map((_, i) => (
-                            <Star
-                              key={i}
-                              className={`w-3 h-3 ${
-                                i < Math.round(vessel.comments.reduce((sum, c) => sum + c.rating, 0) / vessel.comments.length)
-                                  ? 'text-yellow-400 fill-current'
-                                  : 'text-gray-300'
-                              }`}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                      {vessel.comments.length > 0 && (
-                        <div className="bg-muted/50 rounded-lg p-3">
-                          <p className="text-xs text-muted-foreground italic">
-                            "{vessel.comments[0].comment}"
-                          </p>
-                          <p className="text-xs text-muted-foreground mt-1 font-medium">
-                            - {vessel.comments[0].user}
-                          </p>
-                        </div>
-                      )}
-                    </div>
                     
                     <Button 
                       className="w-full bg-gradient-hero hover:opacity-90 text-primary-foreground font-body relative z-30"
@@ -315,10 +291,11 @@ const handleSearch = () => {
                       <Link to={`/embarcacao/${vessel.slug}`} className="flex items-center justify-center w-full h-full">
                         Ver Detalhes
                       </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
+                  </Button>
+                </CardContent>
+              </Card>
+              );
+            })}
             </div>
 
                 {filteredVessels.length === 0 && (

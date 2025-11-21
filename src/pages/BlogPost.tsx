@@ -1,9 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { useBlogPostBySlug } from "@/hooks/useBlogPostBySlug";
+import { useBlogPosts } from "@/hooks/useBlogPosts";
 import { Layout } from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, User, ArrowLeft } from "lucide-react";
+import { Calendar, User, ArrowLeft, Share2, Facebook, Twitter, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
@@ -11,6 +13,13 @@ const BlogPost = () => {
   const { slug } = useParams();
   
   const { post, loading, error } = useBlogPostBySlug(slug || '');
+  const { posts: allPosts } = useBlogPosts();
+  
+  // Artigos relacionados (3 aleatórios)
+  const relatedPosts = allPosts
+    .filter(p => p.slug !== slug)
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 3);
   
   if (loading) {
     return (
@@ -36,10 +45,48 @@ const BlogPost = () => {
     );
   }
 
+  const shareUrl = window.location.href;
+  const shareText = `${post.title} - MARBANA`;
+
   return (
     <Layout>
+      <Helmet>
+        <title>{post.title} | Blog MARBANA</title>
+        <meta name="description" content={post.excerpt} />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:image" content={post.image} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={shareUrl} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:description" content={post.excerpt} />
+        <meta name="twitter:image" content={post.image} />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": post.title,
+            "image": post.image,
+            "datePublished": post.date,
+            "author": {
+              "@type": "Person",
+              "name": post.author
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "MARBANA",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://marbana.com.br/logo.png"
+              }
+            },
+            "description": post.excerpt
+          })}
+        </script>
+      </Helmet>
       <main id="main-content" className="pt-16">
-        <article className="container mx-auto px-6 py-12 max-w-4xl">
+        <article className="container mx-auto px-6 py-16 max-w-4xl">
           <Button variant="ghost" className="mb-6" onClick={() => window.history.back()}>
             <ArrowLeft className="w-4 h-4 mr-2" />
             Voltar ao Blog
@@ -74,9 +121,65 @@ const BlogPost = () => {
           />
 
           <div 
-            className="prose prose-lg max-w-none font-body prose-headings:font-display prose-headings:text-primary prose-a:text-primary prose-strong:text-primary"
+            className="prose prose-lg max-w-none font-body prose-headings:font-display prose-headings:text-primary prose-a:text-primary prose-strong:text-primary prose-p:mb-6 prose-p:leading-relaxed"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
+
+          {/* Social Share */}
+          <div className="flex items-center gap-4 mt-12 pt-8 border-t">
+            <span className="font-body text-muted-foreground">Compartilhar:</span>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank')}
+            >
+              <Facebook className="w-4 h-4" />
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`, '_blank')}
+            >
+              <Twitter className="w-4 h-4" />
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, '_blank')}
+            >
+              <Linkedin className="w-4 h-4" />
+            </Button>
+          </div>
+
+          {/* Related Posts */}
+          {relatedPosts.length > 0 && (
+            <div className="mt-16 pt-8 border-t">
+              <h3 className="font-display text-2xl font-bold text-primary mb-6">
+                Artigos Relacionados
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {relatedPosts.map((related) => (
+                  <Link key={related.slug} to={`/blog/${related.slug}`}>
+                    <Card className="h-full hover:shadow-lg transition-shadow">
+                      <img
+                        src={related.image}
+                        alt={related.title}
+                        className="w-full h-40 object-cover rounded-t-lg"
+                      />
+                      <CardContent className="p-4">
+                        <h4 className="font-display font-semibold text-primary mb-2 line-clamp-2">
+                          {related.title}
+                        </h4>
+                        <p className="font-body text-sm text-muted-foreground line-clamp-2">
+                          {related.excerpt}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* CTA Section */}
           <div className="mt-12 p-8 bg-gradient-hero rounded-lg text-center">

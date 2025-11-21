@@ -64,7 +64,7 @@ export const useVessels = (filters?: VesselFilters) => {
           slug: vessel.slug,
           type: vessel.type,
           year: vessel.year,
-          length: `${vessel.length_m}m`,
+          length: vessel.length_m ? `${vessel.length_m}m` : 'Consulte',
           price: `R$ ${((vessel.for_sale ? vessel.price_sale_cents : vessel.price_day_cents || 0) / 100).toLocaleString('pt-BR')}`,
           location: `${vessel.city}, ${vessel.state}`,
           description: vessel.description || '',

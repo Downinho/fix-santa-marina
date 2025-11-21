@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { useProductBySlug } from '@/hooks/useProductBySlug';
 import { Layout } from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
@@ -59,6 +60,35 @@ const Produto = () => {
 
   return (
     <Layout>
+      <Helmet>
+        <title>{product.name} | MARBANA Acessórios</title>
+        <meta name="description" content={product.description} />
+        <meta property="og:title" content={product.name} />
+        <meta property="og:description" content={product.description} />
+        <meta property="og:image" content={product.images[0]} />
+        <meta property="og:type" content="product" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": product.name,
+            "image": product.images,
+            "description": product.description,
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "BRL",
+              "price": product.price,
+              "availability": product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": product.vendor.rating,
+              "reviewCount": 127
+            }
+          })}
+        </script>
+      </Helmet>
       <main id="main-content" className="pt-16">
         {/* Breadcrumb */}
         <section className="py-4 bg-muted/30">

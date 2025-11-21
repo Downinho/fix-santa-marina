@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { AppSidebar } from "@/components/AppSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { BackToTop } from "@/components/BackToTop";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -18,6 +19,7 @@ export function Layout({ children }: LayoutProps) {
             {children}
           </main>
           <Footer />
+          <BackToTop />
         </div>
       </div>
     </SidebarProvider>

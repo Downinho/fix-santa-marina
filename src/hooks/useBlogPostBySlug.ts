@@ -28,13 +28,26 @@ export const useBlogPostBySlug = (slug: string) => {
         
         if (data) {
           const rawContent = data.content_md || data.excerpt || '';
-          const normalized = rawContent.replace(/\r\n/g, "\n");
-          const paragraphs = normalized.split(/\n{2,}/).map(p =>
-            p.trim().replace(/\n/g, '<br />')
-          ).filter(p => p.length > 0);
-          const formattedContent = paragraphs.length
-            ? `<p>${paragraphs.join('</p><p>')}</p>`
-            : '';
+          
+          // Melhor formatação de conteúdo
+          const formattedContent = rawContent
+            .split('\n\n')
+            .map(paragraph => {
+              const trimmed = paragraph.trim();
+              if (!trimmed) return '';
+              
+              // Detectar títulos (começam com #)
+              if (trimmed.startsWith('#')) {
+                const level = trimmed.match(/^#+/)?.[0].length || 2;
+                const text = trimmed.replace(/^#+\s*/, '');
+                return `<h${level} class="text-2xl font-display font-bold text-primary mt-8 mb-4">${text}</h${level}>`;
+              }
+              
+              // Parágrafos normais com espaçamento
+              return `<p class="mb-6 leading-relaxed text-lg">${trimmed.replace(/\n/g, '<br />')}</p>`;
+            })
+            .filter(Boolean)
+            .join('');
 
           // Calcular tempo de leitura baseado no conteúdo
           const wordCount = rawContent.split(/\s+/).length;
